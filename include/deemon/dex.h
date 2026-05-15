@@ -32,7 +32,7 @@
 #include <hybrid/typecore.h> /* __*_TYPE__ */
 
 #include "gc.h"     /* Dee_gc_head, _Dee_GC_HEAD_UNTRACKED_INIT */
-#include "module.h" /* DeeModuleDex_Type, DeeModuleObject, Dee_MODSYM_F*, Dee_MODULE_FNORMAL, Dee_MODULE_INIT_UNINITIALIZED, Dee_MODULE_STRUCT, Dee_module_object, Dee_module_symbol, _Dee_MODULE_INIT_mo_lock */
+#include "module.h" /* DeeModule*, Dee_MODSYM_F*, Dee_MODULE_FNORMAL, Dee_MODULE_INIT_UNINITIALIZED, Dee_MODULE_STRUCT, Dee_module_object, Dee_module_symbol, _Dee_MODULE_INIT_mo_lock */
 #include "object.h" /* DREF, DeeObject, Dee_AsObject, Dee_REFTRACKER_UNTRACKED, Dee_WEAKREF_SUPPORT_INIT */
 
 #include <stdbool.h> /* bool */

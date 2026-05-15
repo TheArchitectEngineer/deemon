@@ -26,6 +26,7 @@
 #include <deemon/arg.h>                /* DeeArg_Unpack1, DeeArg_UnpackStructKw */
 #include <deemon/code.h>               /* DeeCodeObject, DeeCode_Empty, DeeCode_Type, DeeFunctionObject, DeeFunction_*, Dee_code_frame, Dee_code_object */
 #include <deemon/computed-operators.h> /* DEFAULT_OPIMP, DEFIMPL, DEFIMPL_UNSUPPORTED */
+#include <deemon/dex.h>                /* Dee_module_dexdata */
 #include <deemon/error-rt.h>           /* DeeRT_ATTRIBUTE_ACCESS_DEL, DeeRT_ATTRIBUTE_ACCESS_SET, DeeRT_ErrRestrictedAttr, DeeRT_ErrUnboundAttrCStr */
 #include <deemon/error.h>              /* DeeError_* */
 #include <deemon/exec.h>               /* DeeExec_GetHome, DeeModule_GetLibPath, DeeModule_SetLibPath */
@@ -47,7 +48,6 @@
 #include <deemon/util/atomic.h>        /* Dee_ATOMIC_ACQUIRE, Dee_atomic_cmpxch_val, atomic_* */
 #include <deemon/util/futex.h>         /* DeeFutex_WaitPtr, DeeFutex_WakeAll */
 #include <deemon/util/lock.h>          /* Dee_atomic_rwlock_init */
-#include <deemon/dex.h> /* Dee_module_dexdata */
 
 #include <hybrid/typecore.h> /* __BYTE_TYPE__ */
 
