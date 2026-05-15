@@ -427,7 +427,6 @@ err:
 }
 
 
-#ifndef CONFIG_NO_DEX
 PRIVATE DREF ShLib *DCALL
 shlib_ofmodule(DeeTypeObject *UNUSED(tp_self),
                size_t argc, DeeObject *const *argv) {
@@ -442,8 +441,15 @@ shlib_ofmodule(DeeTypeObject *UNUSED(tp_self),
 	} args;
 	DeeArg_Unpack1(err, argc, argv, "ofmodule", &args.mod);
 /*[[[end]]]*/
+#ifdef CONFIG_NO_DEX
+	if unlikely(!DeeModule_IsDex(args.mod)) {
+		DeeError_Throwf(&DeeError_TypeError, "Expected DEX module, but got %k", args.mod);
+		goto err;
+	}
+#else /* CONFIG_NO_DEX */
 	if (DeeObject_AssertTypeExact(args.mod, &DeeModuleDex_Type))
 		goto err;
+#endif /* !CONFIG_NO_DEX */
 	dexdata = args.mod->mo_moddata.mo_dexdata;
 	if (dexdata->mdx_handle == DeeSystem_DlOpen_FAILED) {
 		/* This can happen if "mod" is the deemon core itself, and
@@ -479,7 +485,6 @@ shlib_ofmodule(DeeTypeObject *UNUSED(tp_self),
 err:
 	return NULL;
 }
-#endif /* !CONFIG_NO_DEX */
 
 
 
@@ -496,13 +501,11 @@ PRIVATE struct type_method tpconst shlib_class_methods[] = {
 	              "Using system-specific debug/export information, try to "
 	              /**/ "convert a symbol address into that symbol's name.\n"
 	              "On success, returns ${(symbolName, offsetFromSymbol)}"),
-#ifndef CONFIG_NO_DEX
 	TYPE_METHOD_F("ofmodule", &shlib_ofmodule, METHOD_FNOREFESCAPE,
 	              "(" shlib_ofmodule_params ")->?.\n"
 	              "#tValueError{Given @mod isn't the deemon core, or a ?Ert:DexModule}"
 	              "Return a shared library descriptor for the underlying system library "
 	              /**/ "descriptor of the deemon core, or a DEX module."),
-#endif /* !CONFIG_NO_DEX */
 	TYPE_METHOD_END
 };
 

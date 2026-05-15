@@ -84,8 +84,8 @@ print_code:
 		me  = (DeeCodeObject *)ob;
 		mod = me->co_module;
 		if (mod && (Dee_TYPE(mod) == &DeeModuleDee_Type ||
-		            Dee_TYPE(mod) == &DeeModuleDex_Type ||
-		            Dee_TYPE(mod) == &DeeModuleDir_Type)) {
+		            Dee_TYPE(mod) == &DeeModuleDir_Type ||
+		            DeeModule_IsDex(mod))) {
 			Dee_DPRINTF(" {co_module:%q, co_name:%q}",
 			            DeeModule_GetShortName(mod),
 			            DeeCode_NAME(ob));
@@ -96,9 +96,13 @@ print_code:
 		ob = Dee_AsObject(DeeFunction_CODE(ob));
 		if (ob && Dee_TYPE(ob) == &DeeCode_Type)
 			goto print_code;
-	} else if (tp == &DeeModuleDee_Type ||
-	           tp == &DeeModuleDex_Type ||
-	           tp == &DeeModuleDir_Type) {
+	} else if (tp == &DeeModule_Type ||
+	           tp == &DeeModuleDee_Type ||
+	           tp == &DeeModuleDir_Type
+#ifndef CONFIG_NO_DEX
+	           || tp == &DeeModuleDex_Type
+#endif /* !CONFIG_NO_DEX */
+	           ) {
 		Dee_DPRINTF(" {mo_absname:%q}", ((DeeModuleObject *)ob)->mo_absname);
 	}
 }

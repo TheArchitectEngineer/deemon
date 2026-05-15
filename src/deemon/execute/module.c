@@ -47,6 +47,7 @@
 #include <deemon/util/atomic.h>        /* Dee_ATOMIC_ACQUIRE, Dee_atomic_cmpxch_val, atomic_* */
 #include <deemon/util/futex.h>         /* DeeFutex_WaitPtr, DeeFutex_WakeAll */
 #include <deemon/util/lock.h>          /* Dee_atomic_rwlock_init */
+#include <deemon/dex.h> /* Dee_module_dexdata */
 
 #include <hybrid/typecore.h> /* __BYTE_TYPE__ */
 
@@ -57,10 +58,6 @@
 #include <stdbool.h> /* bool, false, true */
 #include <stddef.h>  /* NULL, offsetof, size_t */
 #include <stdint.h>  /* uint16_t, uintptr_t */
-
-#ifndef CONFIG_NO_DEX
-#include <deemon/dex.h> /* Dee_module_dexdata */
-#endif /* !CONFIG_NO_DEX */
 
 #undef byte_t
 #define byte_t __BYTE_TYPE__

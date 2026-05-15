@@ -492,9 +492,7 @@ struct Dee_module_libentry {
 #define Dee_module_libentry_free(self) Dee_Free(self)
 #endif /* !__INTELLISENSE__ */
 
-#ifndef CONFIG_NO_DEX
 struct Dee_module_dexdata;
-#endif /* !CONFIG_NO_DEX */
 
 struct Dee_module_treenode {
 	struct Dee_module_object *rb_par;       /* [?..?] Parent node */
@@ -503,12 +501,9 @@ struct Dee_module_treenode {
 };
 
 union Dee_module_moddata {
-#ifndef CONFIG_NO_DEX
 	struct Dee_module_dexdata *mo_dexdata;  /* [1..1][valid_if(DeeModuleDex_Type)][const] Dex data of module */
 #define Dee_MODULE_MODDATA_INIT_CODE(c) { (struct Dee_module_dexdata *)Dee_REQUIRES_TYPE(struct Dee_code_object *, c) }
-#else /* !CONFIG_NO_DEX */
-#define Dee_MODULE_MODDATA_INIT_CODE(c) { c }
-#endif /* CONFIG_NO_DEX */
+
 	/* NOTE: The whole of idea of "mo_rootcode" not forming a reference loop with the module itself
 	 *       is flawed! This reference loop is actually **NECESSARY** to ensure that modules remain
 	 *       loaded even if no-longer used, because importing a module invokes user-code, which may
@@ -660,7 +655,10 @@ DDATDEF DeeTypeObject DeeModuleDir_Type; /* ./folder   (directory-only module) *
 DDATDEF DeeTypeObject DeeModuleDee_Type; /* ./foo.dee  (or ".foo.dec"; user-code module) */
 #ifndef CONFIG_NO_DEX
 DDATDEF DeeTypeObject DeeModuleDex_Type; /* ./net.so   (".so/.dll"; native module) */
-#endif /* !CONFIG_NO_DEX */
+#define DeeModule_IsDex(self) (Dee_TYPE(self) == &DeeModuleDex_Type)
+#else /* !CONFIG_NO_DEX */
+#define DeeModule_IsDex(self) (Dee_REQUIRES_OBJECT(DeeModuleObject, self) == &DeeModule_Deemon)
+#endif /* CONFIG_NO_DEX */
 
 
 struct Dee_static_module_struct {
@@ -705,11 +703,16 @@ INTDEF struct Dee_static_module_struct DeeModule_Empty;
 #define DeeModule_IMPORT_F_ERECUR 0x0010 /* Enable return of `DeeModule_IMPORT_ERECUR' when the module in question is currently being compiled by the calling thread */
 #ifndef CONFIG_NO_DEX
 #define DeeModule_IMPORT_F_NOLDEX 0x0020 /* Do not attempt to load DEX modules */
-#endif /* !CONFIG_NO_DEX */
+#else /* !CONFIG_NO_DEX */
+/* DeeModule_IMPORT_F_NOLDEX: Always the case since DEX modules are disabled */
+#endif /* CONFIG_NO_DEX */
 #ifndef CONFIG_NO_DEC
 #define DeeModule_IMPORT_F_NOLDEC 0x0040 /* Do not attempt to load ".dec" files */
 #define DeeModule_IMPORT_F_NOGDEC 0x0080 /* Do not attempt to generate ".dec" files */
-#endif /* !CONFIG_NO_DEC */
+#else /* !CONFIG_NO_DEC */
+/* DeeModule_IMPORT_F_NOLDEC: Always the case since ".dec" files are disabled */
+/* DeeModule_IMPORT_F_NOGDEC: Always the case since ".dec" files are disabled */
+#endif /* CONFIG_NO_DEC */
 
 /* Possible return values for `DeeModule_Open()' and `DeeModule_Import()' */
 #define DeeModule_IMPORT_ERROR   ((DREF DeeModuleObject *)NULL)      /* An error was thrown */

@@ -907,6 +907,9 @@ INTERN RBTREE_ROOT(DREF Dee_module_object) dex_byaddr_tree = NULL;
 #define RBTREE_OMIT_REMOVE
 #define RBTREE_OMIT_REMOVENODE /* Not needed... */
 #define RBTREE_WANT_NEXTNODE
+#ifdef CONFIG_NO_DEX
+#define RBTREE_OMIT_INSERT
+#endif /* CONFIG_NO_DEX */
 DECL_END
 #include <hybrid/sequence/rbtree-abi.h>
 DECL_BEGIN
@@ -1373,6 +1376,8 @@ load_from_export_table:
 
 
 
+#ifndef CONFIG_NO_DEX
+
 /* As defined by Dee_DEX_END()... */
 struct DEX {
 	struct Dee_gc_head            m_head;
@@ -1772,6 +1777,7 @@ INTERN bool DCALL DeeModule_ClearDexModuleCaches(void) {
 	return result;
 }
 
+
 #define mo_nextdex mo_adrnode.rb_par
 
 PRIVATE NONNULL((1, 2)) void DCALL
@@ -1839,6 +1845,7 @@ INTERN void DCALL DeeModule_UnloadAllDexModules(void) {
 		dex_list = next;
 	}
 }
+#endif /* !CONFIG_NO_DEX */
 
 
 /* Unbind from `module_byaddr_tree' */
@@ -1852,7 +1859,6 @@ module_dee_unbind(DeeModuleObject *__restrict self) {
 
 
 
-#ifndef CONFIG_NO_DEX
 /* Special handling needed to deal with the "@NN"
  * suffix caused by STDCALL functions on i386-pe */
 #undef NEED_DeeModule_GetNativeSymbol_AT_SUFFIX
@@ -1928,7 +1934,6 @@ DeeSystem_DlSym_with_decoration(void *handle, char const *__restrict name) {
 	}
 	return result;
 }
-#endif /* !CONFIG_NO_DEX */
 
 
 /* Return the export address of a native symbol exported from a dex `self'.
@@ -1947,8 +1952,7 @@ DeeSystem_DlSym_with_decoration(void *handle, char const *__restrict name) {
 PUBLIC WUNUSED NONNULL((1, 2)) void *DCALL
 DeeModule_GetNativeSymbol(DeeModuleObject *__restrict self,
                           char const *__restrict name) {
-#ifndef CONFIG_NO_DEX
-	if (Dee_TYPE(self) == &DeeModuleDex_Type) {
+	if (DeeModule_IsDex(self)) {
 		struct Dee_module_dexdata *dexdata;
 		dexdata = self->mo_moddata.mo_dexdata;
 #ifndef deemon_dexdata__mdx_module__IS_STATIC
@@ -1962,7 +1966,6 @@ DeeModule_GetNativeSymbol(DeeModuleObject *__restrict self,
 #endif /* !deemon_dexdata__mdx_module__IS_STATIC */
 		return DeeSystem_DlSym_with_decoration(dexdata->mdx_handle, name);
 	}
-#endif /* !CONFIG_NO_DEX */
 	(void)self;
 	(void)name;
 	COMPILER_IMPURE();
@@ -2194,9 +2197,7 @@ INTDEF struct Dee_module_symbol empty_module_buckets[];
 
 PRIVATE NONNULL((1)) void DCALL
 module_destroy_untracked(DREF /*untracked*/ DeeModuleObject *self) {
-#ifndef CONFIG_NO_DEX
-	ASSERT(Dee_TYPE(self) != &DeeModuleDex_Type);
-#endif /* !CONFIG_NO_DEX */
+	ASSERT(!DeeModule_IsDex(self));
 	ASSERT(self->mo_absname == NULL);
 	if (Dee_TYPE(self) == &DeeModuleDee_Type) {
 		DeeDec_DestroyUntracked(self);
@@ -3040,8 +3041,11 @@ do_DeeModule_OpenDirectory_checked(/*inherit(always)*/ /*utf-8*/ char *__restric
 PRIVATE ATTR_COLD NONNULL((1, 2)) int DCALL
 err_module_is_not_dir(char *__restrict absname, DeeTypeObject *existing_module_type) {
 	char const *extension = ".dee";
+	(void)existing_module_type;
+#ifndef CONFIG_NO_DEX
 	if (existing_module_type == &DeeModuleDex_Type)
 		extension = DeeSystem_SOEXT;
+#endif /* !CONFIG_NO_DEX */
 	return DeeError_Throwf(&DeeError_NoDirectory,
 	                       "Cannot open directory module \"%#q" DeeSystem_SEP_S_ESCAPED "\": a file \"%#q%s\" exists",
 	                       absname, absname, extension);
@@ -6003,8 +6007,7 @@ DeeModule_OfPointer(void const *ptr) {
 	/* Search "module_byaddr_tree" */
 	result = module_byaddr_locate(module_byaddr_tree, (byte_t const *)ptr);
 	if (result) {
-		ASSERT(Dee_TYPE(result) == &DeeModuleDee_Type ||
-		       Dee_TYPE(result) == &DeeModuleDex_Type);
+		ASSERT(Dee_TYPE(result) == &DeeModuleDee_Type || DeeModule_IsDex(result));
 		if (Dee_IncrefIfNotZero(result)) {
 			module_byaddr_lock_endread();
 			return result;
@@ -6018,7 +6021,7 @@ DeeModule_OfPointer(void const *ptr) {
 		if (Dee_dexataddr_init_fromaddr(&at_addr, ptr)) {
 			result = dex_byaddr_locate(dex_byaddr_tree, &at_addr);
 			if (result) {
-				ASSERT(Dee_TYPE(result) == &DeeModuleDex_Type);
+				ASSERT(DeeModule_IsDex(result));
 				Dee_Incref(result);
 				module_byaddr_lock_endread();
 				return result;
@@ -6219,7 +6222,13 @@ PUBLIC NONNULL((1)) Dee_ssize_t DCALL
 DeeModule_EnumerateAdrTree(Dee_module_enumerate_cb_t cb, void *arg,
                            DeeModuleObject *start_after,
                            DeeTypeObject *opt_type_filter) {
+#ifdef CONFIG_NO_DEX
+#define module_type_hasaddr(t) ((t) == &DeeModuleDee_Type)
+#define module_hasaddr(m)      (module_type_hasaddr(Dee_TYPE(m)) || DeeModule_IsDex(m))
+#else /* CONFIG_NO_DEX */
 #define module_type_hasaddr(t) ((t) == &DeeModuleDee_Type || (t) == &DeeModuleDex_Type)
+#define module_hasaddr(m)      module_type_hasaddr(Dee_TYPE(m))
+#endif /* !CONFIG_NO_DEX */
 	Dee_ssize_t result;
 	DREF DeeModuleObject *prev_module;
 	if (opt_type_filter) {
@@ -6228,11 +6237,11 @@ DeeModule_EnumerateAdrTree(Dee_module_enumerate_cb_t cb, void *arg,
 	}
 	if (start_after) {
 		prev_module = start_after;
-		if unlikely(!module_type_hasaddr(Dee_TYPE(prev_module)))
+		if unlikely(!module_hasaddr(prev_module))
 			return 0; /* Not part of "module_byaddr_tree" / "dex_byaddr_tree" */
 		Dee_Incref(prev_module);
 #ifdef HAVE_Dee_dexataddr_t
-		if (Dee_TYPE(prev_module) == &DeeModuleDex_Type &&
+		if (DeeModule_IsDex(prev_module) &&
 		    (prev_module->mo_flags & _Dee_MODULE_FNOADDR)) {
 			result = 0;
 			goto continue_dex_byaddr_tree_after_prev_module; /* Start within "dex_byaddr_tree" */
@@ -6285,7 +6294,12 @@ DeeModule_EnumerateAdrTree(Dee_module_enumerate_cb_t cb, void *arg,
 	}
 done_decref_unlock:
 #ifdef HAVE_Dee_dexataddr_t
-	if (!opt_type_filter || opt_type_filter == &DeeModuleDex_Type) {
+#ifdef CONFIG_NO_DEX
+	if (!opt_type_filter)
+#else /* CONFIG_NO_DEX */
+	if (!opt_type_filter || opt_type_filter == &DeeModuleDex_Type)
+#endif /* !CONFIG_NO_DEX */
+	{
 		Dee_ssize_t temp;
 		DREF DeeModuleObject *next_module;
 		if (!Dee_DecrefIfNotOne(prev_module)) {
@@ -6328,7 +6342,12 @@ done_decref:
 	return result;
 empty_unlock:
 #ifdef HAVE_Dee_dexataddr_t
-	if (!opt_type_filter || opt_type_filter == &DeeModuleDex_Type) {
+#ifdef CONFIG_NO_DEX
+	if (!opt_type_filter)
+#else /* CONFIG_NO_DEX */
+	if (!opt_type_filter || opt_type_filter == &DeeModuleDex_Type)
+#endif /* !CONFIG_NO_DEX */
+	{
 		result = 0;
 		goto scan_dex_byaddr_tree;
 	}
@@ -6522,9 +6541,8 @@ DeeSystem_IsStaticPointer(void const *ptr) {
 	mod = module_byaddr_locate(module_byaddr_tree, (byte_t const *)ptr);
 	if (mod) {
 		bool result;
-		ASSERT(Dee_TYPE(mod) == &DeeModuleDee_Type ||
-		       Dee_TYPE(mod) == &DeeModuleDex_Type);
-		result = Dee_TYPE(mod) == &DeeModuleDex_Type;
+		ASSERT(Dee_TYPE(mod) == &DeeModuleDee_Type || DeeModule_IsDex(mod));
+		result = DeeModule_IsDex(mod);
 		module_byaddr_lock_endread();
 		return result;
 	}
@@ -6536,7 +6554,7 @@ DeeSystem_IsStaticPointer(void const *ptr) {
 		if (Dee_dexataddr_init_fromaddr(&at_addr, ptr)) {
 			mod = dex_byaddr_locate(dex_byaddr_tree, &at_addr);
 			if (mod) {
-				ASSERT(Dee_TYPE(mod) == &DeeModuleDex_Type);
+				ASSERT(DeeModule_IsDex(mod));
 				module_byaddr_lock_endread();
 				return true;
 			}

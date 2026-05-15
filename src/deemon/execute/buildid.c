@@ -47,6 +47,7 @@
 
 DECL_BEGIN
 
+#ifndef CONFIG_NO_DEX
 /* @return: 0 : File not found?
  * @return: (uint64_t)-1: Error */
 PRIVATE WUNUSED NONNULL((1)) uint64_t DCALL
@@ -59,76 +60,11 @@ DeeModule_GetFileLastModified(DeeModuleObject *__restrict self) {
 	Dee_Decref_likely(filename);
 	return result;
 }
+#endif /* !CONFIG_NO_DEX */
 
 
-#ifdef CONFIG_NO_DEX
-#ifdef CONFIG_HAVE___dex_buildid__
-INTDEF __BYTE_TYPE__ __dex_buildid__[];
-#define HAVE_DeeModule_GetBuildId_ofcore
-PRIVATE ATTR_RETNONNULL WUNUSED union Dee_module_buildid const *DCALL
-DeeModule_GetBuildId_ofcore(void) {
-	memcpy(&DeeModule_Deemon.mo_buildid, __dex_buildid__ + 16, 16);
-	return &DeeModule_Deemon.mo_buildid;
-}
-#elif defined(CONFIG_HAVE___dex_builduuid64__)
-INTDEF __BYTE_TYPE__ __dex_builduuid64_0__[];
-INTDEF __BYTE_TYPE__ __dex_builduuid64_1__[];
-#define HAVE_DeeModule_GetBuildId_ofcore
-PRIVATE ATTR_RETNONNULL WUNUSED union Dee_module_buildid const *DCALL
-DeeModule_GetBuildId_ofcore(void) {
-	DeeModule_Deemon.mo_buildid.mbi_word64[0] = (uint64_t)__dex_builduuid64_0__;
-	DeeModule_Deemon.mo_buildid.mbi_word64[1] = (uint64_t)__dex_builduuid64_1__;
-	return &DeeModule_Deemon.mo_buildid;
-}
-#elif defined(CONFIG_HAVE___dex_builduuid32__)
-INTDEF __BYTE_TYPE__ __dex_builduuid32_0__[];
-INTDEF __BYTE_TYPE__ __dex_builduuid32_1__[];
-INTDEF __BYTE_TYPE__ __dex_builduuid32_2__[];
-INTDEF __BYTE_TYPE__ __dex_builduuid32_3__[];
-#define HAVE_DeeModule_GetBuildId_ofcore
-PRIVATE ATTR_RETNONNULL WUNUSED union Dee_module_buildid const *DCALL
-DeeModule_GetBuildId_ofcore(void) {
-	DeeModule_Deemon.mo_buildid.mbi_word32[0] = (uint32_t)__dex_builduuid32_0__;
-	DeeModule_Deemon.mo_buildid.mbi_word32[1] = (uint32_t)__dex_builduuid32_1__;
-	DeeModule_Deemon.mo_buildid.mbi_word32[2] = (uint32_t)__dex_builduuid32_2__;
-	DeeModule_Deemon.mo_buildid.mbi_word32[3] = (uint32_t)__dex_builduuid32_3__;
-	return &DeeModule_Deemon.mo_buildid;
-}
-#elif defined(_MSC_VER) && !defined(__clang__) && defined(__PE__)
-extern /*IMAGE_DOS_HEADER*/ __BYTE_TYPE__ const __ImageBase[];
-LOCAL uint32_t get_TimeDateStamp(void) {
-	uint32_t e_lfanew = *(uint32_t const *)(__ImageBase + 60);
-	return *(uint32_t const *)(__ImageBase + e_lfanew + 8); /* Caution: this is 32-bit... */
-}
-#define HAVE_DeeModule_GetBuildId_ofcore
-PRIVATE ATTR_RETNONNULL WUNUSED union Dee_module_buildid const *DCALL
-DeeModule_GetBuildId_ofcore(void) {
-	uint32_t ts = get_TimeDateStamp();
-	DeeModule_Deemon.mo_buildid.mbi_word32[0] = DeeModule_Deemon.mo_buildid.mbi_word32[2] = ts;
-	DeeModule_Deemon.mo_buildid.mbi_word32[1] = DeeModule_Deemon.mo_buildid.mbi_word32[3] = ~ts;
-	return &DeeModule_Deemon.mo_buildid;
-}
-#endif /* ... */
-
-#ifndef HAVE_DeeModule_GetBuildId_ofcore
-#if defined(__DATE__) && defined(__TIME__)
-#define BUILD_TS __DATE__ "|" __TIME__
-PRIVATE char const deemon_build_ts[] = BUILD_TS;
-#define HAVE_deemon_build_ts
-#endif /* __DATE__ && __TIME__ */
-#endif /* !HAVE_DeeModule_GetBuildId_ofcore */
-#endif /* CONFIG_NO_DEX */
-
-
-#if !defined(CONFIG_NO_DEX) || defined(HAVE_deemon_build_ts)
-#if defined(CONFIG_NO_DEX) && defined(HAVE_deemon_build_ts)
-LOCAL ATTR_CONST WUNUSED uint64_t parse_build_ts(void)
-#define build_ts deemon_build_ts
-#else /* CONFIG_NO_DEX && HAVE_deemon_build_ts */
 PRIVATE ATTR_PURE WUNUSED NONNULL((1)) uint64_t DCALL
-parse_build_ts(char const *build_ts)
-#endif /* !CONFIG_NO_DEX || !HAVE_deemon_build_ts */
-{
+parse_build_ts(char const *build_ts) {
 	/* A couple of helper macros taken from the libtime DEX. */
 #define time_year2day(value) ((146097 * (value)) / 400) /* Not exact, but go enough for our purpose */
 #define SECONDS_PER_MINUTE UINT64_C(60)
@@ -248,10 +184,8 @@ parse_build_ts(char const *build_ts)
 #undef MONTHSTART_DEC
 }
 #undef build_ts
-#endif /* !CONFIG_NO_DEX || HAVE_deemon_build_ts */
 
 
-#ifndef CONFIG_NO_DEX
 #undef DeeModule_GetBuildId_ofdex_USE__PE_TimeDateStamp /* Look at "TimeDateStamp" field of PE header */
 #if defined(DeeSystem_DlOpen_USE_LoadLibrary) && defined(__PE__)
 #define DeeModule_GetBuildId_ofdex_USE__PE_TimeDateStamp
@@ -309,16 +243,6 @@ DeeModule_GetBuildId_ofdex_uncached(DeeModuleObject *__restrict self) {
 	(void)self;
 	return NULL;
 }
-#elif defined(HAVE_deemon_build_ts) && !defined(HAVE_DeeModule_GetBuildId_ofcore)
-#define HAVE_DeeModule_GetBuildId_ofcore
-PRIVATE ATTR_RETNONNULL WUNUSED union Dee_module_buildid const *DCALL
-DeeModule_GetBuildId_ofcore(void) {
-	uint64_t ts = parse_build_ts();
-	DeeModule_Deemon.mo_buildid.mbi_word64[0] = ts;
-	DeeModule_Deemon.mo_buildid.mbi_word64[1] = ~ts;
-	return &DeeModule_Deemon.mo_buildid;
-}
-#endif /* ... */
 
 PRIVATE ATTR_NOINLINE WUNUSED NONNULL((1)) union Dee_module_buildid const *DCALL
 DeeModule_GetBuildId_uncached(DeeModuleObject *__restrict self) {
@@ -327,26 +251,26 @@ DeeModule_GetBuildId_uncached(DeeModuleObject *__restrict self) {
 	        "to '0' and set their 'Dee_MODULE_FHASBUILDID' flag");
 
 	/* Handling for dex modules */
-#ifndef CONFIG_NO_DEX
-	if (Dee_TYPE(self) == &DeeModuleDex_Type) {
+	if (DeeModule_IsDex(self)) {
 		union Dee_module_buildid const *result;
 		result = DeeModule_GetBuildId_ofdex_uncached(self);
 		if (result)
 			return result;
 	}
-#else /* !CONFIG_NO_DEX */
+
+#ifdef CONFIG_NO_DEX
 	ASSERTF(self == &DeeModule_Deemon,
 	        "DIR modules are already asserted, DEE modules always pre-calculate "
-	        "their build IDs (as an MD5 hash), and since DEX modules are disabled "
-	        "and 'DeeModule_Empty' has 'Dee_MODULE_FHASBUILDID' pre-set, that only "
-	        "leaves the deemon core at this point!");
-#ifdef HAVE_DeeModule_GetBuildId_ofcore
-	return DeeModule_GetBuildId_ofcore();
-#endif /* HAVE_DeeModule_GetBuildId_ofcore */
+	        /**/ "their build IDs (as an MD5 hash), and since DEX modules are disabled "
+	        /**/ "and 'DeeModule_Empty' has 'Dee_MODULE_FHASBUILDID' pre-set, that only "
+	        /**/ "leaves the deemon core at this point!");
 #endif /* CONFIG_NO_DEX */
 
-#if !defined(CONFIG_NO_DEX) || !defined(HAVE_DeeModule_GetBuildId_ofcore)
-	/* Fallback: use last-modified timestamp of `DeeModule_GetFileName()' */
+#ifndef CONFIG_NO_DEX
+	/* Fallback: use last-modified timestamp of `DeeModule_GetFileName()'
+	 * NOTE: This would never work under `CONFIG_NO_DEX', since in that case
+	 *       the only module we'd get here for is the deemon core, which does
+	 *       not have a pre-defined filename! */
 	{
 		uint64_t ts = DeeModule_GetFileLastModified(self);
 		if unlikely(ts == (uint64_t)-1)
@@ -357,14 +281,16 @@ DeeModule_GetBuildId_uncached(DeeModuleObject *__restrict self) {
 			return &self->mo_buildid;
 		}
 	}
+#endif /* !CONFIG_NO_DEX */
 
 	/* Fall-fallback: unable to determine Build ID -> set it to all zeroes */
 	self->mo_buildid.mbi_word64[0] = 0;
 	self->mo_buildid.mbi_word64[1] = 0;
 	return &self->mo_buildid;
+#ifndef CONFIG_NO_DEX
 err:
 	return NULL;
-#endif /* !defined(CONFIG_NO_DEX) || !defined(HAVE_DeeModule_GetBuildId_ofcore) */
+#endif /* !CONFIG_NO_DEX */
 }
 
 /* Return the "Build ID" of this module, which is an opaque

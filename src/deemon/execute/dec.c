@@ -352,13 +352,13 @@ DeeDec_RELOC_undo_rrel_and_decref_deps(DeeDec_Ehdr *__restrict self,
 		DREF DeeModuleObject *mod = dep->d_modspec.d_mod;
 		DBG_memset(&dep->d_modspec.d_mod, 0xcc, sizeof(dep->d_modspec.d_mod));
 		if (i < max_dep_incref_applied_count) {
-#if !defined(CONFIG_NO_DEX) && !defined(__OPTIMIZE_SIZE__)
-			if (Dee_TYPE(mod) == &DeeModuleDex_Type) {
+#ifndef __OPTIMIZE_SIZE__
+			if (DeeModule_IsDex(mod)) {
 				/* Statics from DEX modules cannot be destroyed prematurely */
 				applied_rrela_decref_nokill(self, dep->d_offsetof_rrela);
 				applied_rrel_decref_nokill(self, dep->d_offsetof_rrel);
 			} else
-#endif /* !CONFIG_NO_DEX && !__OPTIMIZE_SIZE__ */
+#endif /* !__OPTIMIZE_SIZE__ */
 			{
 				applied_rrela_decref(self, dep->d_offsetof_rrela);
 				applied_rrel_decref(self, dep->d_offsetof_rrel);
@@ -949,7 +949,7 @@ DeeDec_DestroyUntracked(DREF /*untracked*/ struct Dee_module_object *__restrict 
 		for (i = 0; i < deps_c; ++i) {
 			struct Dee_dec_depmod *dep = &deps_v[i];
 #ifndef __OPTIMIZE_SIZE__
-			if (Dee_TYPE(dep->ddm_mod) == &DeeModuleDex_Type) {
+			if (DeeModule_IsDex(dep->ddm_mod)) {
 				/* Statics from DEX modules cannot be destroyed prematurely */
 				w_applied_rrel_decref_nokill(ehdr, dep->ddm_rrel.drrt_relv, dep->ddm_rrel.drrt_relc);
 				w_applied_rrela_decref_nokill(ehdr, dep->ddm_rrela.drat_relv, dep->ddm_rrela.drat_relc);

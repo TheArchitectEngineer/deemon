@@ -432,18 +432,18 @@ struct Dee_deemon_module_struct {
 
 DDATDEF struct Dee_deemon_module_struct DeeModule_Deemon;
 
-#ifndef CONFIG_NO_DEX
 INTDEF struct Dee_module_dexdata deemon_dexdata;
+
+#ifdef CONFIG_NO_DEX
+#define TYPEOF_DeeModule_Deemon &DeeModule_Type
+#else /* CONFIG_NO_DEX */
+#define TYPEOF_DeeModule_Deemon &DeeModuleDex_Type
 #endif /* !CONFIG_NO_DEX */
 
 #undef DeeModule_Deemon
 PUBLIC struct Dee_deemon_module_struct DeeModule_Deemon = {
 	{ _Dee_GC_HEAD_UNTRACKED_INIT }, {
-#ifdef CONFIG_NO_DEX
-		OBJECT_HEAD_INIT(&DeeModuleDee_Type),
-#else /* CONFIG_NO_DEX */
-		OBJECT_HEAD_INIT(&DeeModuleDex_Type),
-#endif /* !CONFIG_NO_DEX */
+		OBJECT_HEAD_INIT(TYPEOF_DeeModule_Deemon),
 		/* .mo_absname = */ NULL,
 		/* .mo_absnode = */ { NULL, NULL, NULL },
 		/* .mo_libname = */ {
@@ -462,11 +462,7 @@ PUBLIC struct Dee_deemon_module_struct DeeModule_Deemon = {
 		/* .mo_bucketv = */ deemon_symbols,
 		_Dee_MODULE_INIT_mo_lock
 		Dee_WEAKREF_SUPPORT_INIT,
-#ifdef CONFIG_NO_DEX
-		/* .mo_moddata = */ Dee_MODULE_MODDATA_INIT_CODE(&DeeCode_Empty),
-#else /* CONFIG_NO_DEX */
 		/* .mo_moddata = */ { &deemon_dexdata },
-#endif /* !CONFIG_NO_DEX */
 		/* .mo_importv = */ NULL,
 		_Dee_MODULE_DEXDATA_INIT_LOADBOUNDS,
 		/* .mo_globalv = */ {

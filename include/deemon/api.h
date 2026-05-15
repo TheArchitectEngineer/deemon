@@ -212,15 +212,16 @@ __pragma_GCC_diagnostic_ignored(Walloc_size_larger_than)
 #endif
 
 /* Disable support for loading- and writing `.dec' files */
-
-/* Experimental feature switch: Use a new (mmap-able) file format for dec files */
 #if 0
 #define CONFIG_NO_DEC
 #endif
 
-/* Disable support for loading- native system libraries as deemon modules */
+/* Disable support for loading- native system libraries as deemon modules
+ * WARNING: In this configuration, the deemon core will be unable to load
+ *          **ANY** dex module (.dll/.so file), meaning that unit tests
+ *          will fail to execute. */
 #if 0
-#define CONFIG_NO_DEX /* TODO: Properly configure after "CONFIG_EXPERIMENTAL_MMAP_DEC" */
+#define CONFIG_NO_DEX
 #endif
 
 

@@ -212,8 +212,7 @@ DECL_BEGIN
  * sort of leak detection might not be possible all the time, but when it is possible,
  * it allows one to check for memory leaks in a running system, as opposed to only at
  * the very end, just before exiting. */
-#if (LEAK_DETECTION == LEAK_DETECTION_METHOD_IN_TAIL && \
-     !defined(CONFIG_NO_DEX) && 0) /* TODO */
+#if (LEAK_DETECTION == LEAK_DETECTION_METHOD_IN_TAIL && 0) /* TODO */
 #define LEAK_DETECTION_GC 1
 #endif /* ... */
 #ifndef LEAK_DETECTION_GC

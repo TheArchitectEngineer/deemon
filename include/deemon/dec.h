@@ -552,8 +552,8 @@ typedef struct Dee_dec_writer {
                                       * means that relocations against other modules don't have
                                       * to be kept track of. */
 #else /* !CONFIG_NO_DEC */
-/* `DeeDecWriter_F_FRELOC' isn't possible since relocation is never possible */
-/* `DeeDecWriter_F_NRELOC' is always set for the same reason... */
+/* DeeDecWriter_F_FRELOC: isn't possible since relocation is never possible */
+/* DeeDecWriter_F_NRELOC: is always set for the same reason... */
 #endif /* CONFIG_NO_DEC */
 
 /* Same as `DeeSerial_Addr2Mem()' */

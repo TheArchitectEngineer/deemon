@@ -29,7 +29,6 @@
 
 #include "api.h"
 
-#ifndef CONFIG_NO_DEX
 #include <hybrid/typecore.h> /* __*_TYPE__ */
 
 #include "gc.h"     /* Dee_gc_head, _Dee_GC_HEAD_UNTRACKED_INIT */
@@ -190,10 +189,15 @@ INTDEF _Dee_PRIVATE_ELF_ATTR_WEAK __BYTE_TYPE__ __dex_builduuid32_3__[]; /*!expo
 
 /* Helpers for defining DEX exports from C */
 #ifdef CONFIG_BUILDING_DEX
+#ifdef CONFIG_NO_DEX
+#define _Dee_PRIVATE_DEX_OBJECT_TYPE &DeeModule_Type /* ... No idea what else to put here... */
+#else /* CONFIG_NO_DEX */
+#define _Dee_PRIVATE_DEX_OBJECT_TYPE &DeeModuleDex_Type
+#endif /* !CONFIG_NO_DEX */
 #ifdef CONFIG_TRACE_REFCHANGES
-#define _Dee_PRIVATE_DEX_OBJECT_HEAD_INIT 1, &DeeModuleDex_Type, Dee_REFTRACKER_UNTRACKED
+#define _Dee_PRIVATE_DEX_OBJECT_HEAD_INIT 1, _Dee_PRIVATE_DEX_OBJECT_TYPE, Dee_REFTRACKER_UNTRACKED
 #else /* CONFIG_TRACE_REFCHANGES */
-#define _Dee_PRIVATE_DEX_OBJECT_HEAD_INIT 1, &DeeModuleDex_Type
+#define _Dee_PRIVATE_DEX_OBJECT_HEAD_INIT 1, _Dee_PRIVATE_DEX_OBJECT_TYPE
 #endif /* !CONFIG_TRACE_REFCHANGES */
 
 #define Dee_DEX_BEGIN \
@@ -269,6 +273,7 @@ INTDEF _Dee_PRIVATE_ELF_ATTR_WEAK __BYTE_TYPE__ __dex_builduuid32_3__[]; /*!expo
 
 
 #ifdef CONFIG_BUILDING_DEEMON
+#ifndef CONFIG_NO_DEX
 /* Open loaded system "dex_handle" as a module object. The DEX module will have
  * already been hooked into "module_abstree_root", as well as having had its
  * "mo_dexdata" fully initialized.
@@ -293,9 +298,9 @@ INTDEF bool DCALL DeeModule_ClearDexModuleCaches(void);
 
 /* Unload all loaded DEX modules. */
 INTDEF void DCALL DeeModule_UnloadAllDexModules(void);
+#endif /* !CONFIG_NO_DEX */
 #endif /* CONFIG_BUILDING_DEEMON */
 
 DECL_END
-#endif /* !CONFIG_NO_DEX */
 
 #endif /* !GUARD_DEEMON_DEX_H */
