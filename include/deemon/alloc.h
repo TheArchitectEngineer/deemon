@@ -692,9 +692,9 @@ FORCELOCAL WUNUSED void *DCALL DeeDbg_AllocaCleanup(void *ptr) {
 #define CONFIG_HAVE_memset
 DECL_BEGIN
 #undef memset
-#define memset dee_memset /*!export-*/
+#define memset Dee_libc_memset /*!export-*/
 LOCAL WUNUSED ATTR_OUTS(1, 3) void *
-dee_memset(void *__restrict dst, int byte, size_t num_bytes) { /*!export-*/
+Dee_libc_memset(void *__restrict dst, int byte, size_t num_bytes) { /*!export-*/
 	uint8_t *dst_p = (uint8_t *)dst;
 	while (num_bytes--)
 		*dst_p++ = (uint8_t)(unsigned int)byte;

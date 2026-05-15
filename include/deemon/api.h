@@ -85,8 +85,7 @@
 
 
 /* Expose definitions that don't comply with the deemon C symbol namespace.
- * That namespace being anything matching `dee_*', `DEE_*', `Dee*' or `_Dee*'.
- * TODO: Get rid of "dee_*" and "DEE_*" from this list
+ * That namespace being anything matching `DEE_*', `Dee*' or `_Dee*'.
  * TODO: "CONFIG_*" macros are always exposed, but don't match this list
  *       Consider refactoring all of those to "Dee_CONFIG_*" */
 #if !defined(DEE_SOURCE) && defined(CONFIG_BUILDING_DEEMON)

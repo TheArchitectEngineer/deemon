@@ -56,15 +56,15 @@ DECL_BEGIN
 #ifndef CONFIG_HAVE_memsetw
 #define CONFIG_HAVE_memsetw
 #undef memsetw
-#define memsetw dee_memsetw
-DeeSystem_DEFINE_memsetw(dee_memsetw)
+#define memsetw Dee_libc_memsetw
+DeeSystem_DEFINE_memsetw(Dee_libc_memsetw)
 #endif /* !CONFIG_HAVE_memsetw */
 
 #ifndef CONFIG_HAVE_memsetl
 #define CONFIG_HAVE_memsetl
 #undef memsetl
-#define memsetl dee_memsetl
-DeeSystem_DEFINE_memsetl(dee_memsetl)
+#define memsetl Dee_libc_memsetl
+DeeSystem_DEFINE_memsetl(Dee_libc_memsetl)
 #endif /* !CONFIG_HAVE_memsetl */
 
 

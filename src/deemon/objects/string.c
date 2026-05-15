@@ -81,8 +81,8 @@ typedef DeeStringObject String;
 
 #ifndef CONFIG_HAVE_memmem
 #define CONFIG_HAVE_memmem
-#define memmem dee_memmem
-DeeSystem_DEFINE_memmem(dee_memmem)
+#define memmem Dee_libc_memmem
+DeeSystem_DEFINE_memmem(Dee_libc_memmem)
 #endif /* !CONFIG_HAVE_memmem */
 
 /* Release exactly `datalen' bytes from the printer to be
@@ -1059,14 +1059,14 @@ compare_string_bytes(String *__restrict lhs,
 
 #ifndef CONFIG_HAVE_memcmpw
 #define CONFIG_HAVE_memcmpw
-#define memcmpw dee_memcmpw
-DeeSystem_DEFINE_memcmpw(dee_memcmpw)
+#define memcmpw Dee_libc_memcmpw
+DeeSystem_DEFINE_memcmpw(Dee_libc_memcmpw)
 #endif /* !CONFIG_HAVE_memcmpw */
 
 #ifndef CONFIG_HAVE_memcmpl
 #define CONFIG_HAVE_memcmpl
-#define memcmpl dee_memcmpl
-DeeSystem_DEFINE_memcmpl(dee_memcmpl)
+#define memcmpl Dee_libc_memcmpl
+DeeSystem_DEFINE_memcmpl(Dee_libc_memcmpl)
 #endif /* !CONFIG_HAVE_memcmpl */
 
 PRIVATE WUNUSED NONNULL((1, 2)) int DCALL

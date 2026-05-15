@@ -69,8 +69,8 @@ DECL_BEGIN
 #ifndef CONFIG_HAVE_strcmpz
 #define CONFIG_HAVE_strcmpz
 #undef strcmpz
-#define strcmpz dee_strcmpz
-DeeSystem_DEFINE_strcmpz(dee_strcmpz)
+#define strcmpz Dee_libc_strcmpz
+DeeSystem_DEFINE_strcmpz(Dee_libc_strcmpz)
 #endif /* !CONFIG_HAVE_strcmpz */
 
 /************************************************************************/

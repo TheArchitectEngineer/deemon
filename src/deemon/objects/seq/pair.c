@@ -205,8 +205,8 @@ INTERN DeeTypeObject SeqPairIterator_Type = {
 #ifdef DeeInt_8bit
 #define DeeInt_Two (&DeeInt_8bit[2])
 #else /* DeeInt_8bit */
-#define DeeInt_Two (&dee_int_two)
-PRIVATE DEFINE_INT15(dee_int_two, 2);
+#define DeeInt_Two (&Dee_int_two)
+PRIVATE DEFINE_INT15(Dee_int_two, 2);
 #endif /* !DeeInt_8bit */
 
 

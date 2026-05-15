@@ -217,8 +217,8 @@ for (local f: functions) {
 #undef fposix_truncate_USE_wopen_AND_ftruncate64
 #define posix_truncate_USE_wtruncate64
 #undef wtruncate64
-#define wtruncate64 dee_wtruncate64
-PRIVATE int DCALL dee_wtruncate64(wchar_t *filename, uint64_t size) {
+#define wtruncate64 Dee_libc_wtruncate64
+PRIVATE int DCALL Dee_libc_wtruncate64(wchar_t *filename, uint64_t size) {
 	int result;
 	result = wopen(filename, O_RDWR);
 	if (result != -1) {
@@ -235,8 +235,8 @@ PRIVATE int DCALL dee_wtruncate64(wchar_t *filename, uint64_t size) {
 #undef fposix_truncate_USE_wopen_AND_ftruncate
 #define posix_truncate_USE_wtruncate
 #undef wtruncate
-#define wtruncate dee_wtruncate
-PRIVATE int DCALL dee_wtruncate(wchar_t *filename, __ULONGPTR_TYPE__ size) {
+#define wtruncate Dee_libc_wtruncate
+PRIVATE int DCALL Dee_libc_wtruncate(wchar_t *filename, __ULONGPTR_TYPE__ size) {
 	int result;
 	result = wopen(filename, O_RDWR);
 	if (result != -1) {
@@ -253,8 +253,8 @@ PRIVATE int DCALL dee_wtruncate(wchar_t *filename, __ULONGPTR_TYPE__ size) {
 #undef fposix_truncate_USE_open_AND_ftruncate64
 #define posix_truncate_USE_truncate64
 #undef truncate64
-#define truncate64 dee_truncate64
-PRIVATE int DCALL dee_truncate64(char *filename, uint64_t size) {
+#define truncate64 Dee_libc_truncate64
+PRIVATE int DCALL Dee_libc_truncate64(char *filename, uint64_t size) {
 	int result;
 	result = open(filename, O_RDWR);
 	if (result != -1) {
@@ -271,8 +271,8 @@ PRIVATE int DCALL dee_truncate64(char *filename, uint64_t size) {
 #undef fposix_truncate_USE_open_AND_ftruncate
 #define posix_truncate_USE_truncate
 #undef truncate
-#define truncate dee_truncate
-PRIVATE int DCALL dee_truncate(char *filename, __ULONGPTR_TYPE__ size) {
+#define truncate Dee_libc_truncate
+PRIVATE int DCALL Dee_libc_truncate(char *filename, __ULONGPTR_TYPE__ size) {
 	int result;
 	result = open(filename, O_RDWR);
 	if (result != -1) {

@@ -80,9 +80,9 @@ DECL_BEGIN
 #ifdef CONFIG_HAVE_memcasecmp
 #define MEMCASEEQ(a, b, s) (memcasecmp(a, b, s) == 0)
 #else /* CONFIG_HAVE_memcasecmp */
-#define MEMCASEEQ(a, b, s) dee_memcaseeq((byte_t *)(a), (byte_t *)(b), s)
+#define MEMCASEEQ(a, b, s) Dee_libc_memcaseeq((byte_t *)(a), (byte_t *)(b), s)
 LOCAL WUNUSED NONNULL((1, 2)) bool
-dee_memcaseeq(byte_t const *a, byte_t const *b, size_t s) {
+Dee_libc_memcaseeq(byte_t const *a, byte_t const *b, size_t s) {
 	while (s--) {
 		if (DeeUni_ToLower(*a) != DeeUni_ToLower(*b))
 			return false;
@@ -1537,23 +1537,23 @@ PRIVATE struct type_method tpconst file_class_methods[] = {
 
 
 
-/* [0..1][lock(dee_std_lock)][N] Standard files */
-#undef DEE_STDCNT
+/* [0..1][lock(Dee_stdio_lock)][N] Standard files */
+#undef Dee_STDCNT
 #ifdef Dee_STDDBG_IS_UNIQUE
-#define DEE_STDCNT 4
-PRIVATE DREF DeeObject *dee_std[DEE_STDCNT] = { ITER_DONE, ITER_DONE, ITER_DONE, ITER_DONE };
+#define Dee_STDCNT 4
+PRIVATE DREF DeeObject *Dee_stdio[Dee_STDCNT] = { ITER_DONE, ITER_DONE, ITER_DONE, ITER_DONE };
 #else /* Dee_STDDBG_IS_UNIQUE */
-#define DEE_STDCNT 3
-PRIVATE DREF DeeObject *dee_std[DEE_STDCNT] = { ITER_DONE, ITER_DONE, ITER_DONE };
+#define Dee_STDCNT 3
+PRIVATE DREF DeeObject *Dee_stdio[Dee_STDCNT] = { ITER_DONE, ITER_DONE, ITER_DONE };
 #endif /* !Dee_STDDBG_IS_UNIQUE */
-Dee_DEFINE_RCU_LOCK(PRIVATE, dee_std_rcu)
+Dee_DEFINE_RCU_LOCK(PRIVATE, Dee_stdio_rcu)
 
-#define dee_std_FAST_SETUP    DeeRCU_FAST_SETUP
-#define dee_std_FAST_lock()   DeeRCU_FAST_Lock(&dee_std_rcu)
-#define dee_std_FAST_unlock() DeeRCU_FAST_Unlock(&dee_std_rcu)
-#define dee_std_synchronize() DeeRCU_Synchronize(&dee_std_rcu)
+#define Dee_stdio_FAST_SETUP    DeeRCU_FAST_SETUP
+#define Dee_stdio_FAST_lock()   DeeRCU_FAST_Lock(&Dee_stdio_rcu)
+#define Dee_stdio_FAST_unlock() DeeRCU_FAST_Unlock(&Dee_stdio_rcu)
+#define Dee_stdio_synchronize() DeeRCU_Synchronize(&Dee_stdio_rcu)
 
-PRIVATE uint16_t const std_buffer_modes[DEE_STDCNT] = {
+PRIVATE uint16_t const Dee_stdio_buffer_modes[Dee_STDCNT] = {
 	/* [Dee_STDIN ] = */ Dee_FILE_BUFFER_MODE_AUTO | Dee_FILE_BUFFER_FREADONLY,
 	/* [Dee_STDOUT] = */ Dee_FILE_BUFFER_MODE_AUTO,
 	/* [Dee_STDERR] = */ Dee_FILE_BUFFER_MODE_AUTO
@@ -1566,7 +1566,7 @@ PRIVATE uint16_t const std_buffer_modes[DEE_STDCNT] = {
 PRIVATE WUNUSED DREF DeeObject *DCALL
 create_std_buffer(unsigned int id) {
 	DREF DeeObject *result, *existing_result;
-	ASSERT(id < DEE_STDCNT);
+	ASSERT(id < Dee_STDCNT);
 	/* Create a buffer for the standard stream. */
 #ifdef CONFIG_NATIVE_STD_FILES_ARE_BUFFERED
 	/* If the native STD files are already buffered, there'd
@@ -1575,7 +1575,7 @@ create_std_buffer(unsigned int id) {
 	Dee_Incref(result);
 #else /* CONFIG_NATIVE_STD_FILES_ARE_BUFFERED */
 	result = DeeFileBuffer_New(DeeFile_DefaultStd(id),
-	                           std_buffer_modes[id], 0);
+	                           Dee_stdio_buffer_modes[id], 0);
 	if unlikely(!result) {
 		/* If the system is **extremely** memory starved,
 		 * then don't bother wrapping the buffer... */
@@ -1589,23 +1589,23 @@ create_std_buffer(unsigned int id) {
 	/* Save the newly created buffer in the standard stream vector. */
 again_save_result:
 	Dee_Incref(result);
-	if (atomic_cmpxch(&dee_std[id], ITER_DONE, result)) {
-		dee_std_synchronize();
+	if (atomic_cmpxch(&Dee_stdio[id], ITER_DONE, result)) {
+		Dee_stdio_synchronize();
 		goto done;
 	}
 	Dee_DecrefNokill(result);
 
 	/* Load currently assigned default STD file */
 	{
-		dee_std_FAST_SETUP
-		dee_std_FAST_lock();
-		existing_result = atomic_read(&dee_std[id]);
+		Dee_stdio_FAST_SETUP
+		Dee_stdio_FAST_lock();
+		existing_result = atomic_read(&Dee_stdio[id]);
 		if unlikely(existing_result == ITER_DONE) {
-			dee_std_FAST_unlock();
+			Dee_stdio_FAST_unlock();
 			goto again_save_result;
 		}
 		Dee_XIncref(existing_result);
-		dee_std_FAST_unlock();
+		Dee_stdio_FAST_unlock();
 	}
 	Dee_Decref(result);
 	result = existing_result;
@@ -1619,22 +1619,22 @@ done:
 
 
 /* Return a file stream for a standard file number `id'.
- * @param: id:   One of `DEE_STD*' (Except `Dee_STDDBG')
+ * @param: id:   One of `Dee_STD*' (Except `Dee_STDDBG')
  * @param: file: The file to use, or `NULL' to unbind that stream.
  * `DeeFile_GetStd()' will throw an `UnboundAttribute' error if the stream isn't assigned. */
 PUBLIC WUNUSED DREF DeeObject *DCALL
 DeeFile_GetStd(unsigned int id) {
 	DREF DeeObject *result;
-	dee_std_FAST_SETUP
-	ASSERT(id < DEE_STDCNT);
-	dee_std_FAST_lock();
-	result = atomic_read(&dee_std[id]);
+	Dee_stdio_FAST_SETUP
+	ASSERT(id < Dee_STDCNT);
+	Dee_stdio_FAST_lock();
+	result = atomic_read(&Dee_stdio[id]);
 	if likely(ITER_ISOK(result)) {
 		Dee_Incref(result);
-		dee_std_FAST_unlock();
+		Dee_stdio_FAST_unlock();
 		return result;
 	}
-	dee_std_FAST_unlock();
+	Dee_stdio_FAST_unlock();
 
 	/* When the stream is `ITER_DONE', lazily create the STD stream. */
 	if (result == ITER_DONE)
@@ -1647,16 +1647,16 @@ DeeFile_GetStd(unsigned int id) {
 PUBLIC WUNUSED DREF DeeObject *DCALL
 DeeFile_TryGetStd(unsigned int id) {
 	DREF DeeObject *result;
-	dee_std_FAST_SETUP
-	ASSERT(id < DEE_STDCNT);
-	dee_std_FAST_lock();
-	result = atomic_read(&dee_std[id]);
+	Dee_stdio_FAST_SETUP
+	ASSERT(id < Dee_STDCNT);
+	Dee_stdio_FAST_lock();
+	result = atomic_read(&Dee_stdio[id]);
 	if likely(ITER_ISOK(result)) {
 		Dee_Incref(result);
-		dee_std_FAST_unlock();
+		Dee_stdio_FAST_unlock();
 		return result;
 	}
-	dee_std_FAST_unlock();
+	Dee_stdio_FAST_unlock();
 
 	/* When the stream is `ITER_DONE', lazily create the STD stream. */
 	if (result == ITER_DONE) {
@@ -1672,15 +1672,15 @@ DeeFile_TryGetStd(unsigned int id) {
 PUBLIC WUNUSED DREF DeeObject *DCALL
 DeeFile_SetStd(unsigned int id, DeeObject *file) {
 	DREF DeeObject *old_stream;
-	ASSERT(id < DEE_STDCNT);
+	ASSERT(id < Dee_STDCNT);
 	if (ITER_ISOK(file)) {
 		ASSERT_OBJECT(file);
 		Dee_Incref(file);
 	}
 
 	/* Set the given stream. */
-	old_stream = atomic_xch(&dee_std[id], file);
-	dee_std_synchronize();
+	old_stream = atomic_xch(&Dee_stdio[id], file);
+	Dee_stdio_synchronize();
 	return old_stream;
 }
 
@@ -1733,15 +1733,15 @@ PUBLIC bool DCALL DeeFile_ResetStd(void) {
 		if (old_stream != default_stream)
 			result = true;
 		++id;
-	} while (id != DEE_STDCNT);
+	} while (id != Dee_STDCNT);
 	return result;
 }
 
 PRIVATE WUNUSED int DCALL
 file_std_isbound(unsigned int id) {
 	DeeObject *result;
-	ASSERT(id < DEE_STDCNT);
-	result = atomic_read(&dee_std[id]);
+	ASSERT(id < Dee_STDCNT);
+	result = atomic_read(&Dee_stdio[id]);
 	return Dee_BOUND_FROMBOOL(result != NULL);
 }
 

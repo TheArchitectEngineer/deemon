@@ -961,10 +961,10 @@ bytes_compare_eq(Bytes *lhs, DeeObject *rhs) {
 }
 
 #undef memxcmp
-#define memxcmp dee_memxcmp
+#define memxcmp Dee_libc_memxcmp
 LOCAL WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) int DCALL
-dee_memxcmp(void const *a, size_t asiz,
-            void const *b, size_t bsiz) {
+Dee_libc_memxcmp(void const *a, size_t asiz,
+                 void const *b, size_t bsiz) {
 	int result = memcmp(a, b, MIN(asiz, bsiz));
 	if (result)
 		return Dee_CompareFromDiff(result);

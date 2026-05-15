@@ -44,8 +44,8 @@ DECL_BEGIN
 
 #ifndef CONFIG_HAVE_memrend
 #define CONFIG_HAVE_memrend
-#define memrend dee_memrend
-DeeSystem_DEFINE_memrend(dee_memrend)
+#define memrend Dee_libc_memrend
+DeeSystem_DEFINE_memrend(Dee_libc_memrend)
 #endif /* !CONFIG_HAVE_memrend */
 
 INTERN struct Dee_compiler_options *inner_compiler_options = NULL;

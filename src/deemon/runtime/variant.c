@@ -641,7 +641,7 @@ Dee_variant_hash_impl(struct Dee_variant const *__restrict self) {
 }
 
 PRIVATE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) int DCALL
-dee_memcmp2(void const *lhs, size_t lhs_size,
+Dee_memcmp2(void const *lhs, size_t lhs_size,
             void const *rhs, size_t rhs_size) {
 	size_t common = MIN(lhs_size, rhs_size);
 	int result = memcmp(lhs, rhs, common * sizeof(char));
@@ -764,7 +764,7 @@ Dee_variant_fast_compare_impl(struct Dee_variant const *__restrict lhs,
 			char const *rhs_str = _Dee_variant_get_cstr(rhs);
 			size_t lhs_len = strlen(lhs_str);
 			size_t rhs_len = _Dee_variant_get_cstrlen(rhs);
-			return dee_memcmp2(lhs_str, lhs_len, rhs_str, rhs_len);
+			return Dee_memcmp2(lhs_str, lhs_len, rhs_str, rhs_len);
 		}
 	}	break;
 
@@ -774,11 +774,11 @@ Dee_variant_fast_compare_impl(struct Dee_variant const *__restrict lhs,
 		if (rhs->var_type == Dee_VARIANT_CSTR) {
 			char const *rhs_str = _Dee_variant_get_cstr(rhs);
 			size_t rhs_len = strlen(rhs_str);
-			return dee_memcmp2(lhs_str, lhs_len, rhs_str, rhs_len);
+			return Dee_memcmp2(lhs_str, lhs_len, rhs_str, rhs_len);
 		} else if (rhs->var_type == Dee_VARIANT_CSTRLEN) {
 			char const *rhs_str = _Dee_variant_get_cstr(rhs);
 			size_t rhs_len = _Dee_variant_get_cstrlen(rhs);
-			return dee_memcmp2(lhs_str, lhs_len, rhs_str, rhs_len);
+			return Dee_memcmp2(lhs_str, lhs_len, rhs_str, rhs_len);
 		}
 	}	break;
 

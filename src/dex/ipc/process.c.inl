@@ -718,8 +718,8 @@ PRIVATE DREF DeeStringObject *ipc_etc_shells_default_shell = NULL;
 #ifndef CONFIG_HAVE_strnlen
 #define CONFIG_HAVE_strnlen
 #undef strnlen
-#define strnlen dee_strnlen
-DeeSystem_DEFINE_strnlen(strnlen)
+#define strnlen Dee_libc_strnlen
+DeeSystem_DEFINE_strnlen(Dee_libc_strnlen)
 #endif /* !CONFIG_HAVE_strnlen */
 
 #undef is_executable_file_USE_waccess
@@ -1491,8 +1491,8 @@ PRIVATE void DCALL ipc_exe2path_fini(void) {
 #ifndef CONFIG_HAVE_wmemchr
 #define CONFIG_HAVE_wmemchr
 #undef wmemchr
-#define wmemchr dee_wmemchr
-DeeSystem_DEFINE_wmemchr(dee_wmemchr)
+#define wmemchr Dee_libc_wmemchr
+DeeSystem_DEFINE_wmemchr(Dee_libc_wmemchr)
 #endif /* !CONFIG_HAVE_wmemchr */
 #define ipc_exe2path_char_t                                    wchar_t
 #define ipc_exe2path_char_memchr                               wmemchr
@@ -1729,8 +1729,8 @@ ipc_nt_get_handle_for_CreateProcessW(Process *__restrict self, unsigned int std_
 #ifndef CONFIG_HAVE_wmemchr
 #define CONFIG_HAVE_wmemchr
 #undef wmemchr
-#define wmemchr dee_wmemchr
-DeeSystem_DEFINE_wmemchr(dee_wmemchr)
+#define wmemchr Dee_libc_wmemchr
+DeeSystem_DEFINE_wmemchr(Dee_libc_wmemchr)
 #endif /* !CONFIG_HAVE_wmemchr */
 
 
@@ -2443,9 +2443,10 @@ ipc_unix_spawn_in_child(struct unix_spawn_args const *__restrict self) {
 
 #ifdef ipc_Process_USE_fork_AND_execve
 #ifndef CONFIG_HAVE_writeall
+#define CONFIG_HAVE_writeall
 #undef writeall
-#define writeall dee_writeall
-PRIVATE void DCALL dee_writeall(int fd, void const *buf, size_t num_bytes) {
+#define writeall Dee_libc_writeall
+PRIVATE void DCALL Dee_libc_writeall(int fd, void const *buf, size_t num_bytes) {
 	for (;;) {
 		__SSIZE_TYPE__ temp = write(fd, buf, num_bytes);
 		if unlikely(temp <= 0)
@@ -2465,8 +2466,8 @@ PRIVATE void DCALL dee_writeall(int fd, void const *buf, size_t num_bytes) {
 #ifndef CONFIG_HAVE_wcslen
 #define CONFIG_HAVE_wcslen
 #undef wcslen
-#define wcslen dee_wcslen
-DeeSystem_DEFINE_wcslen(dee_wcslen)
+#define wcslen Dee_libc_wcslen
+DeeSystem_DEFINE_wcslen(Dee_libc_wcslen)
 #endif /* !CONFIG_HAVE_wcslen */
 #endif /* ipc_Process_USE_WCHAR_CHDIR_APIS */
 
@@ -4401,8 +4402,8 @@ err:
 #ifndef CONFIG_HAVE_wcslen
 #define CONFIG_HAVE_wcslen
 #undef wcslen
-#define wcslen dee_wcslen
-DeeSystem_DEFINE_wcslen(dee_wcslen)
+#define wcslen Dee_libc_wcslen
+DeeSystem_DEFINE_wcslen(Dee_libc_wcslen)
 #endif /* !CONFIG_HAVE_wcslen */
 #endif /* ipc_Process_USE_cmdline && ipc_Process_USE_CreateProcessW */
 

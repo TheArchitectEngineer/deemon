@@ -80,8 +80,8 @@ DECL_BEGIN
 #ifndef CONFIG_HAVE_wcslen
 #define CONFIG_HAVE_wcslen
 #undef wcslen
-#define wcslen dee_wcslen
-DeeSystem_DEFINE_wcslen(dee_wcslen)
+#define wcslen Dee_libc_wcslen
+DeeSystem_DEFINE_wcslen(Dee_libc_wcslen)
 #endif /* !CONFIG_HAVE_wcslen */
 #undef wcsend
 #define wcsend(str) ((str) + wcslen(str))
@@ -89,8 +89,8 @@ DeeSystem_DEFINE_wcslen(dee_wcslen)
 
 #ifndef CONFIG_HAVE_memcasecmp
 #define CONFIG_HAVE_memcasecmp
-#define memcasecmp dee_memcasecmp
-DeeSystem_DEFINE_memcasecmp(dee_memcasecmp)
+#define memcasecmp Dee_libc_memcasecmp
+DeeSystem_DEFINE_memcasecmp(Dee_libc_memcasecmp)
 #endif /* !CONFIG_HAVE_memcasecmp */
 
 

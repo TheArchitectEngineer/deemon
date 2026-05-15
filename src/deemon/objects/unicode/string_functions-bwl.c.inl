@@ -84,38 +84,38 @@ DECL_BEGIN
 /* PROVISIONING CONFIGURATION                                           */
 /************************************************************************/
 #ifdef DEFINE_STRING_FUNCTIONS_CASEASCII
-#define LOCAL_fuzzy_compare            LOCAL_FUNC(dee_fuzzy_casecompare)
-#define LOCAL_strverscmp               LOCAL_FUNC(dee_strcaseverscmp)
-#define LOCAL_find_match               LOCAL_FUNC(dee_find_casematch)
-#define LOCAL_rfind_match              LOCAL_FUNC(dee_rfind_casematch)
-#define LOCAL_wildcompare              LOCAL_FUNC(dee_wildcasecompare)
+#define LOCAL_fuzzy_compare            LOCAL_FUNC(unicode_fuzzy_casecompare)
+#define LOCAL_strverscmp               LOCAL_FUNC(unicode_strcaseverscmp)
+#define LOCAL_find_match               LOCAL_FUNC(unicode_find_casematch)
+#define LOCAL_rfind_match              LOCAL_FUNC(unicode_rfind_casematch)
+#define LOCAL_wildcompare              LOCAL_FUNC(unicode_wildcasecompare)
 #else /* DEFINE_STRING_FUNCTIONS_CASEASCII */
-#define LOCAL_mempfil                  LOCAL_FUNC(dee_mempfil)
-#define LOCAL_foldcmp                  LOCAL_FUNC(dee_foldcmp)
-#define LOCAL_memcasechr               LOCAL_FUNC(dee_memcasechr)
-/*efine LOCAL_memcaserchr              LOCAL_FUNC(dee_memcaserchr)*/
+#define LOCAL_mempfil                  LOCAL_FUNC(Dee_libc_mempfil)
+#define LOCAL_foldcmp                  LOCAL_FUNC(unicode_foldcmp)
+#define LOCAL_memcasechr               LOCAL_FUNC(unicode_memcasechr)
+/*efine LOCAL_memcaserchr              LOCAL_FUNC(unicode_memcaserchr)*/
 #define LOCAL_unicode_foldreader_init  LOCAL_FUNC(unicode_foldreader_init)
 #define LOCAL_unicode_foldreader_getc  LOCAL_FUNC(unicode_foldreader_getc)
 #define LOCAL_unicode_foldreader_rgetc LOCAL_FUNC(unicode_foldreader_rgetc)
-/*efine LOCAL_memcaseeq                LOCAL_FUNC(dee_memcaseeq)*/
-#define LOCAL_memcasestartswith        LOCAL_FUNC(dee_memcasestartswith)
-#define LOCAL_memcaseendswith          LOCAL_FUNC(dee_memcaseendswith)
-#define LOCAL_memcasemem               LOCAL_FUNC(dee_memcasemem)
-#define LOCAL_memcasermem              LOCAL_FUNC(dee_memcasermem)
-#define LOCAL_memcasecnt               LOCAL_FUNC(dee_memcasecnt)
+/*efine LOCAL_memcaseeq                LOCAL_FUNC(unicode_memcaseeq)*/
+#define LOCAL_memcasestartswith        LOCAL_FUNC(unicode_memcasestartswith)
+#define LOCAL_memcaseendswith          LOCAL_FUNC(unicode_memcaseendswith)
+#define LOCAL_memcasemem               LOCAL_FUNC(unicode_memcasemem)
+#define LOCAL_memcasermem              LOCAL_FUNC(unicode_memcasermem)
+#define LOCAL_memcasecnt               LOCAL_FUNC(unicode_memcasecnt)
 #if LOCAL_SIZEOF_CHAR == 1
-#define LOCAL_memcasecmp               LOCAL_FUNC(dee_memcasecmp)
+#define LOCAL_memcasecmp               LOCAL_FUNC(unicode_memcasecmp)
 #endif /* LOCAL_SIZEOF_CHAR == ... */
-#define LOCAL_fuzzy_compare            LOCAL_FUNC(dee_fuzzy_compare)
-#define LOCAL_fuzzy_casecompare        LOCAL_FUNC(dee_fuzzy_casecompare)
-#define LOCAL_strverscmp               LOCAL_FUNC(dee_strverscmp)
-#define LOCAL_strcaseverscmp           LOCAL_FUNC(dee_strcaseverscmp)
-#define LOCAL_find_match               LOCAL_FUNC(dee_find_match)
-#define LOCAL_find_casematch           LOCAL_FUNC(dee_find_casematch)
-#define LOCAL_rfind_match              LOCAL_FUNC(dee_rfind_match)
-#define LOCAL_rfind_casematch          LOCAL_FUNC(dee_rfind_casematch)
-#define LOCAL_wildcompare              LOCAL_FUNC(dee_wildcompare)
-#define LOCAL_wildcasecompare          LOCAL_FUNC(dee_wildcasecompare)
+#define LOCAL_fuzzy_compare            LOCAL_FUNC(unicode_fuzzy_compare)
+#define LOCAL_fuzzy_casecompare        LOCAL_FUNC(unicode_fuzzy_casecompare)
+#define LOCAL_strverscmp               LOCAL_FUNC(unicode_strverscmp)
+#define LOCAL_strcaseverscmp           LOCAL_FUNC(unicode_strcaseverscmp)
+#define LOCAL_find_match               LOCAL_FUNC(unicode_find_match)
+#define LOCAL_find_casematch           LOCAL_FUNC(unicode_find_casematch)
+#define LOCAL_rfind_match              LOCAL_FUNC(unicode_rfind_match)
+#define LOCAL_rfind_casematch          LOCAL_FUNC(unicode_rfind_casematch)
+#define LOCAL_wildcompare              LOCAL_FUNC(unicode_wildcompare)
+#define LOCAL_wildcasecompare          LOCAL_FUNC(unicode_wildcasecompare)
 #endif /* !DEFINE_STRING_FUNCTIONS_CASEASCII */
 
 #ifdef DEFINE_STRING_FUNCTIONS_CASEASCII

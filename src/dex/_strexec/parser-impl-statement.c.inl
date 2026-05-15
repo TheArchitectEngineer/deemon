@@ -746,8 +746,8 @@ err:
 #ifdef JIT_EVAL
 #ifndef CONFIG_HAVE_memrend
 #define CONFIG_HAVE_memrend
-#define memrend dee_memrend
-DeeSystem_DEFINE_memrend(dee_memrend)
+#define memrend Dee_libc_memrend
+DeeSystem_DEFINE_memrend(Dee_libc_memrend)
 #endif /* !CONFIG_HAVE_memrend */
 
 /* Fill in `result->ii_symbol_name' and `result->ii_symbol_size' a module name `.foo.bar', etc. */

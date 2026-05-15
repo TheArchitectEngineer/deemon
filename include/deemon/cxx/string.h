@@ -42,9 +42,9 @@
 #ifndef CONFIG_HAVE_wcslen
 #define CONFIG_HAVE_wcslen
 #undef wcslen
-#define wcslen dee_wcslen
+#define wcslen Dee_wcslen
 DECL_BEGIN
-DeeSystem_DEFINE_wcslen(dee_wcslen)
+DeeSystem_DEFINE_wcslen(Dee_wcslen)
 DECL_END
 #endif /* !CONFIG_HAVE_wcslen */
 

@@ -59,8 +59,8 @@ DECL_BEGIN
 #ifndef CONFIG_HAVE_strcmp
 #define CONFIG_HAVE_strcmp
 #undef strcmp
-#define strcmp dee_strcmp
-DeeSystem_DEFINE_strcmp(dee_strcmp)
+#define strcmp Dee_libc_strcmp
+DeeSystem_DEFINE_strcmp(Dee_libc_strcmp)
 #endif /* !CONFIG_HAVE_strcmp */
 
 typedef DeeKwdsObject Kwds;

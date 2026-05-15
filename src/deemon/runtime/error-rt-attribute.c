@@ -1502,7 +1502,7 @@ err_temp:
 }
 
 PRIVATE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) int DCALL
-dee_memcmp2(void const *lhs, size_t lhs_size,
+Dee_memcmp2(void const *lhs, size_t lhs_size,
             void const *rhs, size_t rhs_size) {
 	size_t common = MIN(lhs_size, rhs_size);
 	int result = memcmp(lhs, rhs, common * sizeof(char));
@@ -1580,7 +1580,7 @@ AttributeError_compare_impl(AttributeError *lhs, AttributeError *rhs,
 				char const *rhs_str = rhs->ae_desc.ad_name;
 				size_t lhs_len = (lhs->ae_desc.ad_perm & Dee_ATTRPERM_F_NAMEOBJ) ? WSTR_LENGTH(lhs_str) : strlen(lhs_str);
 				size_t rhs_len = (rhs->ae_desc.ad_perm & Dee_ATTRPERM_F_NAMEOBJ) ? WSTR_LENGTH(rhs_str) : strlen(rhs_str);
-				result = dee_memcmp2(lhs_str, lhs_len, rhs_str, rhs_len);
+				result = Dee_memcmp2(lhs_str, lhs_len, rhs_str, rhs_len);
 			}
 			if (Dee_COMPARE_ISNE_OR_ERR(result))
 				return result;

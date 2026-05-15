@@ -515,8 +515,8 @@ basic_block_locuse_pass2(struct function_assembler *__restrict fasm,
 
 #ifndef CONFIG_HAVE_qsort
 #define CONFIG_HAVE_qsort
-#define qsort   dee_qsort
-DeeSystem_DEFINE_qsort(dee_qsort)
+#define qsort   Dee_libc_qsort
+DeeSystem_DEFINE_qsort(Dee_libc_qsort)
 #endif /* !CONFIG_HAVE_qsort */
 
 #ifndef __LIBCCALL

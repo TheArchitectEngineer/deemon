@@ -110,8 +110,8 @@ DECL_BEGIN
 #ifndef CONFIG_HAVE_strlen
 #define CONFIG_HAVE_strlen
 #undef strlen
-#define strlen dee_strlen /*!export-*/
-LOCAL WUNUSED NONNULL((1)) size_t dee_strlen(char const *str) { /*!export-*/
+#define strlen Dee_libc_strlen /*!export-*/
+LOCAL WUNUSED NONNULL((1)) size_t Dee_libc_strlen(char const *str) { /*!export-*/
 	size_t result;
 	for (result = 0; str[result]; ++result)
 		;

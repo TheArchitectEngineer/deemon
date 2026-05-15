@@ -38,9 +38,9 @@ DECL_BEGIN
 #ifndef CONFIG_HAVE_fuzzy_memcmpl /* TODO: Add configure-test for "fuzzy_memcmpl" */
 #define CONFIG_HAVE_fuzzy_memcmpl
 #undef fuzzy_memcmpl
-#define fuzzy_memcmpl dee_fuzzy_memcmpl
+#define fuzzy_memcmpl Dee_libc_fuzzy_memcmpl
 INTERN ATTR_PURE WUNUSED ATTR_IN(1) ATTR_IN(3) size_t
-NOTHROW_NCX(DCALL dee_fuzzy_memcmpl)(void const *s1, size_t s1_dwords,
+NOTHROW_NCX(DCALL Dee_libc_fuzzy_memcmpl)(void const *s1, size_t s1_dwords,
                                      void const *s2, size_t s2_dwords) {
 	size_t *v0, *v1, i, j, cost, temp;
 	if unlikely(!s1_dwords)

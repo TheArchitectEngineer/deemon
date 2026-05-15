@@ -90,9 +90,9 @@ DECL_BEGIN
 #ifdef CONFIG_HAVE_memcasecmp
 #define MEMCASEEQ(a, b, s) (memcasecmp(a, b, s) == 0)
 #else /* CONFIG_HAVE_memcasecmp */
-#define MEMCASEEQ(a, b, s) dee_memcaseeq((uint8_t *)(a), (uint8_t *)(b), s)
+#define MEMCASEEQ(a, b, s) Dee_libc_memcaseeq((uint8_t *)(a), (uint8_t *)(b), s)
 LOCAL WUNUSED NONNULL((1, 2)) bool
-dee_memcaseeq(uint8_t const *a, uint8_t const *b, size_t s) {
+Dee_libc_memcaseeq(uint8_t const *a, uint8_t const *b, size_t s) {
 	while (s--) {
 		if (DeeUni_ToLower(*a) != DeeUni_ToLower(*b))
 			return false;

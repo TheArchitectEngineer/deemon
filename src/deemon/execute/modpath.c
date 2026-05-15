@@ -122,15 +122,15 @@ DECL_BEGIN
 #ifndef CONFIG_HAVE_strcasecmp
 #define CONFIG_HAVE_strcasecmp
 #undef strcasecmp
-#define strcasecmp dee_strcasecmp
-DeeSystem_DEFINE_strcasecmp(dee_strcasecmp)
+#define strcasecmp Dee_libc_strcasecmp
+DeeSystem_DEFINE_strcasecmp(Dee_libc_strcasecmp)
 #endif /* !CONFIG_HAVE_strcasecmp */
 
 #ifndef CONFIG_HAVE_memcasecmp
 #define CONFIG_HAVE_memcasecmp
 #undef memcasecmp
-#define memcasecmp dee_memcasecmp
-DeeSystem_DEFINE_memcasecmp(dee_memcasecmp)
+#define memcasecmp Dee_libc_memcasecmp
+DeeSystem_DEFINE_memcasecmp(Dee_libc_memcasecmp)
 #endif /* !CONFIG_HAVE_memcasecmp */
 
 #define fs_strcmp(a, b)    strcasecmp(a, b)
@@ -140,8 +140,8 @@ DeeSystem_DEFINE_memcasecmp(dee_memcasecmp)
 #ifndef CONFIG_HAVE_strcmp
 #define CONFIG_HAVE_strcmp
 #undef strcmp
-#define strcmp dee_strcmp
-DeeSystem_DEFINE_strcmp(dee_strcmp)
+#define strcmp Dee_libc_strcmp
+DeeSystem_DEFINE_strcmp(Dee_libc_strcmp)
 #endif /* !CONFIG_HAVE_strcmp */
 
 #define fs_strcmp(a, b)    strcmp(a, b)
@@ -157,8 +157,8 @@ DeeSystem_DEFINE_strcmp(dee_strcmp)
 #ifndef CONFIG_HAVE_memrchr
 #define CONFIG_HAVE_memrchr
 #undef memrchr
-#define memrchr dee_memrchr
-DeeSystem_DEFINE_memrchr(dee_memrchr)
+#define memrchr Dee_libc_memrchr
+DeeSystem_DEFINE_memrchr(Dee_libc_memrchr)
 #endif /* !CONFIG_HAVE_memrchr */
 
 PRIVATE ATTR_PURE WUNUSED NONNULL((1, 2)) bool DCALL
@@ -320,8 +320,8 @@ typedef struct {
 #ifndef CONFIG_HAVE_strcmp
 #define CONFIG_HAVE_strcmp
 #undef strcmp
-#define strcmp dee_strcmp
-DeeSystem_DEFINE_strcmp(dee_strcmp)
+#define strcmp Dee_libc_strcmp
+DeeSystem_DEFINE_strcmp(Dee_libc_strcmp)
 #endif /* !CONFIG_HAVE_strcmp */
 #endif /* Dee_DEXATADDR_USE__dladdr__dli_fname */
 
@@ -4176,8 +4176,8 @@ import_boundattr(DeeObject *UNUSED(self), DeeObject *attr) {
 #ifndef CONFIG_HAVE_strrchr
 #define CONFIG_HAVE_strrchr
 #undef strrchr
-#define strrchr dee_strrchr
-DeeSystem_DEFINE_strrchr(dee_strrchr)
+#define strrchr Dee_libc_strrchr
+DeeSystem_DEFINE_strrchr(Dee_libc_strrchr)
 #endif /* !CONFIG_HAVE_strrchr */
 
 /* Return the module's human-readable "short" name, that is everything after
@@ -5438,8 +5438,8 @@ PRIVATE char *DCALL unix_getenv(char const *name) {
 #ifndef CONFIG_HAVE_wcslen
 #define CONFIG_HAVE_wcslen
 #undef wcslen
-#define wcslen dee_wcslen
-DeeSystem_DEFINE_wcslen(dee_wcslen)
+#define wcslen Dee_libc_wcslen
+DeeSystem_DEFINE_wcslen(Dee_libc_wcslen)
 #endif /* !CONFIG_HAVE_wcslen */
 PRIVATE Dee_wchar_t *DCALL unix_wgetenv(Dee_wchar_t const *name) {
 	Dee_wchar_t **env = (Dee_wchar_t **)wenviron;

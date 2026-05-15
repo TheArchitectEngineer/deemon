@@ -1544,8 +1544,8 @@ err:
 #ifndef CONFIG_HAVE_memmem
 #define CONFIG_HAVE_memmem
 #undef memmem
-#define memmem dee_memmem
-DeeSystem_DEFINE_memmem(dee_memmem)
+#define memmem Dee_libc_memmem
+DeeSystem_DEFINE_memmem(Dee_libc_memmem)
 #endif /* !CONFIG_HAVE_memmem */
 
 

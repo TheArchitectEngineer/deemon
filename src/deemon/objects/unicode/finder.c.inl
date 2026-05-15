@@ -303,10 +303,10 @@ again:
 	SWITCH_SIZEOF_WIDTH(self->sfi_width) {
 
 	CASE_WIDTH_1BYTE:
-		new_ptr.cp8 = dee_memcasememb(ptr.cp8, scan_size,
-		                              self->sfi_needle_ptr.cp8,
-		                              self->sfi_needle_len,
-		                              &match_length);
+		new_ptr.cp8 = unicode_memcasememb(ptr.cp8, scan_size,
+		                                  self->sfi_needle_ptr.cp8,
+		                                  self->sfi_needle_len,
+		                                  &match_length);
 		if (!new_ptr.cp8)
 			goto iter_done;
 		find_delta = match_length;
@@ -318,10 +318,10 @@ again:
 		break;
 
 	CASE_WIDTH_2BYTE:
-		new_ptr.cp16 = dee_memcasememw(ptr.cp16, scan_size,
-		                               self->sfi_needle_ptr.cp16,
-		                               self->sfi_needle_len,
-		                               &match_length);
+		new_ptr.cp16 = unicode_memcasememw(ptr.cp16, scan_size,
+		                                   self->sfi_needle_ptr.cp16,
+		                                   self->sfi_needle_len,
+		                                   &match_length);
 		if (!new_ptr.cp16)
 			goto iter_done;
 		find_delta = match_length;
@@ -333,10 +333,10 @@ again:
 		break;
 
 	CASE_WIDTH_4BYTE:
-		new_ptr.cp32 = dee_memcasememl(ptr.cp32, scan_size,
-		                               self->sfi_needle_ptr.cp32,
-		                               self->sfi_needle_len,
-		                               &match_length);
+		new_ptr.cp32 = unicode_memcasememl(ptr.cp32, scan_size,
+		                                   self->sfi_needle_ptr.cp32,
+		                                   self->sfi_needle_len,
+		                                   &match_length);
 		if (!new_ptr.cp32)
 			goto iter_done;
 		find_delta = match_length;
@@ -410,21 +410,21 @@ scfi_bool(StringFindIterator *__restrict self) {
 	SWITCH_SIZEOF_WIDTH(self->sfi_width) {
 
 	CASE_WIDTH_1BYTE:
-		ptr.cp8 = dee_memcasememb(ptr.cp8, scan_size,
-		                          self->sfi_needle_ptr.cp8,
-		                          self->sfi_needle_len, NULL);
+		ptr.cp8 = unicode_memcasememb(ptr.cp8, scan_size,
+		                              self->sfi_needle_ptr.cp8,
+		                              self->sfi_needle_len, NULL);
 		break;
 
 	CASE_WIDTH_2BYTE:
-		ptr.cp16 = dee_memcasememw(ptr.cp16, scan_size,
-		                           self->sfi_needle_ptr.cp16,
-		                           self->sfi_needle_len, NULL);
+		ptr.cp16 = unicode_memcasememw(ptr.cp16, scan_size,
+		                               self->sfi_needle_ptr.cp16,
+		                               self->sfi_needle_len, NULL);
 		break;
 
 	CASE_WIDTH_4BYTE:
-		ptr.cp32 = dee_memcasememl(ptr.cp32, scan_size,
-		                           self->sfi_needle_ptr.cp32,
-		                           self->sfi_needle_len, NULL);
+		ptr.cp32 = unicode_memcasememl(ptr.cp32, scan_size,
+		                               self->sfi_needle_ptr.cp32,
+		                               self->sfi_needle_len, NULL);
 		break;
 	}
 	return ptr.ptr != NULL;

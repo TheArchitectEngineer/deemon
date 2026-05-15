@@ -56,16 +56,16 @@ DECL_BEGIN
 #ifndef CONFIG_HAVE_strcmp
 #define CONFIG_HAVE_strcmp
 #undef strcmp
-#define strcmp dee_strcmp
-DeeSystem_DEFINE_strcmp(dee_strcmp)
+#define strcmp Dee_libc_strcmp
+DeeSystem_DEFINE_strcmp(Dee_libc_strcmp)
 #endif /* !CONFIG_HAVE_strcmp */
 
 #ifndef CONFIG_HAVE_strstr
 #define CONFIG_HAVE_strstr
 #undef strstr
-#define strstr dee_strstr
+#define strstr Dee_libc_strstr
 LOCAL WUNUSED NONNULL((1, 2)) char *
-dee_strstr(char const *haystack, char const *needle) {
+Dee_libc_strstr(char const *haystack, char const *needle) {
 	char ch, needle_start = *needle++;
 	while ((ch = *haystack++) != '\0') {
 		if (ch == needle_start) {

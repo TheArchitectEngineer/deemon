@@ -20,7 +20,7 @@
 /*!export **/
 /*!export CONFIG_HAVE_**/
 /*!export CONFIG_NO_**/
-/*!export -dee_**/
+/*!export -Dee_**/
 /*!export -NULL*/
 /*!export _DeeSystem_DEFINE_**/
 /*!export DeeSystem_DEFINE_**/
@@ -13351,9 +13351,9 @@ feature("CONSTANT_NAN", "1", test: "extern int val[NAN != 0.0 ? 1 : -1]; return 
 #define CONFIG_HAVE_strlen
 DECL_BEGIN
 #undef strlen
-#define strlen dee_strlen
+#define strlen Dee_libc_strlen
 LOCAL ATTR_PURE WUNUSED NONNULL((1)) size_t
-dee_strlen(char const *str) {
+Dee_libc_strlen(char const *str) {
 	size_t result;
 	for (result = 0; str[result]; ++result)
 		;
@@ -13366,9 +13366,9 @@ DECL_END
 #define CONFIG_HAVE_strchr
 DECL_BEGIN
 #undef strchr
-#define strchr dee_strchr
+#define strchr Dee_libc_strchr
 LOCAL ATTR_PURE WUNUSED NONNULL((1)) char *
-dee_strchr(char const *haystack, int needle) {
+Dee_libc_strchr(char const *haystack, int needle) {
 	for (;; ++haystack) {
 		char ch = *haystack;
 		if ((unsigned char)ch == (unsigned char)(unsigned int)needle)
@@ -13388,9 +13388,9 @@ DECL_END
 #define memcpy(dst, src, num_bytes) (bcopy(src, dst, num_bytes), (void *)(dst))
 #else /* CONFIG_HAVE_bcopy */
 DECL_BEGIN
-#define memcpy dee_memcpy
+#define memcpy Dee_libc_memcpy
 LOCAL WUNUSED ATTR_OUTS(1, 3) ATTR_INS(2, 3) void *
-dee_memcpy(void *__restrict dst, void const *__restrict src, size_t num_bytes) {
+Dee_libc_memcpy(void *__restrict dst, void const *__restrict src, size_t num_bytes) {
 	__BYTE_TYPE__ *dst_p = (__BYTE_TYPE__ *)dst;
 	__BYTE_TYPE__ const *src_p = (__BYTE_TYPE__ const *)src;
 	while (num_bytes--)
@@ -13405,9 +13405,9 @@ DECL_END
 #define CONFIG_HAVE_memset
 DECL_BEGIN
 #undef memset
-#define memset dee_memset
+#define memset Dee_libc_memset
 LOCAL WUNUSED ATTR_OUTS(1, 3) void *
-dee_memset(void *__restrict dst, int byte, size_t num_bytes) {
+Dee_libc_memset(void *__restrict dst, int byte, size_t num_bytes) {
 	__BYTE_TYPE__ *dst_p = (__BYTE_TYPE__ *)dst;
 	while (num_bytes--)
 		*dst_p++ = (__BYTE_TYPE__)(unsigned int)byte;
@@ -13420,9 +13420,9 @@ DECL_END
 #define CONFIG_HAVE_memmove
 DECL_BEGIN
 #undef memmove
-#define memmove dee_memmove
+#define memmove Dee_libc_memmove
 LOCAL WUNUSED ATTR_OUTS(1, 3) ATTR_INS(2, 3) void *
-dee_memmove(void *dst, void const *src, size_t num_bytes) {
+Dee_libc_memmove(void *dst, void const *src, size_t num_bytes) {
 	__BYTE_TYPE__ *dst_p;
 	__BYTE_TYPE__ const *src_p;
 	if (dst <= src) {
@@ -13445,9 +13445,9 @@ DECL_END
 #define CONFIG_HAVE_memcmp
 DECL_BEGIN
 #undef memcmp
-#define memcmp dee_memcmp
+#define memcmp Dee_libc_memcmp
 LOCAL WUNUSED NONNULL((1, 2)) int
-dee_memcmp(void const *s1, void const *s2, size_t n) {
+Dee_libc_memcmp(void const *s1, void const *s2, size_t n) {
 	__BYTE_TYPE__ const *p1 = (__BYTE_TYPE__ const *)s1;
 	__BYTE_TYPE__ const *p2 = (__BYTE_TYPE__ const *)s2;
 	while (n--) {
@@ -13827,8 +13827,8 @@ DECL_END
 #define CONFIG_HAVE_memchr
 DECL_BEGIN
 #undef memchr
-#define memchr dee_memchr
-_DeeSystem_DEFINE_memchrT(void, __BYTE_TYPE__, int, dee_memchr)
+#define memchr Dee_libc_memchr
+_DeeSystem_DEFINE_memchrT(void, __BYTE_TYPE__, int, Dee_libc_memchr)
 DECL_END
 #endif /* !CONFIG_HAVE_memchr */
 
@@ -13836,8 +13836,8 @@ DECL_END
 #define CONFIG_HAVE_memcmp
 DECL_BEGIN
 #undef memcmp
-#define memcmp dee_memcmp
-_DeeSystem_DEFINE_memcmpT(__BYTE_TYPE__, dee_memcmp)
+#define memcmp Dee_libc_memcmp
+_DeeSystem_DEFINE_memcmpT(__BYTE_TYPE__, Dee_libc_memcmp)
 DECL_END
 #endif /* !CONFIG_HAVE_memcmp */
 
@@ -14324,14 +14324,14 @@ DECL_END
 #define CONFIG_HAVE_memmoveup
 #undef memmoveup
 #define memmoveup(dst, src, n)     (DeeSytemAssert_MemmoveUp(dst, src, n, 1), memmove(dst, src, n))
-#define dee_memmoveup(dst, src, n) memmove(dst, src, n)
+#define Dee_libc_memmoveup(dst, src, n) memmove(dst, src, n)
 #endif /* !CONFIG_HAVE_memmoveup */
 
 #ifndef CONFIG_HAVE_memmovedown
 #define CONFIG_HAVE_memmovedown
 #undef memmovedown
 #define memmovedown(dst, src, n)     (DeeSytemAssert_MemmoveDown(dst, src, n, 1), memmove(dst, src, n))
-#define dee_memmovedown(dst, src, n) memmove(dst, src, n)
+#define Dee_libc_memmovedown(dst, src, n) memmove(dst, src, n)
 #endif /* !CONFIG_HAVE_memmovedown */
 
 
@@ -14566,9 +14566,9 @@ DECL_END
 #define memmovew(dst, src, n) (uint16_t *)memmove(dst, src, (n) * 2)
 #endif /* !CONFIG_HAVE_memmovew */
 
-#ifndef dee_memmoveup
-#define dee_memmoveup memmoveup
-#endif /* !dee_memmoveup */
+#ifndef Dee_libc_memmoveup
+#define Dee_libc_memmoveup memmoveup
+#endif /* !Dee_libc_memmoveup */
 
 #ifndef CONFIG_HAVE_memmoveupc
 #define CONFIG_HAVE_memmoveupc
@@ -14582,7 +14582,7 @@ DECL_END
 	   ? (void *)memmoveupl(dst, src, elem_count)               \
 	   : (elem_size) == 8                                       \
 	     ? (void *)memmoveupq(dst, src, elem_count)             \
-	     : dee_memmoveup(dst, src, (size_t)(elem_count) * (size_t)(elem_size)))
+	     : Dee_libc_memmoveup(dst, src, (size_t)(elem_count) * (size_t)(elem_size)))
 #elif defined(CONFIG_HAVE_memmoveupw) && defined(CONFIG_HAVE_memmoveupl)
 #define memmoveupc(dst, src, elem_count, elem_size)             \
 	(DeeSytemAssert_MemmoveUp(dst, src, elem_count, elem_size), \
@@ -14590,7 +14590,7 @@ DECL_END
 	 ? (void *)memmoveupw(dst, src, elem_count)                 \
 	 : (elem_size) == 4                                         \
 	   ? (void *)memmoveupl(dst, src, elem_count)               \
-	   : dee_memmoveup(dst, src, (size_t)(elem_count) * (size_t)(elem_size)))
+	   : Dee_libc_memmoveup(dst, src, (size_t)(elem_count) * (size_t)(elem_size)))
 #elif defined(CONFIG_HAVE_memmoveupw) && defined(CONFIG_HAVE_memmoveupq)
 #define memmoveupc(dst, src, elem_count, elem_size)             \
 	(DeeSytemAssert_MemmoveUp(dst, src, elem_count, elem_size), \
@@ -14598,7 +14598,7 @@ DECL_END
 	 ? (void *)memmoveupw(dst, src, elem_count)                 \
 	 : (elem_size) == 8                                         \
 	   ? (void *)memmoveupq(dst, src, elem_count)               \
-	   : dee_memmoveup(dst, src, (size_t)(elem_count) * (size_t)(elem_size)))
+	   : Dee_libc_memmoveup(dst, src, (size_t)(elem_count) * (size_t)(elem_size)))
 #elif defined(CONFIG_HAVE_memmoveupl) && defined(CONFIG_HAVE_memmoveupq)
 #define memmoveupc(dst, src, elem_count, elem_size)             \
 	(DeeSytemAssert_MemmoveUp(dst, src, elem_count, elem_size), \
@@ -14606,25 +14606,25 @@ DECL_END
 	 ? (void *)memmoveupl(dst, src, elem_count)                 \
 	 : (elem_size) == 8                                         \
 	   ? (void *)memmoveupq(dst, src, elem_count)               \
-	   : dee_memmoveup(dst, src, (size_t)(elem_count) * (size_t)(elem_size)))
+	   : Dee_libc_memmoveup(dst, src, (size_t)(elem_count) * (size_t)(elem_size)))
 #elif defined(CONFIG_HAVE_memmoveupq)
 #define memmoveupc(dst, src, elem_count, elem_size)             \
 	(DeeSytemAssert_MemmoveUp(dst, src, elem_count, elem_size), \
 	 (elem_size) == 8                                           \
 	 ? (void *)memmoveupq(dst, src, elem_count)                 \
-	 : dee_memmoveup(dst, src, (size_t)(elem_count) * (size_t)(elem_size)))
+	 : Dee_libc_memmoveup(dst, src, (size_t)(elem_count) * (size_t)(elem_size)))
 #elif defined(CONFIG_HAVE_memmoveupl)
 #define memmoveupc(dst, src, elem_count, elem_size)             \
 	(DeeSytemAssert_MemmoveUp(dst, src, elem_count, elem_size), \
 	 (elem_size) == 4                                           \
 	 ? (void *)memmoveupl(dst, src, elem_count)                 \
-	 : dee_memmoveup(dst, src, (size_t)(elem_count) * (size_t)(elem_size)))
+	 : Dee_libc_memmoveup(dst, src, (size_t)(elem_count) * (size_t)(elem_size)))
 #elif defined(CONFIG_HAVE_memmoveupw)
 #define memmoveupc(dst, src, elem_count, elem_size)             \
 	(DeeSytemAssert_MemmoveUp(dst, src, elem_count, elem_size), \
 	 (elem_size) == 2                                           \
 	 ? (void *)memmoveupw(dst, src, elem_count)                 \
-	 : dee_memmoveup(dst, src, (size_t)(elem_count) * (size_t)(elem_size)))
+	 : Dee_libc_memmoveup(dst, src, (size_t)(elem_count) * (size_t)(elem_size)))
 #else /* ... */
 #define memmoveupc(dst, src, elem_count, elem_size) \
 	memmoveup(dst, src, (size_t)(elem_count) * (size_t)(elem_size))
@@ -14641,7 +14641,7 @@ DECL_END
 #else /* ... */
 #define memmoveupq(dst, src, n)                \
 	(DeeSytemAssert_MemmoveUp(dst, src, n, 8), \
-	 (uint64_t *)dee_memmoveup(dst, src, (n)*8))
+	 (uint64_t *)Dee_libc_memmoveup(dst, src, (n)*8))
 #endif /* !... */
 #endif /* !CONFIG_HAVE_memmoveupq */
 
@@ -14653,7 +14653,7 @@ DECL_END
 #else /* CONFIG_HAVE_memmoveupw */
 #define memmoveupl(dst, src, n)                \
 	(DeeSytemAssert_MemmoveUp(dst, src, n, 4), \
-	 (uint32_t *)dee_memmoveup(dst, src, (n)*4))
+	 (uint32_t *)Dee_libc_memmoveup(dst, src, (n)*4))
 #endif /* !CONFIG_HAVE_memmoveupw */
 #endif /* !CONFIG_HAVE_memmoveupl */
 
@@ -14662,12 +14662,12 @@ DECL_END
 #undef memmoveupw
 #define memmoveupw(dst, src, n)                \
 	(DeeSytemAssert_MemmoveUp(dst, src, n, 2), \
-	 (uint16_t *)dee_memmoveup(dst, src, (n)*2))
+	 (uint16_t *)Dee_libc_memmoveup(dst, src, (n)*2))
 #endif /* !CONFIG_HAVE_memmoveupw */
 
-#ifndef dee_memmovedown
-#define dee_memmovedown memmovedown
-#endif /* !dee_memmovedown */
+#ifndef Dee_libc_memmovedown
+#define Dee_libc_memmovedown memmovedown
+#endif /* !Dee_libc_memmovedown */
 
 #ifndef CONFIG_HAVE_memmovedownc
 #define CONFIG_HAVE_memmovedownc
@@ -14681,7 +14681,7 @@ DECL_END
 	   ? (void *)memmovedownl(dst, src, elem_count)               \
 	   : (elem_size) == 8                                         \
 	     ? (void *)memmovedownq(dst, src, elem_count)             \
-	     : dee_memmovedown(dst, src, (size_t)(elem_count) * (size_t)(elem_size)))
+	     : Dee_libc_memmovedown(dst, src, (size_t)(elem_count) * (size_t)(elem_size)))
 #elif defined(CONFIG_HAVE_memmovedownw) && defined(CONFIG_HAVE_memmovedownl)
 #define memmovedownc(dst, src, elem_count, elem_size)             \
 	(DeeSytemAssert_MemmoveDown(dst, src, elem_count, elem_size), \
@@ -14689,7 +14689,7 @@ DECL_END
 	 ? (void *)memmovedownw(dst, src, elem_count)                 \
 	 : (elem_size) == 4                                           \
 	   ? (void *)memmovedownl(dst, src, elem_count)               \
-	   : dee_memmovedown(dst, src, (size_t)(elem_count) * (size_t)(elem_size)))
+	   : Dee_libc_memmovedown(dst, src, (size_t)(elem_count) * (size_t)(elem_size)))
 #elif defined(CONFIG_HAVE_memmovedownw) && defined(CONFIG_HAVE_memmovedownq)
 #define memmovedownc(dst, src, elem_count, elem_size)             \
 	(DeeSytemAssert_MemmoveDown(dst, src, elem_count, elem_size), \
@@ -14697,7 +14697,7 @@ DECL_END
 	 ? (void *)memmovedownw(dst, src, elem_count)                 \
 	 : (elem_size) == 8                                           \
 	   ? (void *)memmovedownq(dst, src, elem_count)               \
-	   : dee_memmovedown(dst, src, (size_t)(elem_count) * (size_t)(elem_size)))
+	   : Dee_libc_memmovedown(dst, src, (size_t)(elem_count) * (size_t)(elem_size)))
 #elif defined(CONFIG_HAVE_memmovedownl) && defined(CONFIG_HAVE_memmovedownq)
 #define memmovedownc(dst, src, elem_count, elem_size)             \
 	(DeeSytemAssert_MemmoveDown(dst, src, elem_count, elem_size), \
@@ -14705,25 +14705,25 @@ DECL_END
 	 ? (void *)memmovedownl(dst, src, elem_count)                 \
 	 : (elem_size) == 8                                           \
 	   ? (void *)memmovedownq(dst, src, elem_count)               \
-	   : dee_memmovedown(dst, src, (size_t)(elem_count) * (size_t)(elem_size)))
+	   : Dee_libc_memmovedown(dst, src, (size_t)(elem_count) * (size_t)(elem_size)))
 #elif defined(CONFIG_HAVE_memmovedownq)
 #define memmovedownc(dst, src, elem_count, elem_size)             \
 	(DeeSytemAssert_MemmoveDown(dst, src, elem_count, elem_size), \
 	 (elem_size) == 8                                             \
 	 ? (void *)memmovedownq(dst, src, elem_count)                 \
-	 : dee_memmovedown(dst, src, (size_t)(elem_count) * (size_t)(elem_size)))
+	 : Dee_libc_memmovedown(dst, src, (size_t)(elem_count) * (size_t)(elem_size)))
 #elif defined(CONFIG_HAVE_memmovedownl)
 #define memmovedownc(dst, src, elem_count, elem_size)             \
 	(DeeSytemAssert_MemmoveDown(dst, src, elem_count, elem_size), \
 	 (elem_size) == 4                                             \
 	 ? (void *)memmovedownl(dst, src, elem_count)                 \
-	 : dee_memmovedown(dst, src, (size_t)(elem_count) * (size_t)(elem_size)))
+	 : Dee_libc_memmovedown(dst, src, (size_t)(elem_count) * (size_t)(elem_size)))
 #elif defined(CONFIG_HAVE_memmovedownw)
 #define memmovedownc(dst, src, elem_count, elem_size)             \
 	(DeeSytemAssert_MemmoveDown(dst, src, elem_count, elem_size), \
 	 (elem_size) == 2                                             \
 	 ? (void *)memmovedownw(dst, src, elem_count)                 \
-	 : dee_memmovedown(dst, src, (size_t)(elem_count) * (size_t)(elem_size)))
+	 : Dee_libc_memmovedown(dst, src, (size_t)(elem_count) * (size_t)(elem_size)))
 #else /* ... */
 #define memmovedownc(dst, src, elem_count, elem_size) \
 	memmovedown(dst, src, (size_t)(elem_count) * (size_t)(elem_size))
@@ -14740,7 +14740,7 @@ DECL_END
 #else /* ... */
 #define memmovedownq(dst, src, n)                \
 	(DeeSytemAssert_MemmoveDown(dst, src, n, 8), \
-	 (uint64_t *)dee_memmovedown(dst, src, (n)*8))
+	 (uint64_t *)Dee_libc_memmovedown(dst, src, (n)*8))
 #endif /* !... */
 #endif /* !CONFIG_HAVE_memmovedownq */
 
@@ -14752,7 +14752,7 @@ DECL_END
 #else /* CONFIG_HAVE_memmovedownw */
 #define memmovedownl(dst, src, n)                \
 	(DeeSytemAssert_MemmoveDown(dst, src, n, 4), \
-	 (uint32_t *)dee_memmovedown(dst, src, (n)*4))
+	 (uint32_t *)Dee_libc_memmovedown(dst, src, (n)*4))
 #endif /* !CONFIG_HAVE_memmovedownw */
 #endif /* !CONFIG_HAVE_memmovedownl */
 
@@ -14761,7 +14761,7 @@ DECL_END
 #undef memmovedownw
 #define memmovedownw(dst, src, n)                \
 	(DeeSytemAssert_MemmoveDown(dst, src, n, 2), \
-	 (uint16_t *)dee_memmovedown(dst, src, (n)*2))
+	 (uint16_t *)Dee_libc_memmovedown(dst, src, (n)*2))
 #endif /* !CONFIG_HAVE_memmovedownw */
 
 #ifndef CONFIG_HAVE_memsetw
@@ -15081,13 +15081,13 @@ DECL_END
 /* NOTE: `memsetp' is enabled on a per-file basis by writing:
  * >> #ifndef CONFIG_HAVE_memsetp
  * >> #define memsetp(dst, pointer, num_pointers) \
- * >> 	dee_memsetp(dst, (__UINTPTR_TYPE__)(pointer), num_pointers)
- * >> DeeSystem_DEFINE_memsetp(dee_memsetp)
+ * >> 	Dee_libc_memsetp(dst, (__UINTPTR_TYPE__)(pointer), num_pointers)
+ * >> DeeSystem_DEFINE_memsetp(Dee_libc_memsetp)
  * >> #endif // !CONFIG_HAVE_memsetp
  * >> #ifndef CONFIG_HAVE_mempsetp
  * >> #define mempsetp(dst, pointer, num_pointers) \
- * >> 	dee_mempsetp(dst, (__UINTPTR_TYPE__)(pointer), num_pointers)
- * >> DeeSystem_DEFINE_mempsetp(dee_mempsetp)
+ * >> 	Dee_libc_mempsetp(dst, (__UINTPTR_TYPE__)(pointer), num_pointers)
+ * >> DeeSystem_DEFINE_mempsetp(Dee_libc_mempsetp)
  * >> #endif // !CONFIG_HAVE_mempsetp
  */
 #undef memsetp

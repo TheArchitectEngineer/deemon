@@ -156,8 +156,8 @@ DECL_BEGIN
 #ifndef CONFIG_HAVE_strnlen
 #define CONFIG_HAVE_strnlen
 #undef strnlen
-#define strnlen dee_strnlen
-DeeSystem_DEFINE_strnlen(strnlen)
+#define strnlen Dee_libc_strnlen
+DeeSystem_DEFINE_strnlen(Dee_libc_strnlen)
 #endif /* !CONFIG_HAVE_strnlen */
 
 

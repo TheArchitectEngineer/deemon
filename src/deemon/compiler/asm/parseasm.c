@@ -60,8 +60,8 @@ INTERN struct asm_symtab     symtab;
 #ifdef CONFIG_HAVE_memcasecmp
 #define MEMCASEEQ(a, b, s) (memcasecmp(a, b, s) == 0)
 #else /* CONFIG_HAVE_memcasecmp */
-#define MEMCASEEQ(a, b, s) dee_memcaseeq((uint8_t *)(a), (uint8_t *)(b), s)
-LOCAL WUNUSED NONNULL((1, 2)) bool dee_memcaseeq(uint8_t const *a, uint8_t const *b, size_t s) {
+#define MEMCASEEQ(a, b, s) Dee_libc_memcaseeq((uint8_t *)(a), (uint8_t *)(b), s)
+LOCAL WUNUSED NONNULL((1, 2)) bool Dee_libc_memcaseeq(uint8_t const *a, uint8_t const *b, size_t s) {
 	while (s--) {
 		if (DeeUni_ToLower(*a) != DeeUni_ToLower(*b))
 			return false;
@@ -75,8 +75,8 @@ LOCAL WUNUSED NONNULL((1, 2)) bool dee_memcaseeq(uint8_t const *a, uint8_t const
 #ifdef CONFIG_HAVE_strcasecmp
 #define STRCASEEQ(a, b) (strcasecmp(a, b) == 0)
 #else /* CONFIG_HAVE_strcasecmp */
-#define STRCASEEQ(a, b) dee_strcaseeq((char *)(a), (char *)(b))
-LOCAL WUNUSED NONNULL((1, 2)) bool dee_strcaseeq(char *a, char *b) {
+#define STRCASEEQ(a, b) Dee_libc_strcaseeq((char *)(a), (char *)(b))
+LOCAL WUNUSED NONNULL((1, 2)) bool Dee_libc_strcaseeq(char *a, char *b) {
 	while (*a) {
 		if (DeeUni_ToLower(*a) != DeeUni_ToLower(*b))
 			return false;

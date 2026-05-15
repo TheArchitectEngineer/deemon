@@ -844,9 +844,9 @@ DECL_END
 #define CONFIG_HAVE_memset
 DECL_BEGIN
 #undef memset
-#define memset dee_memset /*!export-*/
+#define memset Dee_libc_memset /*!export-*/
 LOCAL WUNUSED ATTR_OUTS(1, 3) void *
-dee_memset(void *__restrict dst, int byte, size_t num_bytes) { /*!export-*/
+Dee_libc_memset(void *__restrict dst, int byte, size_t num_bytes) { /*!export-*/
 	uint8_t *dst_p = (uint8_t *)dst;
 	while (num_bytes--)
 		*dst_p++ = (uint8_t)(unsigned int)byte;
@@ -2303,7 +2303,7 @@ typedef struct Dee_buffer {
 #define Dee_BUFFER_FMASK     0x0001 /* Mask of known buffer flags. */
 
 /* Object buffer interface.
- * @param: flags: Set of `DEE_BUFFER_F*'
+ * @param: flags: Set of `Dee_BUFFER_F*'
  * @throw: Error.RuntimeError.NotImplemented: The object doesn't implement the buffer protocol.
  * @throw: Error.ValueError.BufferError:      The object is an atomic buffer, or cannot be written to. */
 DFUNDEF WUNUSED NONNULL((1, 2)) int

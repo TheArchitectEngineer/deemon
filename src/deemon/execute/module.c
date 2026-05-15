@@ -69,8 +69,8 @@ DECL_BEGIN
 #ifndef CONFIG_HAVE_strcmp
 #define CONFIG_HAVE_strcmp
 #undef strcmp
-#define strcmp dee_strcmp
-DeeSystem_DEFINE_strcmp(dee_strcmp)
+#define strcmp Dee_libc_strcmp
+DeeSystem_DEFINE_strcmp(Dee_libc_strcmp)
 #endif /* !CONFIG_HAVE_strcmp */
 
 INTERN WUNUSED NONNULL((1)) DREF DeeStringObject *DCALL
@@ -554,14 +554,14 @@ err_is_readonly:
 #ifndef CONFIG_HAVE_strcasecmp
 #define CONFIG_HAVE_strcasecmp
 #undef strcasecmp
-#define strcasecmp dee_strcasecmp
-DeeSystem_DEFINE_strcasecmp(dee_strcasecmp)
+#define strcasecmp Dee_libc_strcasecmp
+DeeSystem_DEFINE_strcasecmp(Dee_libc_strcasecmp)
 #endif /* !CONFIG_HAVE_strcasecmp */
 #ifndef CONFIG_HAVE_strcasecmpz
 #define CONFIG_HAVE_strcasecmpz
 #undef strcasecmpz
-#define strcasecmpz dee_strcasecmpz
-DeeSystem_DEFINE_strcasecmpz(dee_strcasecmpz)
+#define strcasecmpz Dee_libc_strcasecmpz
+DeeSystem_DEFINE_strcasecmpz(Dee_libc_strcasecmpz)
 #endif /* !CONFIG_HAVE_strcasecmpz */
 #else /* DeeSystem_HAVE_FS_ICASE */
 #define FS_strcmp  strcmp
@@ -569,8 +569,8 @@ DeeSystem_DEFINE_strcasecmpz(dee_strcasecmpz)
 #ifndef CONFIG_HAVE_strcmpz
 #define CONFIG_HAVE_strcmpz
 #undef strcmpz
-#define strcmpz dee_strcmpz
-DeeSystem_DEFINE_strcmpz(dee_strcmpz)
+#define strcmpz Dee_libc_strcmpz
+DeeSystem_DEFINE_strcmpz(Dee_libc_strcmpz)
 #endif /* !CONFIG_HAVE_strcmpz */
 #endif /* !DeeSystem_HAVE_FS_ICASE */
 

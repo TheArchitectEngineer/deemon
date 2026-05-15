@@ -153,8 +153,8 @@ DECL_BEGIN
 #ifndef CONFIG_HAVE_memrev
 #define CONFIG_HAVE_memrev
 #undef memrev
-#define memrev dee_memrev
-DeeSystem_DEFINE_memrev(dee_memrev)
+#define memrev Dee_libc_memrev
+DeeSystem_DEFINE_memrev(Dee_libc_memrev)
 #endif /* !CONFIG_HAVE_memrev */
 
 typedef DeeBytesObject Bytes;
@@ -3286,8 +3286,8 @@ bytes_vercompare(Bytes *self, size_t argc, DeeObject *const *argv) {
 	int result;
 	if (acquire_bcompare_args(self, &args, argc, argv, "vercompare"))
 		goto err;
-	result = dee_strverscmpb(args.lhs_ptr, args.lhs_len,
-	                         args.rhs_ptr, args.rhs_len);
+	result = unicode_strverscmpb(args.lhs_ptr, args.lhs_len,
+	                             args.rhs_ptr, args.rhs_len);
 	release_bcompare_args(self, &args);
 	return_reference(DeeInt_FromSign(result));
 err:
@@ -3300,8 +3300,8 @@ bytes_wildcompare(Bytes *self, size_t argc, DeeObject *const *argv) {
 	int result;
 	if (acquire_bcompare_args(self, &args, argc, argv, "wildcompare"))
 		goto err;
-	result = dee_wildcompareb(args.lhs_ptr, args.lhs_len,
-	                          args.rhs_ptr, args.rhs_len);
+	result = unicode_wildcompareb(args.lhs_ptr, args.lhs_len,
+	                              args.rhs_ptr, args.rhs_len);
 	release_bcompare_args(self, &args);
 	return_reference(DeeInt_FromSign(result));
 err:
@@ -3314,8 +3314,8 @@ bytes_fuzzycompare(Bytes *self, size_t argc, DeeObject *const *argv) {
 	size_t result;
 	if (acquire_bcompare_args(self, &args, argc, argv, "fuzzycompare"))
 		goto err;
-	result = dee_fuzzy_compareb(args.lhs_ptr, args.lhs_len,
-	                            args.rhs_ptr, args.rhs_len);
+	result = unicode_fuzzy_compareb(args.lhs_ptr, args.lhs_len,
+	                                args.rhs_ptr, args.rhs_len);
 	release_bcompare_args(self, &args);
 	if unlikely(result == (size_t)-1)
 		goto err;
@@ -3330,8 +3330,8 @@ bytes_wmatch(Bytes *self, size_t argc, DeeObject *const *argv) {
 	int result;
 	if (acquire_bcompare_args(self, &args, argc, argv, "wmatch"))
 		goto err;
-	result = dee_wildcompareb(args.lhs_ptr, args.lhs_len,
-	                          args.rhs_ptr, args.rhs_len);
+	result = unicode_wildcompareb(args.lhs_ptr, args.lhs_len,
+	                              args.rhs_ptr, args.rhs_len);
 	release_bcompare_args(self, &args);
 	return_bool(result == 0);
 err:
@@ -3371,8 +3371,8 @@ bytes_casevercompare(Bytes *self, size_t argc, DeeObject *const *argv) {
 	struct bcompare_args args;
 	if (acquire_bcompare_args(self, &args, argc, argv, "casevercompare"))
 		goto err;
-	result = dee_strcaseverscmp_ascii(args.lhs_ptr, args.lhs_len,
-	                                  args.rhs_ptr, args.rhs_len);
+	result = unicode_strcaseverscmp_ascii(args.lhs_ptr, args.lhs_len,
+	                                      args.rhs_ptr, args.rhs_len);
 	release_bcompare_args(self, &args);
 	return_reference(DeeInt_FromSign(result));
 err:
@@ -3385,8 +3385,8 @@ bytes_casewildcompare(Bytes *self, size_t argc, DeeObject *const *argv) {
 	int result;
 	if (acquire_bcompare_args(self, &args, argc, argv, "casewildcompare"))
 		goto err;
-	result = dee_wildcasecompare_ascii(args.lhs_ptr, args.lhs_len,
-	                                   args.rhs_ptr, args.rhs_len);
+	result = unicode_wildcasecompare_ascii(args.lhs_ptr, args.lhs_len,
+	                                       args.rhs_ptr, args.rhs_len);
 	release_bcompare_args(self, &args);
 	return_reference(DeeInt_FromSign(result));
 err:
@@ -3399,7 +3399,7 @@ bytes_casefuzzycompare(Bytes *self, size_t argc, DeeObject *const *argv) {
 	Dee_ssize_t result;
 	if (acquire_bcompare_args(self, &args, argc, argv, "casefuzzycompare"))
 		goto err;
-	result = dee_fuzzy_casecompare_ascii(args.lhs_ptr, args.lhs_len,
+	result = unicode_fuzzy_casecompare_ascii(args.lhs_ptr, args.lhs_len,
 	                                     args.rhs_ptr, args.rhs_len);
 	release_bcompare_args(self, &args);
 	if unlikely(result == (Dee_ssize_t)-1)
@@ -3415,8 +3415,8 @@ bytes_casewmatch(Bytes *self, size_t argc, DeeObject *const *argv) {
 	int result;
 	if (acquire_bcompare_args(self, &args, argc, argv, "casewmatch"))
 		goto err;
-	result = dee_wildcasecompare_ascii(args.lhs_ptr, args.lhs_len,
-	                                   args.rhs_ptr, args.rhs_len);
+	result = unicode_wildcasecompare_ascii(args.lhs_ptr, args.lhs_len,
+	                                       args.rhs_ptr, args.rhs_len);
 	release_bcompare_args(self, &args);
 	return_bool(result == 0);
 err:
@@ -4050,9 +4050,9 @@ bytes_findmatch(Bytes *self, size_t argc, DeeObject *const *argv) {
 	scan_len = DeeBytes_SIZE(self);
 	CLAMP_SUBSTR(&args.start, &args.end, &scan_len, not_found);
 	scan_str = DeeBytes_DATA(self);
-	ptr = dee_find_matchb(scan_str + args.start, scan_len,
-	                      s_open.n_data, s_open.n_size,
-	                      s_clos.n_data, s_clos.n_size);
+	ptr = unicode_find_matchb(scan_str + args.start, scan_len,
+	                          s_open.n_data, s_open.n_size,
+	                          s_clos.n_data, s_clos.n_size);
 	if unlikely(!ptr)
 		goto not_found;
 	return DeeInt_NewSize((size_t)(ptr - scan_str));
@@ -4092,9 +4092,9 @@ bytes_rfindmatch(Bytes *self, size_t argc, DeeObject *const *argv) {
 	scan_len = DeeBytes_SIZE(self);
 	CLAMP_SUBSTR(&args.start, &args.end, &scan_len, not_found);
 	scan_str = DeeBytes_DATA(self);
-	ptr = dee_rfind_matchb(scan_str + args.start, scan_len,
-	                       s_open.n_data, s_open.n_size,
-	                       s_clos.n_data, s_clos.n_size);
+	ptr = unicode_rfind_matchb(scan_str + args.start, scan_len,
+	                           s_open.n_data, s_open.n_size,
+	                           s_clos.n_data, s_clos.n_size);
 	if unlikely(!ptr)
 		goto not_found;
 	return DeeInt_NewSize((size_t)(ptr - scan_str));
@@ -4134,9 +4134,9 @@ bytes_indexmatch(Bytes *self, size_t argc, DeeObject *const *argv) {
 	scan_len = DeeBytes_SIZE(self);
 	CLAMP_SUBSTR(&args.start, &args.end, &scan_len, not_found);
 	scan_str = DeeBytes_DATA(self);
-	ptr = dee_find_matchb(scan_str + args.start, scan_len,
-	                      s_open.n_data, s_open.n_size,
-	                      s_clos.n_data, s_clos.n_size);
+	ptr = unicode_find_matchb(scan_str + args.start, scan_len,
+	                          s_open.n_data, s_open.n_size,
+	                          s_clos.n_data, s_clos.n_size);
 	if unlikely(!ptr)
 		goto not_found;
 	return DeeInt_NewSize((size_t)(ptr - scan_str));
@@ -4176,9 +4176,9 @@ bytes_rindexmatch(Bytes *self, size_t argc, DeeObject *const *argv) {
 	scan_len = DeeBytes_SIZE(self);
 	CLAMP_SUBSTR(&args.start, &args.end, &scan_len, not_found);
 	scan_str = DeeBytes_DATA(self);
-	ptr = dee_rfind_matchb(scan_str + args.start, scan_len,
-	                       s_open.n_data, s_open.n_size,
-	                       s_clos.n_data, s_clos.n_size);
+	ptr = unicode_rfind_matchb(scan_str + args.start, scan_len,
+	                           s_open.n_data, s_open.n_size,
+	                           s_clos.n_data, s_clos.n_size);
 	if unlikely(!ptr)
 		goto not_found;
 	return DeeInt_NewSize((size_t)(ptr - scan_str));
@@ -4218,9 +4218,9 @@ bytes_casefindmatch(Bytes *self, size_t argc, DeeObject *const *argv) {
 	scan_len = DeeBytes_SIZE(self);
 	CLAMP_SUBSTR(&args.start, &args.end, &scan_len, not_found);
 	scan_str = DeeBytes_DATA(self);
-	ptr = dee_find_casematch_ascii(scan_str + args.start, scan_len,
-	                               s_open.n_data, s_open.n_size,
-	                               s_clos.n_data, s_clos.n_size);
+	ptr = unicode_find_casematch_ascii(scan_str + args.start, scan_len,
+	                                   s_open.n_data, s_open.n_size,
+	                                   s_clos.n_data, s_clos.n_size);
 	if unlikely(!ptr)
 		goto not_found;
 	return DeeSeq_OfPairII((size_t)(ptr - scan_str), s_clos.n_size);
@@ -4260,9 +4260,9 @@ bytes_caserfindmatch(Bytes *self, size_t argc, DeeObject *const *argv) {
 	scan_len = DeeBytes_SIZE(self);
 	CLAMP_SUBSTR(&args.start, &args.end, &scan_len, not_found);
 	scan_str = DeeBytes_DATA(self);
-	ptr = dee_rfind_casematch_ascii(scan_str + args.start, scan_len,
-	                                s_open.n_data, s_open.n_size,
-	                                s_clos.n_data, s_clos.n_size);
+	ptr = unicode_rfind_casematch_ascii(scan_str + args.start, scan_len,
+	                                    s_open.n_data, s_open.n_size,
+	                                    s_clos.n_data, s_clos.n_size);
 	if unlikely(!ptr)
 		goto not_found;
 	result = (size_t)(ptr - scan_str);
@@ -4303,9 +4303,9 @@ bytes_caseindexmatch(Bytes *self, size_t argc, DeeObject *const *argv) {
 	scan_len = DeeBytes_SIZE(self);
 	CLAMP_SUBSTR(&args.start, &args.end, &scan_len, not_found);
 	scan_str = DeeBytes_DATA(self);
-	ptr = dee_find_casematch_ascii(scan_str + args.start, scan_len,
-	                               s_open.n_data, s_open.n_size,
-	                               s_clos.n_data, s_clos.n_size);
+	ptr = unicode_find_casematch_ascii(scan_str + args.start, scan_len,
+	                                   s_open.n_data, s_open.n_size,
+	                                   s_clos.n_data, s_clos.n_size);
 	if unlikely(!ptr)
 		goto not_found;
 	result = (size_t)(ptr - scan_str);
@@ -4346,9 +4346,9 @@ bytes_caserindexmatch(Bytes *self, size_t argc, DeeObject *const *argv) {
 	scan_len = DeeBytes_SIZE(self);
 	CLAMP_SUBSTR(&args.start, &args.end, &scan_len, not_found);
 	scan_str = DeeBytes_DATA(self);
-	ptr = dee_rfind_casematch_ascii(scan_str + args.start, scan_len,
-	                                s_open.n_data, s_open.n_size,
-	                                s_clos.n_data, s_clos.n_size);
+	ptr = unicode_rfind_casematch_ascii(scan_str + args.start, scan_len,
+	                                    s_open.n_data, s_open.n_size,
+	                                    s_clos.n_data, s_clos.n_size);
 	if unlikely(!ptr)
 		goto not_found;
 	result = (size_t)(ptr - scan_str);
@@ -4406,10 +4406,10 @@ bytes_partitionmatch(Bytes *self, size_t argc, DeeObject *const *argv) {
 	                      s_open.n_data, s_open.n_size);
 	if unlikely(!match_start)
 		goto not_found;
-	match_end = (byte_t *)dee_find_matchb(match_start + s_open.n_size,
-	                                      scan_len - (match_start - (scan_str + args.start)),
-	                                      s_open.n_data, s_open.n_size,
-	                                      s_clos.n_data, s_clos.n_size);
+	match_end = (byte_t *)unicode_find_matchb(match_start + s_open.n_size,
+	                                          scan_len - (match_start - (scan_str + args.start)),
+	                                          s_open.n_data, s_open.n_size,
+	                                          s_clos.n_data, s_clos.n_size);
 	if unlikely(!match_end)
 		goto not_found;
 	SET_BYTES(DeeBytes_NewSubView(self, scan_str,
@@ -4488,10 +4488,10 @@ bytes_rpartitionmatch(Bytes *self, size_t argc, DeeObject *const *argv) {
 	                     s_clos.n_data, s_clos.n_size);
 	if unlikely(!match_end)
 		goto not_found;
-	match_start = (byte_t *)dee_rfind_matchb(scan_str + args.start,
-	                                         (size_t)(match_end - (scan_str + args.start)),
-	                                         s_open.n_data, s_open.n_size,
-	                                         s_clos.n_data, s_clos.n_size);
+	match_start = (byte_t *)unicode_rfind_matchb(scan_str + args.start,
+	                                             (size_t)(match_end - (scan_str + args.start)),
+	                                             s_open.n_data, s_open.n_size,
+	                                             s_clos.n_data, s_clos.n_size);
 	if unlikely(!match_start)
 		goto not_found;
 	SET_BYTES(DeeBytes_NewSubView(self, scan_str,
@@ -4570,10 +4570,10 @@ bytes_casepartitionmatch(Bytes *self, size_t argc, DeeObject *const *argv) {
 	                              s_open.n_data, s_open.n_size);
 	if unlikely(!match_start)
 		goto not_found;
-	match_end = (byte_t *)dee_find_casematch_ascii(match_start + s_open.n_size,
-	                                               scan_len - (match_start - (scan_str + args.start)),
-	                                               s_open.n_data, s_open.n_size,
-	                                               s_clos.n_data, s_clos.n_size);
+	match_end = (byte_t *)unicode_find_casematch_ascii(match_start + s_open.n_size,
+	                                                   scan_len - (match_start - (scan_str + args.start)),
+	                                                   s_open.n_data, s_open.n_size,
+	                                                   s_clos.n_data, s_clos.n_size);
 	if unlikely(!match_end)
 		goto not_found;
 	SET_BYTES(DeeBytes_NewSubView(self, scan_str,
@@ -4652,10 +4652,10 @@ bytes_caserpartitionmatch(Bytes *self, size_t argc, DeeObject *const *argv) {
 	                             s_clos.n_data, s_clos.n_size);
 	if unlikely(!match_end)
 		goto not_found;
-	match_start = (byte_t *)dee_rfind_casematch_ascii(scan_str + args.start,
-	                                                  (size_t)(match_end - (scan_str + args.start)),
-	                                                  s_open.n_data, s_open.n_size,
-	                                                  s_clos.n_data, s_clos.n_size);
+	match_start = (byte_t *)unicode_rfind_casematch_ascii(scan_str + args.start,
+	                                                      (size_t)(match_end - (scan_str + args.start)),
+	                                                      s_open.n_data, s_open.n_size,
+	                                                      s_clos.n_data, s_clos.n_size);
 	if unlikely(!match_start)
 		goto not_found;
 	SET_BYTES(DeeBytes_NewSubView(self, scan_str,
@@ -5397,8 +5397,8 @@ err:
 #ifndef CONFIG_HAVE_memsetp
 #define CONFIG_HAVE_memsetp
 #define memsetp(dst, pointer, num_pointers) \
-	dee_memsetp(dst, (__UINTPTR_TYPE__)(pointer), num_pointers)
-DeeSystem_DEFINE_memsetp(dee_memsetp)
+	Dee_libc_memsetp(dst, (__UINTPTR_TYPE__)(pointer), num_pointers)
+DeeSystem_DEFINE_memsetp(Dee_libc_memsetp)
 #endif /* !CONFIG_HAVE_memsetp */
 
 PRIVATE WUNUSED NONNULL((1)) DREF Bytes *DCALL

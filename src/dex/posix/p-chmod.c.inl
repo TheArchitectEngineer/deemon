@@ -216,8 +216,8 @@ for (local f: functions) {
 #undef fposix_chmod_USE_wopen_AND_fchmod
 #define posix_chmod_USE_wchmod
 #undef wchmod
-#define wchmod dee_wchmod
-PRIVATE int DCALL dee_wchmod(wchar_t *filename, int mode) {
+#define wchmod Dee_libc_wchmod
+PRIVATE int DCALL Dee_libc_wchmod(wchar_t *filename, int mode) {
 	int result;
 	result = wopen(filename, O_RDWR);
 	if (result != -1) {
@@ -234,8 +234,8 @@ PRIVATE int DCALL dee_wchmod(wchar_t *filename, int mode) {
 #undef fposix_chmod_USE_open_AND_fchmod
 #define posix_chmod_USE_chmod
 #undef chmod
-#define chmod dee_chmod
-PRIVATE int DCALL dee_chmod(char *filename, int mode) {
+#define chmod Dee_libc_chmod
+PRIVATE int DCALL Dee_libc_chmod(char *filename, int mode) {
 	int result;
 	result = open(filename, O_RDWR);
 	if (result != -1) {
@@ -252,8 +252,8 @@ PRIVATE int DCALL dee_chmod(char *filename, int mode) {
 #undef fposix_lchmod_USE_wopen_AND_fchmod
 #define posix_lchmod_USE_wlchmod
 #undef wlchmod
-#define wlchmod dee_wlchmod
-PRIVATE int DCALL dee_wlchmod(wchar_t *filename, int mode) {
+#define wlchmod Dee_libc_wlchmod
+PRIVATE int DCALL Dee_libc_wlchmod(wchar_t *filename, int mode) {
 	int result;
 	result = wopen(filename, O_RDWR | O_NOFOLLOW);
 	if (result != -1) {
@@ -270,8 +270,8 @@ PRIVATE int DCALL dee_wlchmod(wchar_t *filename, int mode) {
 #undef fposix_lchmod_USE_open_AND_fchmod
 #define posix_lchmod_USE_lchmod
 #undef lchmod
-#define lchmod dee_lchmod
-PRIVATE int DCALL dee_lchmod(char *filename, int mode) {
+#define lchmod Dee_libc_lchmod
+PRIVATE int DCALL Dee_libc_lchmod(char *filename, int mode) {
 	int result;
 	result = open(filename, O_RDWR | O_NOFOLLOW);
 	if (result != -1) {

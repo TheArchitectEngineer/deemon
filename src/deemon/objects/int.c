@@ -243,8 +243,8 @@ STATIC_ASSERT(Dee_CompareNe(INT_MAX, INT_MIN) == Dee_COMPARE_GR);
 #ifndef CONFIG_HAVE_memend
 #define CONFIG_HAVE_memend
 #undef memend
-#define memend dee_memend
-DeeSystem_DEFINE_memend(dee_memend)
+#define memend Dee_libc_memend
+DeeSystem_DEFINE_memend(Dee_libc_memend)
 #endif /* !CONFIG_HAVE_memend */
 
 #ifdef NDEBUG
@@ -3302,7 +3302,7 @@ INTERN struct {
 	OBJECT_HEAD
 	Dee_ssize_t _size;
 	Dee_digit_t _digits[CEILDIV(128, Dee_DIGIT_BITS)];
-} dee_uint128_max = {
+} Dee_uint128_max = {
 	OBJECT_HEAD_INIT(&DeeInt_Type),
 	CEILDIV(128, Dee_DIGIT_BITS),
 	{
@@ -3339,7 +3339,7 @@ PUBLIC WUNUSED ATTR_OUT(2) NONNULL((1)) int
 	return 0;
 err_overflow:
 	return DeeRT_ErrIntegerOverflow(self, DeeInt_MinusOne,
-	                                Dee_AsObject(&dee_uint128_max),
+	                                Dee_AsObject(&Dee_uint128_max),
 	                                false);
 }
 

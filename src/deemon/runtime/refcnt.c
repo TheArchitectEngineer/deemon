@@ -46,8 +46,8 @@ PRIVATE void DCALL free_reftracker(struct Dee_reftracker *__restrict self);
 
 #ifndef CONFIG_HAVE_memsetp
 #define memsetp(dst, pointer, num_pointers) \
-	dee_memsetp(dst, (__UINTPTR_TYPE__)(pointer), num_pointers)
-DeeSystem_DEFINE_memsetp(dee_memsetp)
+	Dee_libc_memsetp(dst, (__UINTPTR_TYPE__)(pointer), num_pointers)
+DeeSystem_DEFINE_memsetp(Dee_libc_memsetp)
 #endif // !CONFIG_HAVE_memsetp
 
 

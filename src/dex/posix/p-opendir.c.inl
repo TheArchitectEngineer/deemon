@@ -595,8 +595,8 @@ typedef struct dir_object {
 #ifndef CONFIG_HAVE_wcslen
 #define CONFIG_HAVE_wcslen
 #undef wcslen
-#define wcslen dee_wcslen
-DeeSystem_DEFINE_wcslen(dee_wcslen)
+#define wcslen Dee_libc_wcslen
+DeeSystem_DEFINE_wcslen(Dee_libc_wcslen)
 #endif /* !CONFIG_HAVE_wcslen */
 #endif /* posix_opendir_USE_FindFirstFileExW */
 

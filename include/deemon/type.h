@@ -1427,7 +1427,7 @@ struct Dee_type_buffer {
 	/* Low-level buffer interface. */
 
 	/* When implemented, `tp_getbuf' must fill in at least `bb_base' and `bb_size'
-	 * @param: flags: Set of `DEE_BUFFER_F*' */
+	 * @param: flags: Set of `Dee_BUFFER_F*' */
 	WUNUSED_T NONNULL_T((1, 2))
 	int  (DCALL *tp_getbuf)(DeeObject *__restrict self,
 	                        struct Dee_buffer *__restrict info,
@@ -1437,7 +1437,7 @@ struct Dee_type_buffer {
 #define Dee_BUFFER_TYPE_FREADONLY 0x0001 /* The buffer can only be used for reading.
 	                                      * -> When set, `DeeObject_GetBuf' fails when
 	                                      *    the `Dee_BUFFER_FWRITABLE' flag is set. */
-	unsigned int tp_buffer_flags; /* Buffer type flags (Set of `DEE_BUFFER_TYPE_F*') */
+	unsigned int tp_buffer_flags; /* Buffer type flags (Set of `Dee_BUFFER_TYPE_F*') */
 };
 
 

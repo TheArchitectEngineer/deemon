@@ -114,7 +114,7 @@ splititer_next(StringSplitIterator *__restrict self) {
 
 PRIVATE WUNUSED NONNULL((1)) DREF DeeObject *DCALL
 casesplititer_next(StringSplitIterator *__restrict self) {
-	/* Literally the same as the non-case version, but use `dee_memcasemem(b|w|l)' instead. */
+	/* Literally the same as the non-case version, but use `unicode_memcasemem(b|w|l)' instead. */
 	union Dee_charptr_const result_start, result_end, next_ptr;
 	size_t result_len, match_length;
 	do {
@@ -124,10 +124,10 @@ casesplititer_next(StringSplitIterator *__restrict self) {
 		SWITCH_SIZEOF_WIDTH(self->s_width) {
 
 		CASE_WIDTH_1BYTE:
-			result_end.cp8 = dee_memcasememb(result_start.cp8,
-			                                 self->s_end.cp8 - result_start.cp8,
-			                                 self->s_sep.cp8, self->s_sepsz,
-			                                 &match_length);
+			result_end.cp8 = unicode_memcasememb(result_start.cp8,
+			                                     self->s_end.cp8 - result_start.cp8,
+			                                     self->s_sep.cp8, self->s_sepsz,
+			                                     &match_length);
 			if (!result_end.cp8) {
 				result_end.cp8 = self->s_end.cp8;
 				next_ptr.cp8   = NULL;
@@ -139,10 +139,10 @@ casesplititer_next(StringSplitIterator *__restrict self) {
 			break;
 
 		CASE_WIDTH_2BYTE:
-			result_end.cp16 = dee_memcasememw(result_start.cp16,
-			                                  self->s_end.cp16 - result_start.cp16,
-			                                  self->s_sep.cp16, self->s_sepsz,
-			                                  &match_length);
+			result_end.cp16 = unicode_memcasememw(result_start.cp16,
+			                                      self->s_end.cp16 - result_start.cp16,
+			                                      self->s_sep.cp16, self->s_sepsz,
+			                                      &match_length);
 			if (!result_end.cp16) {
 				result_end.cp16 = self->s_end.cp16;
 				next_ptr.cp16   = NULL;
@@ -154,10 +154,10 @@ casesplititer_next(StringSplitIterator *__restrict self) {
 			break;
 
 		CASE_WIDTH_4BYTE:
-			result_end.cp32 = dee_memcasememl(result_start.cp32,
-			                                  self->s_end.cp32 - result_start.cp32,
-			                                  self->s_sep.cp32, self->s_sepsz,
-			                                  &match_length);
+			result_end.cp32 = unicode_memcasememl(result_start.cp32,
+			                                      self->s_end.cp32 - result_start.cp32,
+			                                      self->s_sep.cp32, self->s_sepsz,
+			                                      &match_length);
 			if (!result_end.cp32) {
 				result_end.cp32 = self->s_end.cp32;
 				next_ptr.cp32   = NULL;

@@ -90,8 +90,8 @@ DECL_BEGIN
 #ifndef CONFIG_HAVE_wcslen
 #define CONFIG_HAVE_wcslen
 #undef wcslen
-#define wcslen dee_wcslen
-DeeSystem_DEFINE_wcslen(dee_wcslen)
+#define wcslen Dee_libc_wcslen
+DeeSystem_DEFINE_wcslen(Dee_libc_wcslen)
 #endif /* !CONFIG_HAVE_wcslen */
 #endif /* DeeModule_GetDirectory_USE_FindFirstFileExW */
 
@@ -402,8 +402,8 @@ err:
 
 #ifndef CONFIG_HAVE_qsort
 #define CONFIG_HAVE_qsort
-#define qsort   dee_qsort
-DeeSystem_DEFINE_qsort(dee_qsort)
+#define qsort Dee_libc_qsort
+DeeSystem_DEFINE_qsort(Dee_libc_qsort)
 #endif /* !CONFIG_HAVE_qsort */
 
 #ifndef __LIBCCALL
@@ -414,16 +414,16 @@ DeeSystem_DEFINE_qsort(dee_qsort)
 #ifndef CONFIG_HAVE_strcasecmp
 #define CONFIG_HAVE_strcasecmp
 #undef strcasecmp
-#define strcasecmp dee_strcasecmp
-DeeSystem_DEFINE_strcasecmp(dee_strcasecmp)
+#define strcasecmp Dee_libc_strcasecmp
+DeeSystem_DEFINE_strcasecmp(Dee_libc_strcasecmp)
 #endif /* !CONFIG_HAVE_strcasecmp */
 #define fs_strcmp(a, b) strcasecmp(a, b)
 #else /* DeeSystem_HAVE_FS_ICASE */
 #ifndef CONFIG_HAVE_strcmp
 #define CONFIG_HAVE_strcmp
 #undef strcmp
-#define strcmp dee_strcmp
-DeeSystem_DEFINE_strcmp(dee_strcmp)
+#define strcmp Dee_libc_strcmp
+DeeSystem_DEFINE_strcmp(Dee_libc_strcmp)
 #endif /* !CONFIG_HAVE_strcmp */
 #define fs_strcmp(a, b) strcmp(a, b)
 #endif /* !DeeSystem_HAVE_FS_ICASE */

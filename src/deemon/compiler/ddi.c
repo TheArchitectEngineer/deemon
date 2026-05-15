@@ -46,8 +46,8 @@ DECL_BEGIN
 
 #ifndef CONFIG_HAVE_qsort
 #define CONFIG_HAVE_qsort
-#define qsort   dee_qsort
-DeeSystem_DEFINE_qsort(dee_qsort)
+#define qsort Dee_libc_qsort
+DeeSystem_DEFINE_qsort(Dee_libc_qsort)
 #endif /* !CONFIG_HAVE_qsort */
 
 

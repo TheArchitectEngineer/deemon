@@ -225,8 +225,8 @@ for (local f: functions) {
 #undef fposix_chown_USE_wopen_AND_fchown
 #define posix_chown_USE_wchown
 #undef wchown
-#define wchown dee_wchown
-PRIVATE int DCALL dee_wchown(wchar_t *filename, uid_t uid, gid_t gid) {
+#define wchown Dee_libc_wchown
+PRIVATE int DCALL Dee_libc_wchown(wchar_t *filename, uid_t uid, gid_t gid) {
 	int result;
 	result = wopen(filename, O_RDWR);
 	if (result != -1) {
@@ -243,8 +243,8 @@ PRIVATE int DCALL dee_wchown(wchar_t *filename, uid_t uid, gid_t gid) {
 #undef fposix_chown_USE_open_AND_fchown
 #define posix_chown_USE_chown
 #undef chown
-#define chown dee_chown
-PRIVATE int DCALL dee_chown(char *filename, uid_t uid, gid_t gid) {
+#define chown Dee_libc_chown
+PRIVATE int DCALL Dee_libc_chown(char *filename, uid_t uid, gid_t gid) {
 	int result;
 	result = open(filename, O_RDWR);
 	if (result != -1) {
@@ -261,8 +261,8 @@ PRIVATE int DCALL dee_chown(char *filename, uid_t uid, gid_t gid) {
 #undef fposix_lchown_USE_wopen_AND_fchown
 #define posix_lchown_USE_wlchown
 #undef wlchown
-#define wlchown dee_wlchown
-PRIVATE int DCALL dee_wlchown(wchar_t *filename, uid_t uid, gid_t gid) {
+#define wlchown Dee_libc_wlchown
+PRIVATE int DCALL Dee_libc_wlchown(wchar_t *filename, uid_t uid, gid_t gid) {
 	int result;
 	result = wopen(filename, O_RDWR | O_NOFOLLOW);
 	if (result != -1) {
@@ -279,8 +279,8 @@ PRIVATE int DCALL dee_wlchown(wchar_t *filename, uid_t uid, gid_t gid) {
 #undef fposix_lchown_USE_open_AND_fchown
 #define posix_lchown_USE_lchown
 #undef lchown
-#define lchown dee_lchown
-PRIVATE int DCALL dee_lchown(char *filename, uid_t uid, gid_t gid) {
+#define lchown Dee_libc_lchown
+PRIVATE int DCALL Dee_libc_lchown(char *filename, uid_t uid, gid_t gid) {
 	int result;
 	result = open(filename, O_RDWR | O_NOFOLLOW);
 	if (result != -1) {

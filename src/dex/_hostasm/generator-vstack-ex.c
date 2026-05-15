@@ -75,9 +75,9 @@ DECL_BEGIN
 #ifndef CONFIG_HAVE_strchrnul
 #define CONFIG_HAVE_strchrnul
 #undef strchrnul
-#define strchrnul dee_strchrnul
+#define strchrnul Dee_libc_strchrnul
 LOCAL ATTR_RETNONNULL WUNUSED NONNULL((1)) char *
-dee_strchrnul(char const *haystack, int needle) {
+Dee_libc_strchrnul(char const *haystack, int needle) {
 	for (; *haystack; ++haystack) {
 		if ((unsigned char)*haystack == (unsigned char)needle)
 			break;

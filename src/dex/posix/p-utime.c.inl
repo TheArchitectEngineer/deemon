@@ -390,8 +390,8 @@ for (local f: functions) {
 #undef posix_utime_USE_wopen_AND_futime
 #define posix_utime_USE_wutime
 #undef wutime
-#define wutime dee_wutime
-PRIVATE int DCALL dee_wutime(wchar_t const *filename, struct utimbuf *file_times) {
+#define wutime Dee_libc_wutime
+PRIVATE int DCALL Dee_libc_wutime(wchar_t const *filename, struct utimbuf *file_times) {
 	int result;
 	result = wopen(filename, O_RDWR);
 	if (result != -1) {
@@ -408,8 +408,8 @@ PRIVATE int DCALL dee_wutime(wchar_t const *filename, struct utimbuf *file_times
 #undef posix_utime_USE_open_AND_futime
 #define posix_utime_USE_utime
 #undef utime
-#define utime dee_utime
-PRIVATE int DCALL dee_utime(wchar_t const *filename, struct utimbuf *file_times) {
+#define utime Dee_libc_utime
+PRIVATE int DCALL Dee_libc_utime(wchar_t const *filename, struct utimbuf *file_times) {
 	int result;
 	result = open(filename, O_RDWR);
 	if (result != -1) {
@@ -426,8 +426,8 @@ PRIVATE int DCALL dee_utime(wchar_t const *filename, struct utimbuf *file_times)
 #undef posix_lutime_USE_wopen_AND_futime
 #define posix_lutime_USE_wlutime
 #undef wlutime
-#define wlutime dee_wlutime
-PRIVATE int DCALL dee_wlutime(wchar_t const *filename, struct utimbuf *file_times) {
+#define wlutime Dee_libc_wlutime
+PRIVATE int DCALL Dee_libc_wlutime(wchar_t const *filename, struct utimbuf *file_times) {
 	int result;
 	result = wopen(filename, O_RDWR | O_NOFOLLOW);
 	if (result != -1) {
@@ -444,8 +444,8 @@ PRIVATE int DCALL dee_wlutime(wchar_t const *filename, struct utimbuf *file_time
 #undef posix_lutime_USE_open_AND_futime
 #define posix_lutime_USE_lutime
 #undef lutime
-#define lutime dee_lutime
-PRIVATE int DCALL dee_lutime(wchar_t const *filename, struct utimbuf *file_times) {
+#define lutime Dee_libc_lutime
+PRIVATE int DCALL Dee_libc_lutime(wchar_t const *filename, struct utimbuf *file_times) {
 	int result;
 	result = open(filename, O_RDWR | O_NOFOLLOW);
 	if (result != -1) {
@@ -462,8 +462,8 @@ PRIVATE int DCALL dee_lutime(wchar_t const *filename, struct utimbuf *file_times
 #undef posix_utime_USE_wopen_AND_futime32
 #define posix_utime_USE_wutime32
 #undef wutime32
-#define wutime32 dee_wutime32
-PRIVATE int DCALL dee_wutime32(wchar_t const *filename, struct utimbuf32 *file_times) {
+#define wutime32 Dee_libc_wutime32
+PRIVATE int DCALL Dee_libc_wutime32(wchar_t const *filename, struct utimbuf32 *file_times) {
 	int result;
 	result = wopen(filename, O_RDWR);
 	if (result != -1) {
@@ -480,8 +480,8 @@ PRIVATE int DCALL dee_wutime32(wchar_t const *filename, struct utimbuf32 *file_t
 #undef posix_utime_USE_open_AND_futime32
 #define posix_utime_USE_utime32
 #undef utime32
-#define utime32 dee_utime32
-PRIVATE int DCALL dee_utime32(wchar_t const *filename, struct utimbuf32 *file_times) {
+#define utime32 Dee_libc_utime32
+PRIVATE int DCALL Dee_libc_utime32(wchar_t const *filename, struct utimbuf32 *file_times) {
 	int result;
 	result = open(filename, O_RDWR);
 	if (result != -1) {
@@ -498,8 +498,8 @@ PRIVATE int DCALL dee_utime32(wchar_t const *filename, struct utimbuf32 *file_ti
 #undef posix_lutime_USE_wopen_AND_futime32
 #define posix_lutime_USE_wlutime32
 #undef wlutime32
-#define wlutime32 dee_wlutime32
-PRIVATE int DCALL dee_wlutime32(wchar_t const *filename, struct utimbuf32 *file_times) {
+#define wlutime32 Dee_libc_wlutime32
+PRIVATE int DCALL Dee_libc_wlutime32(wchar_t const *filename, struct utimbuf32 *file_times) {
 	int result;
 	result = wopen(filename, O_RDWR | O_NOFOLLOW);
 	if (result != -1) {
@@ -516,8 +516,8 @@ PRIVATE int DCALL dee_wlutime32(wchar_t const *filename, struct utimbuf32 *file_
 #undef posix_lutime_USE_open_AND_futime32
 #define posix_lutime_USE_lutime32
 #undef lutime32
-#define lutime32 dee_lutime32
-PRIVATE int DCALL dee_lutime32(wchar_t const *filename, struct utimbuf32 *file_times) {
+#define lutime32 Dee_libc_lutime32
+PRIVATE int DCALL Dee_libc_lutime32(wchar_t const *filename, struct utimbuf32 *file_times) {
 	int result;
 	result = open(filename, O_RDWR | O_NOFOLLOW);
 	if (result != -1) {
@@ -534,8 +534,8 @@ PRIVATE int DCALL dee_lutime32(wchar_t const *filename, struct utimbuf32 *file_t
 #undef posix_utime_USE_wopen_AND_futime64
 #define posix_utime_USE_wutime64
 #undef wutime64
-#define wutime64 dee_wutime64
-PRIVATE int DCALL dee_wutime64(wchar_t const *filename, struct utimbuf64 *file_times) {
+#define wutime64 Dee_libc_wutime64
+PRIVATE int DCALL Dee_libc_wutime64(wchar_t const *filename, struct utimbuf64 *file_times) {
 	int result;
 	result = wopen(filename, O_RDWR);
 	if (result != -1) {
@@ -552,8 +552,8 @@ PRIVATE int DCALL dee_wutime64(wchar_t const *filename, struct utimbuf64 *file_t
 #undef posix_utime_USE_open_AND_futime64
 #define posix_utime_USE_utime64
 #undef utime64
-#define utime64 dee_utime64
-PRIVATE int DCALL dee_utime64(wchar_t const *filename, struct utimbuf64 *file_times) {
+#define utime64 Dee_libc_utime64
+PRIVATE int DCALL Dee_libc_utime64(wchar_t const *filename, struct utimbuf64 *file_times) {
 	int result;
 	result = open(filename, O_RDWR);
 	if (result != -1) {
@@ -570,8 +570,8 @@ PRIVATE int DCALL dee_utime64(wchar_t const *filename, struct utimbuf64 *file_ti
 #undef posix_lutime_USE_wopen_AND_futime64
 #define posix_lutime_USE_wlutime64
 #undef wlutime64
-#define wlutime64 dee_wlutime64
-PRIVATE int DCALL dee_wlutime64(wchar_t const *filename, struct utimbuf64 *file_times) {
+#define wlutime64 Dee_libc_wlutime64
+PRIVATE int DCALL Dee_libc_wlutime64(wchar_t const *filename, struct utimbuf64 *file_times) {
 	int result;
 	result = wopen(filename, O_RDWR | O_NOFOLLOW);
 	if (result != -1) {
@@ -588,8 +588,8 @@ PRIVATE int DCALL dee_wlutime64(wchar_t const *filename, struct utimbuf64 *file_
 #undef posix_lutime_USE_open_AND_futime64
 #define posix_lutime_USE_lutime64
 #undef lutime64
-#define lutime64 dee_lutime64
-PRIVATE int DCALL dee_lutime64(wchar_t const *filename, struct utimbuf64 *file_times) {
+#define lutime64 Dee_libc_lutime64
+PRIVATE int DCALL Dee_libc_lutime64(wchar_t const *filename, struct utimbuf64 *file_times) {
 	int result;
 	result = open(filename, O_RDWR | O_NOFOLLOW);
 	if (result != -1) {

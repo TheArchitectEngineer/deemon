@@ -79,8 +79,8 @@ DECL_BEGIN
 #ifndef CONFIG_HAVE_memrchr
 #define CONFIG_HAVE_memrchr
 #undef memrchr
-#define memrchr dee_memrchr
-DeeSystem_DEFINE_memrchr(dee_memrchr)
+#define memrchr Dee_libc_memrchr
+DeeSystem_DEFINE_memrchr(Dee_libc_memrchr)
 #endif /* !CONFIG_HAVE_memrchr */
 
 
@@ -108,8 +108,8 @@ DeeSystem_DEFINE_memrchr(dee_memrchr)
 #ifndef CONFIG_HAVE_wcslen
 #define CONFIG_HAVE_wcslen
 #undef wcslen
-#define wcslen dee_wcslen
-DeeSystem_DEFINE_wcslen(dee_wcslen)
+#define wcslen Dee_libc_wcslen
+DeeSystem_DEFINE_wcslen(Dee_libc_wcslen)
 #endif /* !CONFIG_HAVE_wcslen */
 #endif /* DeeSystem_PrintPwd_USE_wgetcwd */
 
@@ -672,8 +672,8 @@ err:
 #ifndef CONFIG_HAVE_memrend
 #define CONFIG_HAVE_memrend
 #undef memrend
-#define memrend dee_memrend
-DeeSystem_DEFINE_memrend(dee_memrend)
+#define memrend Dee_libc_memrend
+DeeSystem_DEFINE_memrend(Dee_libc_memrend)
 #endif /* !CONFIG_HAVE_memrend */
 #endif /* !DeeSystem_ALTSEP || (DeeSystem_ALTSEP == DeeSystem_SEP) */
 

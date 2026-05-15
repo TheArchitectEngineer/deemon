@@ -52,8 +52,8 @@ DECL_BEGIN
 #ifndef CONFIG_HAVE_memrchr
 #define CONFIG_HAVE_memrchr
 #undef memrchr
-#define memrchr dee_memrchr
-DeeSystem_DEFINE_memrchr(dee_memrchr)
+#define memrchr Dee_libc_memrchr
+DeeSystem_DEFINE_memrchr(Dee_libc_memrchr)
 #endif /* !CONFIG_HAVE_memrchr */
 
 #define GET_CHOP(x) (ASSERT((x) < 128), chops[x])

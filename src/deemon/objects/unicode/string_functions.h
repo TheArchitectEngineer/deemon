@@ -66,135 +66,135 @@ DECL_BEGIN
 #ifndef CONFIG_HAVE_memrchr
 #define CONFIG_HAVE_memrchr
 #undef memrchr
-#define memrchr dee_memrchr
-DeeSystem_DEFINE_memrchr(dee_memrchr)
+#define memrchr Dee_libc_memrchr
+DeeSystem_DEFINE_memrchr(Dee_libc_memrchr)
 #endif /* !CONFIG_HAVE_memrchr */
 
 #ifndef CONFIG_HAVE_memmem
 #define CONFIG_HAVE_memmem
 #undef memmem
-#define memmem  dee_memmem
-DeeSystem_DEFINE_memmem(dee_memmem)
+#define memmem Dee_libc_memmem
+DeeSystem_DEFINE_memmem(Dee_libc_memmem)
 #endif /* !CONFIG_HAVE_memmem */
 
 #ifndef CONFIG_HAVE_memrmem
 #define CONFIG_HAVE_memrmem
 #undef memrmem
-#define memrmem dee_memrmem
-DeeSystem_DEFINE_memrmem(dee_memrmem)
+#define memrmem Dee_libc_memrmem
+DeeSystem_DEFINE_memrmem(Dee_libc_memrmem)
 #endif /* !CONFIG_HAVE_memrmem */
 
 #ifndef CONFIG_HAVE_memsetw
 #define CONFIG_HAVE_memsetw
 #undef memsetw
-#define memsetw dee_memsetw
-DeeSystem_DEFINE_memsetw(dee_memsetw)
+#define memsetw Dee_libc_memsetw
+DeeSystem_DEFINE_memsetw(Dee_libc_memsetw)
 #endif /* !CONFIG_HAVE_memsetw */
 
 #ifndef CONFIG_HAVE_memsetl
 #define CONFIG_HAVE_memsetl
 #undef memsetl
-#define memsetl dee_memsetl
-DeeSystem_DEFINE_memsetl(dee_memsetl)
+#define memsetl Dee_libc_memsetl
+DeeSystem_DEFINE_memsetl(Dee_libc_memsetl)
 #endif /* !CONFIG_HAVE_memsetl */
 
 #ifndef CONFIG_HAVE_mempsetw
 #define CONFIG_HAVE_mempsetw
 #undef mempsetw
-#define mempsetw dee_mempsetw
-DeeSystem_DEFINE_mempsetw(dee_mempsetw)
+#define mempsetw Dee_libc_mempsetw
+DeeSystem_DEFINE_mempsetw(Dee_libc_mempsetw)
 #endif /* !CONFIG_HAVE_mempsetw */
 
 #ifndef CONFIG_HAVE_mempsetl
 #define CONFIG_HAVE_mempsetl
 #undef mempsetl
-#define mempsetl dee_mempsetl
-DeeSystem_DEFINE_mempsetl(dee_mempsetl)
+#define mempsetl Dee_libc_mempsetl
+DeeSystem_DEFINE_mempsetl(Dee_libc_mempsetl)
 #endif /* !CONFIG_HAVE_mempsetl */
 
 #ifndef CONFIG_HAVE_memcmpw
 #define CONFIG_HAVE_memcmpw
 #undef memcmpw
-#define memcmpw dee_memcmpw
-DeeSystem_DEFINE_memcmpw(dee_memcmpw)
+#define memcmpw Dee_libc_memcmpw
+DeeSystem_DEFINE_memcmpw(Dee_libc_memcmpw)
 #endif /* !CONFIG_HAVE_memcmpw */
 
 #ifndef CONFIG_HAVE_memcmpl
 #define CONFIG_HAVE_memcmpl
 #undef memcmpl
-#define memcmpl dee_memcmpl
-DeeSystem_DEFINE_memcmpl(dee_memcmpl)
+#define memcmpl Dee_libc_memcmpl
+DeeSystem_DEFINE_memcmpl(Dee_libc_memcmpl)
 #endif /* !CONFIG_HAVE_memcmpl */
 
 #ifndef CONFIG_HAVE_memchrw
 #define CONFIG_HAVE_memchrw
 #undef memchrw
-#define memchrw dee_memchrw
-DeeSystem_DEFINE_memchrw(dee_memchrw)
+#define memchrw Dee_libc_memchrw
+DeeSystem_DEFINE_memchrw(Dee_libc_memchrw)
 #endif /* !CONFIG_HAVE_memchrw */
 
 #ifndef CONFIG_HAVE_memchrl
 #define CONFIG_HAVE_memchrl
 #undef memchrl
-#define memchrl dee_memchrl
-DeeSystem_DEFINE_memchrl(dee_memchrl)
+#define memchrl Dee_libc_memchrl
+DeeSystem_DEFINE_memchrl(Dee_libc_memchrl)
 #endif /* !CONFIG_HAVE_memchrl */
 
 #ifndef CONFIG_HAVE_memrchrw
 #define CONFIG_HAVE_memrchrw
 #undef memrchrw
-#define memrchrw dee_memrchrw
-DeeSystem_DEFINE_memrchrw(dee_memrchrw)
+#define memrchrw Dee_libc_memrchrw
+DeeSystem_DEFINE_memrchrw(Dee_libc_memrchrw)
 #endif /* !CONFIG_HAVE_memrchrw */
 
 #ifndef CONFIG_HAVE_memrchrl
 #define CONFIG_HAVE_memrchrl
 #undef memrchrl
-#define memrchrl dee_memrchrl
-DeeSystem_DEFINE_memrchrl(dee_memrchrl)
+#define memrchrl Dee_libc_memrchrl
+DeeSystem_DEFINE_memrchrl(Dee_libc_memrchrl)
 #endif /* !CONFIG_HAVE_memrchrl */
 
 #ifndef CONFIG_HAVE_memmemw
 #define CONFIG_HAVE_memmemw
 #undef memmemw
-#define memmemw dee_memmemw
-DeeSystem_DEFINE_memmemw(dee_memmemw, memchrw, MEMEQW)
+#define memmemw Dee_libc_memmemw
+DeeSystem_DEFINE_memmemw(Dee_libc_memmemw, memchrw, MEMEQW)
 #endif /* !CONFIG_HAVE_memmemw */
 
 #ifndef CONFIG_HAVE_memmeml
 #define CONFIG_HAVE_memmeml
 #undef memmeml
-#define memmeml dee_memmeml
-DeeSystem_DEFINE_memmeml(dee_memmeml, memchrl, MEMEQL)
+#define memmeml Dee_libc_memmeml
+DeeSystem_DEFINE_memmeml(Dee_libc_memmeml, memchrl, MEMEQL)
 #endif /* !CONFIG_HAVE_memmeml */
 
 #ifndef CONFIG_HAVE_memrmemw
 #define CONFIG_HAVE_memrmemw
 #undef memrmemw
-#define memrmemw dee_memrmemw
-DeeSystem_DEFINE_memrmemw(dee_memrmemw, memrchrw, MEMEQW)
+#define memrmemw Dee_libc_memrmemw
+DeeSystem_DEFINE_memrmemw(Dee_libc_memrmemw, memrchrw, MEMEQW)
 #endif /* !CONFIG_HAVE_memrmemw */
 
 #ifndef CONFIG_HAVE_memrmeml
 #define CONFIG_HAVE_memrmeml
 #undef memrmeml
-#define memrmeml dee_memrmeml
-DeeSystem_DEFINE_memrmeml(dee_memrmeml, memrchrl, MEMEQL)
+#define memrmeml Dee_libc_memrmeml
+DeeSystem_DEFINE_memrmeml(Dee_libc_memrmeml, memrchrl, MEMEQL)
 #endif /* !CONFIG_HAVE_memrmeml */
 
 #undef memcnt
-#define memcnt dee_memcnt
+#define memcnt Dee_libc_memcnt
 #undef memcntb
-#define memcntb dee_memcnt
-DeeSystem_DEFINE_memcnt(dee_memcnt)
+#define memcntb Dee_libc_memcnt
+DeeSystem_DEFINE_memcnt(Dee_libc_memcnt)
 
 #undef memcntw
-#define memcntw dee_memcntw
-DeeSystem_DEFINE_memcntw(dee_memcntw)
+#define memcntw Dee_libc_memcntw
+DeeSystem_DEFINE_memcntw(Dee_libc_memcntw)
 
 #undef memcntl
-#define memcntl dee_memcntl
-DeeSystem_DEFINE_memcntl(dee_memcntl)
+#define memcntl Dee_libc_memcntl
+DeeSystem_DEFINE_memcntl(Dee_libc_memcntl)
 
 
 
@@ -204,8 +204,8 @@ DeeSystem_DEFINE_memcntl(dee_memcntl)
 #ifndef CONFIG_HAVE_memcasecmp
 #define CONFIG_HAVE_memcasecmp
 #undef memcasecmp
-#define memcasecmp dee_memcasecmp
-DeeSystem_DEFINE_memcasecmp(dee_memcasecmp)
+#define memcasecmp Dee_libc_memcasecmp
+DeeSystem_DEFINE_memcasecmp(Dee_libc_memcasecmp)
 #endif /* !CONFIG_HAVE_memcasecmp */
 #undef memasciicaseeq
 #define memasciicaseeq(a, b, num_bytes) (memcasecmp(a, b, num_bytes) == 0)
@@ -223,8 +223,8 @@ DeeSystem_DEFINE__memlowerrchr(_dee_memasciicaserchr)
 #ifndef CONFIG_HAVE_memcasemem
 #define CONFIG_HAVE_memcasemem
 #undef memcasemem
-#define memcasemem dee_memcasemem
-_DeeSystem_DEFINE_memcasemem(dee_memcasemem, _dee_memasciicasechr)
+#define memcasemem Dee_libc_memcasemem
+_DeeSystem_DEFINE_memcasemem(Dee_libc_memcasemem, _dee_memasciicasechr)
 #endif /* !CONFIG_HAVE_memcasemem */
 #undef memasciicasemem
 #define memasciicasemem(haystack, haystack_length, needle, needle_length) \
@@ -233,16 +233,16 @@ _DeeSystem_DEFINE_memcasemem(dee_memcasemem, _dee_memasciicasechr)
 #ifndef CONFIG_HAVE_memcasermem
 #define CONFIG_HAVE_memcasermem
 #undef memcasermem
-#define memcasermem dee_memcasermem
-_DeeSystem_DEFINE_memcasermem(dee_memcasermem, _dee_memasciicaserchr)
+#define memcasermem Dee_libc_memcasermem
+_DeeSystem_DEFINE_memcasermem(Dee_libc_memcasermem, _dee_memasciicaserchr)
 #endif /* !CONFIG_HAVE_memcasermem */
 #undef memasciicasermem
 #define memasciicasermem(haystack, haystack_length, needle, needle_length) \
 	((uint8_t *)memcasermem(haystack, haystack_length, needle, needle_length))
 
 #undef memcasecnt
-#define memcasecnt dee_memcasecnt
-DeeSystem_DEFINE_memcasecnt(dee_memcasecnt)
+#define memcasecnt Dee_libc_memcasecnt
+DeeSystem_DEFINE_memcasecnt(Dee_libc_memcasecnt)
 
 
 
@@ -268,80 +268,80 @@ struct unicode_foldreader {
 
 /* Case-insensitive string functions. */
 #ifdef __INTELLISENSE__
-PRIVATE ATTR_OUTS(1, 2) ATTR_INS(3, 4) uint8_t *DCALL dee_mempfilb(uint8_t *__restrict dst, size_t num_bytes, uint8_t const *__restrict src, size_t src_bytes);
-PRIVATE ATTR_OUTS(1, 2) ATTR_INS(3, 4) uint16_t *DCALL dee_mempfilw(uint16_t *__restrict dst, size_t num_bytes, uint16_t const *__restrict src, size_t src_bytes);
-PRIVATE ATTR_OUTS(1, 2) ATTR_INS(3, 4) uint32_t *DCALL dee_mempfill(uint32_t *__restrict dst, size_t num_bytes, uint32_t const *__restrict src, size_t src_bytes);
-PRIVATE WUNUSED ATTR_INS(1, 2) ATTR_OUTS(3, 4) size_t DCALL dee_foldcmpb(uint8_t const *__restrict data, size_t datalen, uint32_t fold[Dee_UNICODE_FOLDED_MAX], size_t fold_len);
-PRIVATE WUNUSED ATTR_INS(1, 2) ATTR_OUTS(3, 4) size_t DCALL dee_foldcmpw(uint16_t const *__restrict data, size_t datalen, uint32_t fold[Dee_UNICODE_FOLDED_MAX], size_t fold_len);
-PRIVATE WUNUSED ATTR_INS(1, 2) ATTR_OUTS(3, 4) size_t DCALL dee_foldcmpl(uint32_t const *__restrict data, size_t datalen, uint32_t fold[Dee_UNICODE_FOLDED_MAX], size_t fold_len);
-PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 3) uint8_t *DCALL dee_memcasechrb(uint8_t const *__restrict haystack, uint8_t needle, size_t haystack_length);
-PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 3) uint16_t *DCALL dee_memcasechrw(uint16_t const *__restrict haystack, uint16_t needle, size_t haystack_length);
-PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 3) uint32_t *DCALL dee_memcasechrl(uint32_t const *__restrict haystack, uint32_t needle, size_t haystack_length);
-/*PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 3) uint8_t *DCALL dee_memcaserchrb(uint8_t const *__restrict haystack, uint8_t needle, size_t haystack_length);*/
-/*PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 3) uint16_t *DCALL dee_memcaserchrw(uint16_t const *__restrict haystack, uint16_t needle, size_t haystack_length);*/
-/*PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 3) uint32_t *DCALL dee_memcaserchrl(uint32_t const *__restrict haystack, uint32_t needle, size_t haystack_length);*/
+PRIVATE ATTR_OUTS(1, 2) ATTR_INS(3, 4) uint8_t *DCALL Dee_libc_mempfilb(uint8_t *__restrict dst, size_t num_bytes, uint8_t const *__restrict src, size_t src_bytes);
+PRIVATE ATTR_OUTS(1, 2) ATTR_INS(3, 4) uint16_t *DCALL Dee_libc_mempfilw(uint16_t *__restrict dst, size_t num_bytes, uint16_t const *__restrict src, size_t src_bytes);
+PRIVATE ATTR_OUTS(1, 2) ATTR_INS(3, 4) uint32_t *DCALL Dee_libc_mempfill(uint32_t *__restrict dst, size_t num_bytes, uint32_t const *__restrict src, size_t src_bytes);
+PRIVATE WUNUSED ATTR_INS(1, 2) ATTR_OUTS(3, 4) size_t DCALL unicode_foldcmpb(uint8_t const *__restrict data, size_t datalen, uint32_t fold[Dee_UNICODE_FOLDED_MAX], size_t fold_len);
+PRIVATE WUNUSED ATTR_INS(1, 2) ATTR_OUTS(3, 4) size_t DCALL unicode_foldcmpw(uint16_t const *__restrict data, size_t datalen, uint32_t fold[Dee_UNICODE_FOLDED_MAX], size_t fold_len);
+PRIVATE WUNUSED ATTR_INS(1, 2) ATTR_OUTS(3, 4) size_t DCALL unicode_foldcmpl(uint32_t const *__restrict data, size_t datalen, uint32_t fold[Dee_UNICODE_FOLDED_MAX], size_t fold_len);
+PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 3) uint8_t *DCALL unicode_memcasechrb(uint8_t const *__restrict haystack, uint8_t needle, size_t haystack_length);
+PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 3) uint16_t *DCALL unicode_memcasechrw(uint16_t const *__restrict haystack, uint16_t needle, size_t haystack_length);
+PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 3) uint32_t *DCALL unicode_memcasechrl(uint32_t const *__restrict haystack, uint32_t needle, size_t haystack_length);
+/*PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 3) uint8_t *DCALL unicode_memcaserchrb(uint8_t const *__restrict haystack, uint8_t needle, size_t haystack_length);*/
+/*PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 3) uint16_t *DCALL unicode_memcaserchrw(uint16_t const *__restrict haystack, uint16_t needle, size_t haystack_length);*/
+/*PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 3) uint32_t *DCALL unicode_memcaserchrl(uint32_t const *__restrict haystack, uint32_t needle, size_t haystack_length);*/
 PRIVATE WUNUSED ATTR_INOUT(1) uint32_t DCALL unicode_foldreader_getcb(struct unicode_foldreader *__restrict self);
 PRIVATE WUNUSED ATTR_INOUT(1) uint32_t DCALL unicode_foldreader_getcw(struct unicode_foldreader *__restrict self);
 PRIVATE WUNUSED ATTR_INOUT(1) uint32_t DCALL unicode_foldreader_getcl(struct unicode_foldreader *__restrict self);
 PRIVATE WUNUSED ATTR_INOUT(1) uint32_t DCALL unicode_foldreader_rgetcb(struct unicode_foldreader *__restrict self);
 PRIVATE WUNUSED ATTR_INOUT(1) uint32_t DCALL unicode_foldreader_rgetcw(struct unicode_foldreader *__restrict self);
 PRIVATE WUNUSED ATTR_INOUT(1) uint32_t DCALL unicode_foldreader_rgetcl(struct unicode_foldreader *__restrict self);
-/*PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) bool DCALL dee_memcaseeqb(uint8_t const *a, size_t a_size, uint8_t const *b, size_t b_size);*/
-/*PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) bool DCALL dee_memcaseeqw(uint16_t const *a, size_t a_size, uint16_t const *b, size_t b_size);*/
-/*PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) bool DCALL dee_memcaseeql(uint32_t const *a, size_t a_size, uint32_t const *b, size_t b_size);*/
-PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) size_t DCALL dee_memcasestartswithb(uint8_t const *a, size_t a_size, uint8_t const *b, size_t b_size);
-PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) size_t DCALL dee_memcasestartswithw(uint16_t const *a, size_t a_size, uint16_t const *b, size_t b_size);
-PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) size_t DCALL dee_memcasestartswithl(uint32_t const *a, size_t a_size, uint32_t const *b, size_t b_size);
-PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) size_t DCALL dee_memcaseendswithb(uint8_t const *a, size_t a_size, uint8_t const *b, size_t b_size);
-PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) size_t DCALL dee_memcaseendswithw(uint16_t const *a, size_t a_size, uint16_t const *b, size_t b_size);
-PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) size_t DCALL dee_memcaseendswithl(uint32_t const *a, size_t a_size, uint32_t const *b, size_t b_size);
-PRIVATE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) ATTR_OUT_OPT(5) uint8_t *DCALL dee_memcasememb(uint8_t const *haystack, size_t haystack_length, uint8_t const *needle, size_t needle_length, size_t *p_match_length);
-PRIVATE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) ATTR_OUT_OPT(5) uint16_t *DCALL dee_memcasememw(uint16_t const *haystack, size_t haystack_length, uint16_t const *needle, size_t needle_length, size_t *p_match_length);
-PRIVATE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) ATTR_OUT_OPT(5) uint32_t *DCALL dee_memcasememl(uint32_t const *haystack, size_t haystack_length, uint32_t const *needle, size_t needle_length, size_t *p_match_length);
-PRIVATE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) ATTR_OUT_OPT(5) uint8_t *DCALL dee_memcasermemb(uint8_t const *haystack, size_t haystack_length, uint8_t const *needle, size_t needle_length, size_t *p_match_length);
-PRIVATE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) ATTR_OUT_OPT(5) uint16_t *DCALL dee_memcasermemw(uint16_t const *haystack, size_t haystack_length, uint16_t const *needle, size_t needle_length, size_t *p_match_length);
-PRIVATE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) ATTR_OUT_OPT(5) uint32_t *DCALL dee_memcasermeml(uint32_t const *haystack, size_t haystack_length, uint32_t const *needle, size_t needle_length, size_t *p_match_length);
-PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) int DCALL dee_memcasecmpb(uint8_t const *lhs, size_t lhs_size, uint8_t const *rhs, size_t rhs_size);
-/*PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) int DCALL dee_memcasecmpw(uint16_t const *lhs, size_t lhs_size, uint16_t const *rhs, size_t rhs_size);*/
-/*PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) int DCALL dee_memcasecmpl(uint32_t const *lhs, size_t lhs_size, uint32_t const *rhs, size_t rhs_size);*/
-PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) size_t DCALL dee_memcasecntb(uint8_t const *haystack, size_t haystack_length, uint8_t const *needle, size_t needle_length);
-PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) size_t DCALL dee_memcasecntw(uint16_t const *haystack, size_t haystack_length, uint16_t const *needle, size_t needle_length);
-PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) size_t DCALL dee_memcasecntl(uint32_t const *haystack, size_t haystack_length, uint32_t const *needle, size_t needle_length);
-PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) size_t DCALL dee_fuzzy_compareb(uint8_t const *lhs, size_t lhs_len, uint8_t const *rhs, size_t rhs_len);
-PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) size_t DCALL dee_fuzzy_comparew(uint16_t const *lhs, size_t lhs_len, uint16_t const *rhs, size_t rhs_len);
-PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) size_t DCALL dee_fuzzy_comparel(uint32_t const *lhs, size_t lhs_len, uint32_t const *rhs, size_t rhs_len);
-PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) size_t DCALL dee_fuzzy_casecompare_ascii(byte_t const *lhs, size_t lhs_len, byte_t const *rhs, size_t rhs_len);
-PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) size_t DCALL dee_fuzzy_casecompareb(uint8_t const *lhs, size_t lhs_len, uint8_t const *rhs, size_t rhs_len);
-PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) size_t DCALL dee_fuzzy_casecomparew(uint16_t const *lhs, size_t lhs_len, uint16_t const *rhs, size_t rhs_len);
-PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) size_t DCALL dee_fuzzy_casecomparel(uint32_t const *lhs, size_t lhs_len, uint32_t const *rhs, size_t rhs_len);
-PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) int DCALL dee_strverscmpb(uint8_t const *lhs, size_t lhs_size, uint8_t const *rhs, size_t rhs_size);
-PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) int DCALL dee_strverscmpw(uint16_t const *lhs, size_t lhs_size, uint16_t const *rhs, size_t rhs_size);
-PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) int DCALL dee_strverscmpl(uint32_t const *lhs, size_t lhs_size, uint32_t const *rhs, size_t rhs_size);
-PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) int DCALL dee_strcaseverscmp_ascii(uint8_t const *lhs, size_t lhs_size, uint8_t const *rhs, size_t rhs_size);
-PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) int DCALL dee_strcaseverscmpb(uint8_t const *lhs, size_t lhs_size, uint8_t const *rhs, size_t rhs_size);
-PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) int DCALL dee_strcaseverscmpw(uint16_t const *lhs, size_t lhs_size, uint16_t const *rhs, size_t rhs_size);
-PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) int DCALL dee_strcaseverscmpl(uint32_t const *lhs, size_t lhs_size, uint32_t const *rhs, size_t rhs_size);
-PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) ATTR_INS(5, 6) uint8_t const *DCALL dee_find_matchb(uint8_t const *scan_str, size_t scan_size, uint8_t const *open_str, size_t open_size, uint8_t const *clos_str, size_t clos_size);
-PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) ATTR_INS(5, 6) uint16_t const *DCALL dee_find_matchw(uint16_t const *scan_str, size_t scan_size, uint16_t const *open_str, size_t open_size, uint16_t const *clos_str, size_t clos_size);
-PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) ATTR_INS(5, 6) uint32_t const *DCALL dee_find_matchl(uint32_t const *scan_str, size_t scan_size, uint32_t const *open_str, size_t open_size, uint32_t const *clos_str, size_t clos_size);
-PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) ATTR_INS(5, 6) byte_t const *DCALL dee_find_casematch_ascii(byte_t const *scan_str, size_t scan_size, byte_t const *open_str, size_t open_size, byte_t const *clos_str, size_t clos_size);
-PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) ATTR_INS(5, 6) uint8_t const *DCALL dee_find_casematchb(uint8_t const *scan_str, size_t scan_size, uint8_t const *open_str, size_t open_size, uint8_t const *clos_str, size_t clos_size, size_t *p_match_length);
-PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) ATTR_INS(5, 6) uint16_t const *DCALL dee_find_casematchw(uint16_t const *scan_str, size_t scan_size, uint16_t const *open_str, size_t open_size, uint16_t const *clos_str, size_t clos_size, size_t *p_match_length);
-PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) ATTR_INS(5, 6) uint32_t const *DCALL dee_find_casematchl(uint32_t const *scan_str, size_t scan_size, uint32_t const *open_str, size_t open_size, uint32_t const *clos_str, size_t clos_size, size_t *p_match_length);
-PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) ATTR_INS(5, 6) uint8_t const *DCALL dee_rfind_matchb(uint8_t const *scan_str, size_t scan_size, uint8_t const *open_str, size_t open_size, uint8_t const *clos_str, size_t clos_size);
-PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) ATTR_INS(5, 6) uint16_t const *DCALL dee_rfind_matchw(uint16_t const *scan_str, size_t scan_size, uint16_t const *open_str, size_t open_size, uint16_t const *clos_str, size_t clos_size);
-PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) ATTR_INS(5, 6) uint32_t const *DCALL dee_rfind_matchl(uint32_t const *scan_str, size_t scan_size, uint32_t const *open_str, size_t open_size, uint32_t const *clos_str, size_t clos_size);
-PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) ATTR_INS(5, 6) byte_t const *DCALL dee_rfind_casematch_ascii(byte_t const *scan_str, size_t scan_size, byte_t const *open_str, size_t open_size, byte_t const *clos_str, size_t clos_size);
-PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) ATTR_INS(5, 6) uint8_t const *DCALL dee_rfind_casematchb(uint8_t const *scan_str, size_t scan_size, uint8_t const *open_str, size_t open_size, uint8_t const *clos_str, size_t clos_size, size_t *p_match_length);
-PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) ATTR_INS(5, 6) uint16_t const *DCALL dee_rfind_casematchw(uint16_t const *scan_str, size_t scan_size, uint16_t const *open_str, size_t open_size, uint16_t const *clos_str, size_t clos_size, size_t *p_match_length);
-PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) ATTR_INS(5, 6) uint32_t const *DCALL dee_rfind_casematchl(uint32_t const *scan_str, size_t scan_size, uint32_t const *open_str, size_t open_size, uint32_t const *clos_str, size_t clos_size, size_t *p_match_length);
-PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) int DCALL dee_wildcompareb(uint8_t const *string, size_t string_length, uint8_t const *pattern, size_t pattern_length);
-PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) int DCALL dee_wildcomparew(uint16_t const *string, size_t string_length, uint16_t const *pattern, size_t pattern_length);
-PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) int DCALL dee_wildcomparel(uint32_t const *string, size_t string_length, uint32_t const *pattern, size_t pattern_length);
-PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) int DCALL dee_wildcasecompare_ascii(uint8_t const *string, size_t string_length, uint8_t const *pattern, size_t pattern_length);
-PRIVATE WUNUSED ATTR_INOUT(1) ATTR_INOUT(2) int DCALL dee_wildcasecompareb(struct unicode_foldreader *__restrict string, struct unicode_foldreader *__restrict pattern);
-PRIVATE WUNUSED ATTR_INOUT(1) ATTR_INOUT(2) int DCALL dee_wildcasecomparew(struct unicode_foldreader *__restrict string, struct unicode_foldreader *__restrict pattern);
-PRIVATE WUNUSED ATTR_INOUT(1) ATTR_INOUT(2) int DCALL dee_wildcasecomparel(struct unicode_foldreader *__restrict string, struct unicode_foldreader *__restrict pattern);
+/*PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) bool DCALL unicode_memcaseeqb(uint8_t const *a, size_t a_size, uint8_t const *b, size_t b_size);*/
+/*PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) bool DCALL unicode_memcaseeqw(uint16_t const *a, size_t a_size, uint16_t const *b, size_t b_size);*/
+/*PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) bool DCALL unicode_memcaseeql(uint32_t const *a, size_t a_size, uint32_t const *b, size_t b_size);*/
+PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) size_t DCALL unicode_memcasestartswithb(uint8_t const *a, size_t a_size, uint8_t const *b, size_t b_size);
+PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) size_t DCALL unicode_memcasestartswithw(uint16_t const *a, size_t a_size, uint16_t const *b, size_t b_size);
+PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) size_t DCALL unicode_memcasestartswithl(uint32_t const *a, size_t a_size, uint32_t const *b, size_t b_size);
+PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) size_t DCALL unicode_memcaseendswithb(uint8_t const *a, size_t a_size, uint8_t const *b, size_t b_size);
+PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) size_t DCALL unicode_memcaseendswithw(uint16_t const *a, size_t a_size, uint16_t const *b, size_t b_size);
+PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) size_t DCALL unicode_memcaseendswithl(uint32_t const *a, size_t a_size, uint32_t const *b, size_t b_size);
+PRIVATE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) ATTR_OUT_OPT(5) uint8_t *DCALL unicode_memcasememb(uint8_t const *haystack, size_t haystack_length, uint8_t const *needle, size_t needle_length, size_t *p_match_length);
+PRIVATE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) ATTR_OUT_OPT(5) uint16_t *DCALL unicode_memcasememw(uint16_t const *haystack, size_t haystack_length, uint16_t const *needle, size_t needle_length, size_t *p_match_length);
+PRIVATE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) ATTR_OUT_OPT(5) uint32_t *DCALL unicode_memcasememl(uint32_t const *haystack, size_t haystack_length, uint32_t const *needle, size_t needle_length, size_t *p_match_length);
+PRIVATE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) ATTR_OUT_OPT(5) uint8_t *DCALL unicode_memcasermemb(uint8_t const *haystack, size_t haystack_length, uint8_t const *needle, size_t needle_length, size_t *p_match_length);
+PRIVATE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) ATTR_OUT_OPT(5) uint16_t *DCALL unicode_memcasermemw(uint16_t const *haystack, size_t haystack_length, uint16_t const *needle, size_t needle_length, size_t *p_match_length);
+PRIVATE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) ATTR_OUT_OPT(5) uint32_t *DCALL unicode_memcasermeml(uint32_t const *haystack, size_t haystack_length, uint32_t const *needle, size_t needle_length, size_t *p_match_length);
+PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) int DCALL unicode_memcasecmpb(uint8_t const *lhs, size_t lhs_size, uint8_t const *rhs, size_t rhs_size);
+/*PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) int DCALL unicode_memcasecmpw(uint16_t const *lhs, size_t lhs_size, uint16_t const *rhs, size_t rhs_size);*/
+/*PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) int DCALL unicode_memcasecmpl(uint32_t const *lhs, size_t lhs_size, uint32_t const *rhs, size_t rhs_size);*/
+PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) size_t DCALL unicode_memcasecntb(uint8_t const *haystack, size_t haystack_length, uint8_t const *needle, size_t needle_length);
+PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) size_t DCALL unicode_memcasecntw(uint16_t const *haystack, size_t haystack_length, uint16_t const *needle, size_t needle_length);
+PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) size_t DCALL unicode_memcasecntl(uint32_t const *haystack, size_t haystack_length, uint32_t const *needle, size_t needle_length);
+PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) size_t DCALL unicode_fuzzy_compareb(uint8_t const *lhs, size_t lhs_len, uint8_t const *rhs, size_t rhs_len);
+PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) size_t DCALL unicode_fuzzy_comparew(uint16_t const *lhs, size_t lhs_len, uint16_t const *rhs, size_t rhs_len);
+PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) size_t DCALL unicode_fuzzy_comparel(uint32_t const *lhs, size_t lhs_len, uint32_t const *rhs, size_t rhs_len);
+PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) size_t DCALL unicode_fuzzy_casecompare_ascii(byte_t const *lhs, size_t lhs_len, byte_t const *rhs, size_t rhs_len);
+PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) size_t DCALL unicode_fuzzy_casecompareb(uint8_t const *lhs, size_t lhs_len, uint8_t const *rhs, size_t rhs_len);
+PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) size_t DCALL unicode_fuzzy_casecomparew(uint16_t const *lhs, size_t lhs_len, uint16_t const *rhs, size_t rhs_len);
+PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) size_t DCALL unicode_fuzzy_casecomparel(uint32_t const *lhs, size_t lhs_len, uint32_t const *rhs, size_t rhs_len);
+PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) int DCALL unicode_strverscmpb(uint8_t const *lhs, size_t lhs_size, uint8_t const *rhs, size_t rhs_size);
+PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) int DCALL unicode_strverscmpw(uint16_t const *lhs, size_t lhs_size, uint16_t const *rhs, size_t rhs_size);
+PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) int DCALL unicode_strverscmpl(uint32_t const *lhs, size_t lhs_size, uint32_t const *rhs, size_t rhs_size);
+PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) int DCALL unicode_strcaseverscmp_ascii(uint8_t const *lhs, size_t lhs_size, uint8_t const *rhs, size_t rhs_size);
+PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) int DCALL unicode_strcaseverscmpb(uint8_t const *lhs, size_t lhs_size, uint8_t const *rhs, size_t rhs_size);
+PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) int DCALL unicode_strcaseverscmpw(uint16_t const *lhs, size_t lhs_size, uint16_t const *rhs, size_t rhs_size);
+PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) int DCALL unicode_strcaseverscmpl(uint32_t const *lhs, size_t lhs_size, uint32_t const *rhs, size_t rhs_size);
+PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) ATTR_INS(5, 6) uint8_t const *DCALL unicode_find_matchb(uint8_t const *scan_str, size_t scan_size, uint8_t const *open_str, size_t open_size, uint8_t const *clos_str, size_t clos_size);
+PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) ATTR_INS(5, 6) uint16_t const *DCALL unicode_find_matchw(uint16_t const *scan_str, size_t scan_size, uint16_t const *open_str, size_t open_size, uint16_t const *clos_str, size_t clos_size);
+PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) ATTR_INS(5, 6) uint32_t const *DCALL unicode_find_matchl(uint32_t const *scan_str, size_t scan_size, uint32_t const *open_str, size_t open_size, uint32_t const *clos_str, size_t clos_size);
+PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) ATTR_INS(5, 6) byte_t const *DCALL unicode_find_casematch_ascii(byte_t const *scan_str, size_t scan_size, byte_t const *open_str, size_t open_size, byte_t const *clos_str, size_t clos_size);
+PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) ATTR_INS(5, 6) uint8_t const *DCALL unicode_find_casematchb(uint8_t const *scan_str, size_t scan_size, uint8_t const *open_str, size_t open_size, uint8_t const *clos_str, size_t clos_size, size_t *p_match_length);
+PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) ATTR_INS(5, 6) uint16_t const *DCALL unicode_find_casematchw(uint16_t const *scan_str, size_t scan_size, uint16_t const *open_str, size_t open_size, uint16_t const *clos_str, size_t clos_size, size_t *p_match_length);
+PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) ATTR_INS(5, 6) uint32_t const *DCALL unicode_find_casematchl(uint32_t const *scan_str, size_t scan_size, uint32_t const *open_str, size_t open_size, uint32_t const *clos_str, size_t clos_size, size_t *p_match_length);
+PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) ATTR_INS(5, 6) uint8_t const *DCALL unicode_rfind_matchb(uint8_t const *scan_str, size_t scan_size, uint8_t const *open_str, size_t open_size, uint8_t const *clos_str, size_t clos_size);
+PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) ATTR_INS(5, 6) uint16_t const *DCALL unicode_rfind_matchw(uint16_t const *scan_str, size_t scan_size, uint16_t const *open_str, size_t open_size, uint16_t const *clos_str, size_t clos_size);
+PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) ATTR_INS(5, 6) uint32_t const *DCALL unicode_rfind_matchl(uint32_t const *scan_str, size_t scan_size, uint32_t const *open_str, size_t open_size, uint32_t const *clos_str, size_t clos_size);
+PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) ATTR_INS(5, 6) byte_t const *DCALL unicode_rfind_casematch_ascii(byte_t const *scan_str, size_t scan_size, byte_t const *open_str, size_t open_size, byte_t const *clos_str, size_t clos_size);
+PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) ATTR_INS(5, 6) uint8_t const *DCALL unicode_rfind_casematchb(uint8_t const *scan_str, size_t scan_size, uint8_t const *open_str, size_t open_size, uint8_t const *clos_str, size_t clos_size, size_t *p_match_length);
+PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) ATTR_INS(5, 6) uint16_t const *DCALL unicode_rfind_casematchw(uint16_t const *scan_str, size_t scan_size, uint16_t const *open_str, size_t open_size, uint16_t const *clos_str, size_t clos_size, size_t *p_match_length);
+PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) ATTR_INS(5, 6) uint32_t const *DCALL unicode_rfind_casematchl(uint32_t const *scan_str, size_t scan_size, uint32_t const *open_str, size_t open_size, uint32_t const *clos_str, size_t clos_size, size_t *p_match_length);
+PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) int DCALL unicode_wildcompareb(uint8_t const *string, size_t string_length, uint8_t const *pattern, size_t pattern_length);
+PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) int DCALL unicode_wildcomparew(uint16_t const *string, size_t string_length, uint16_t const *pattern, size_t pattern_length);
+PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) int DCALL unicode_wildcomparel(uint32_t const *string, size_t string_length, uint32_t const *pattern, size_t pattern_length);
+PRIVATE ATTR_PURE WUNUSED ATTR_INS(1, 2) ATTR_INS(3, 4) int DCALL unicode_wildcasecompare_ascii(uint8_t const *string, size_t string_length, uint8_t const *pattern, size_t pattern_length);
+PRIVATE WUNUSED ATTR_INOUT(1) ATTR_INOUT(2) int DCALL unicode_wildcasecompareb(struct unicode_foldreader *__restrict string, struct unicode_foldreader *__restrict pattern);
+PRIVATE WUNUSED ATTR_INOUT(1) ATTR_INOUT(2) int DCALL unicode_wildcasecomparew(struct unicode_foldreader *__restrict string, struct unicode_foldreader *__restrict pattern);
+PRIVATE WUNUSED ATTR_INOUT(1) ATTR_INOUT(2) int DCALL unicode_wildcasecomparel(struct unicode_foldreader *__restrict string, struct unicode_foldreader *__restrict pattern);
 #else /* __INTELLISENSE__ */
 #define DEFINE_STRING_FUNCTIONS_CASEASCII
 #include "string_functions-bwl.c.inl"
@@ -354,11 +354,11 @@ PRIVATE WUNUSED ATTR_INOUT(1) ATTR_INOUT(2) int DCALL dee_wildcasecomparel(struc
 #endif /* !__INTELLISENSE__ */
 
 #undef mempfilb
-#define mempfilb dee_mempfilb
+#define mempfilb Dee_libc_mempfilb
 #undef mempfilw
-#define mempfilw dee_mempfilw
+#define mempfilw Dee_libc_mempfilw
 #undef mempfill
-#define mempfill dee_mempfill
+#define mempfill Dee_libc_mempfill
 
 
 typedef DeeStringObject String;

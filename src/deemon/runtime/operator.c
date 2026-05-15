@@ -686,6 +686,10 @@ err:
 #endif /* !DEFINE_TYPED_OPERATORS */
 
 
+/* Object buffer interface.
+ * @param: flags: Set of `Dee_BUFFER_F*'
+ * @throw: Error.RuntimeError.NotImplemented: The object doesn't implement the buffer protocol.
+ * @throw: Error.ValueError.BufferError:      The object is an atomic buffer, or cannot be written to. */
 DEFINE_OPERATOR(int, GetBuf, (DeeObject *RESTRICT_IF_NOTYPE self,
                               struct Dee_buffer *__restrict info, unsigned int flags)) {
 	ASSERTF(!(flags & ~(Dee_BUFFER_FWRITABLE)),

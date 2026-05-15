@@ -163,8 +163,8 @@ DECL_BEGIN
 #ifndef CONFIG_HAVE_strlen
 #define CONFIG_HAVE_strlen
 #undef strlen
-#define strlen dee_strlen /*!export-*/
-LOCAL WUNUSED NONNULL((1)) size_t dee_strlen(char const *str) { /*!export-*/
+#define strlen Dee_libc_strlen /*!export-*/
+LOCAL WUNUSED NONNULL((1)) size_t Dee_libc_strlen(char const *str) { /*!export-*/
 	size_t result;
 	for (result = 0; str[result]; ++result)
 		;
@@ -175,9 +175,9 @@ LOCAL WUNUSED NONNULL((1)) size_t dee_strlen(char const *str) { /*!export-*/
 #ifndef CONFIG_HAVE_memcmp
 #define CONFIG_HAVE_memcmp
 #undef memcmp
-#define memcmp dee_memcmp /*!export-*/
+#define memcmp Dee_libc_memcmp /*!export-*/
 LOCAL WUNUSED NONNULL((1, 2)) int
-dee_memcmp(void const *s1, void const *s2, size_t n) { /*!export-*/
+Dee_libc_memcmp(void const *s1, void const *s2, size_t n) { /*!export-*/
 	uint8_t const *p1 = (uint8_t const *)s1;
 	uint8_t const *p2 = (uint8_t const *)s2;
 	while (n--) {

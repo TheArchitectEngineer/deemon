@@ -48,15 +48,15 @@ DECL_BEGIN
 
 #ifndef CONFIG_HAVE_memcasecmp
 #define CONFIG_HAVE_memcasecmp
-#define memcasecmp dee_memcasecmp
-DeeSystem_DEFINE_memcasecmp(dee_memcasecmp)
+#define memcasecmp Dee_libc_memcasecmp
+DeeSystem_DEFINE_memcasecmp(Dee_libc_memcasecmp)
 #endif /* !CONFIG_HAVE_memcasecmp */
 
 #ifndef CONFIG_HAVE_memcasemem
 #define CONFIG_HAVE_memcasemem
 #undef memcasemem
-#define memcasemem dee_memcasemem
-DeeSystem_DEFINE_memcasemem(dee_memcasemem)
+#define memcasemem Dee_libc_memcasemem
+DeeSystem_DEFINE_memcasemem(Dee_libc_memcasemem)
 #endif /* !CONFIG_HAVE_memcasemem */
 
 

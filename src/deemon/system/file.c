@@ -1477,9 +1477,9 @@ err:
 #ifdef CONFIG_HAVE_fgetc
 #define CONFIG_HAVE_fread
 #undef fread
-#define fread dee_fread
+#define fread Dee_libc_fread
 PRIVATE size_t DCALL
-dee_fread(void *buf, size_t elemsize, size_t elemcount, FILE *stream) {
+Dee_libc_fread(void *buf, size_t elemsize, size_t elemcount, FILE *stream) {
 	size_t i, total;
 	total = elemsize * elemcount;
 	for (i = 0; i < total; ++i) {
@@ -1497,9 +1497,9 @@ dee_fread(void *buf, size_t elemsize, size_t elemcount, FILE *stream) {
 #ifdef CONFIG_HAVE_fputc
 #define CONFIG_HAVE_fwrite
 #undef fwrite
-#define fwrite dee_fwrite
+#define fwrite Dee_libc_fwrite
 PRIVATE size_t DCALL
-dee_fwrite(void const *buf, size_t elemsize, size_t elemcount, FILE *stream) {
+Dee_libc_fwrite(void const *buf, size_t elemsize, size_t elemcount, FILE *stream) {
 	size_t i, total;
 	total = elemsize * elemcount;
 	for (i = 0; i < total; ++i) {

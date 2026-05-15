@@ -37,8 +37,8 @@ DECL_BEGIN
 #ifndef CONFIG_HAVE_rawmemrchr
 #define CONFIG_HAVE_rawmemrchr
 #undef rawmemrchr
-#define rawmemrchr dee_rawmemrchr
-DeeSystem_DEFINE_rawmemrchr(dee_rawmemrchr)
+#define rawmemrchr Dee_libc_rawmemrchr
+DeeSystem_DEFINE_rawmemrchr(Dee_libc_rawmemrchr)
 #endif /* !CONFIG_HAVE_rawmemrchr */
 
 DECL_END

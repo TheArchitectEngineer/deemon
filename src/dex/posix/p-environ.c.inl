@@ -266,8 +266,8 @@ PRIVATE size_t dee_environ_version = 0;
 #ifndef CONFIG_HAVE_wcslen
 #define CONFIG_HAVE_wcslen
 #undef wcslen
-#define wcslen dee_wcslen
-DeeSystem_DEFINE_wcslen(dee_wcslen)
+#define wcslen Dee_libc_wcslen
+DeeSystem_DEFINE_wcslen(Dee_libc_wcslen)
 #endif /* !CONFIG_HAVE_wcslen */
 #ifndef CONFIG_HAVE_wcsend
 #undef wcsend
@@ -365,9 +365,9 @@ err:
 #define CONFIG_HAVE_wcschr
 DECL_BEGIN
 #undef wcschr
-#define wcschr dee_wcschr
+#define wcschr Dee_libc_wcschr
 LOCAL ATTR_PURE WUNUSED NONNULL((1)) Dee_wchar_t *
-dee_wcschr(Dee_wchar_t const *haystack, Dee_wchar_t needle) {
+Dee_libc_wcschr(Dee_wchar_t const *haystack, Dee_wchar_t needle) {
 	for (;; ++haystack) {
 		Dee_wchar_t ch = *haystack;
 		if (ch == needle)

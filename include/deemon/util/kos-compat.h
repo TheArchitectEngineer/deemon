@@ -71,162 +71,162 @@ DECL_BEGIN
 #ifndef CONFIG_HAVE_memrchr
 #define CONFIG_HAVE_memrchr
 #undef memrchr
-#define memrchr dee_memrchr
-DeeSystem_DEFINE_memrchr(dee_memrchr)
+#define memrchr Dee_libc_memrchr
+DeeSystem_DEFINE_memrchr(Dee_libc_memrchr)
 #endif /* !CONFIG_HAVE_memrchr */
 
 #ifndef CONFIG_HAVE_memmem
 #define CONFIG_HAVE_memmem
 #undef memmem
-#define memmem  dee_memmem
-DeeSystem_DEFINE_memmem(dee_memmem)
+#define memmem Dee_libc_memmem
+DeeSystem_DEFINE_memmem(Dee_libc_memmem)
 #endif /* !CONFIG_HAVE_memmem */
 
 #ifndef CONFIG_HAVE_memrmem
 #define CONFIG_HAVE_memrmem
 #undef memrmem
-#define memrmem dee_memrmem
-DeeSystem_DEFINE_memrmem(dee_memrmem)
+#define memrmem Dee_libc_memrmem
+DeeSystem_DEFINE_memrmem(Dee_libc_memrmem)
 #endif /* !CONFIG_HAVE_memrmem */
 
 #ifndef CONFIG_HAVE_memsetw
 #define CONFIG_HAVE_memsetw
 #undef memsetw
-#define memsetw dee_memsetw
-DeeSystem_DEFINE_memsetw(dee_memsetw)
+#define memsetw Dee_libc_memsetw
+DeeSystem_DEFINE_memsetw(Dee_libc_memsetw)
 #endif /* !CONFIG_HAVE_memsetw */
 
 #ifndef CONFIG_HAVE_memsetl
 #define CONFIG_HAVE_memsetl
 #undef memsetl
-#define memsetl dee_memsetl
-DeeSystem_DEFINE_memsetl(dee_memsetl)
+#define memsetl Dee_libc_memsetl
+DeeSystem_DEFINE_memsetl(Dee_libc_memsetl)
 #endif /* !CONFIG_HAVE_memsetl */
 
 #ifndef CONFIG_HAVE_memsetq
 #define CONFIG_HAVE_memsetq
 #undef memsetq
-#define memsetq dee_memsetq
-DeeSystem_DEFINE_memsetq(dee_memsetq)
+#define memsetq Dee_libc_memsetq
+DeeSystem_DEFINE_memsetq(Dee_libc_memsetq)
 #endif /* !CONFIG_HAVE_memsetq */
 
 #ifndef CONFIG_HAVE_mempsetw
 #define CONFIG_HAVE_mempsetw
 #undef mempsetw
-#define mempsetw dee_mempsetw
-DeeSystem_DEFINE_mempsetw(dee_mempsetw)
+#define mempsetw Dee_libc_mempsetw
+DeeSystem_DEFINE_mempsetw(Dee_libc_mempsetw)
 #endif /* !CONFIG_HAVE_mempsetw */
 
 #ifndef CONFIG_HAVE_mempsetl
 #define CONFIG_HAVE_mempsetl
 #undef mempsetl
-#define mempsetl dee_mempsetl
-DeeSystem_DEFINE_mempsetl(dee_mempsetl)
+#define mempsetl Dee_libc_mempsetl
+DeeSystem_DEFINE_mempsetl(Dee_libc_mempsetl)
 #endif /* !CONFIG_HAVE_mempsetl */
 
 #ifndef CONFIG_HAVE_mempsetq
 #define CONFIG_HAVE_mempsetq
 #undef mempsetq
-#define mempsetq dee_mempsetq
-DeeSystem_DEFINE_mempsetq(dee_mempsetq)
+#define mempsetq Dee_libc_mempsetq
+DeeSystem_DEFINE_mempsetq(Dee_libc_mempsetq)
 #endif /* !CONFIG_HAVE_mempsetq */
 
 #ifndef CONFIG_HAVE_memcmpw
 #define CONFIG_HAVE_memcmpw
 #undef memcmpw
-#define memcmpw dee_memcmpw
-DeeSystem_DEFINE_memcmpw(dee_memcmpw)
+#define memcmpw Dee_libc_memcmpw
+DeeSystem_DEFINE_memcmpw(Dee_libc_memcmpw)
 #endif /* !CONFIG_HAVE_memcmpw */
 
 #ifndef CONFIG_HAVE_memcmpl
 #define CONFIG_HAVE_memcmpl
 #undef memcmpl
-#define memcmpl dee_memcmpl
-DeeSystem_DEFINE_memcmpl(dee_memcmpl)
+#define memcmpl Dee_libc_memcmpl
+DeeSystem_DEFINE_memcmpl(Dee_libc_memcmpl)
 #endif /* !CONFIG_HAVE_memcmpl */
 
 #ifndef CONFIG_HAVE_memchrw
 #define CONFIG_HAVE_memchrw
 #undef memchrw
-#define memchrw dee_memchrw
-DeeSystem_DEFINE_memchrw(dee_memchrw)
+#define memchrw Dee_libc_memchrw
+DeeSystem_DEFINE_memchrw(Dee_libc_memchrw)
 #endif /* !CONFIG_HAVE_memchrw */
 
 #ifndef CONFIG_HAVE_memchrl
 #define CONFIG_HAVE_memchrl
 #undef memchrl
-#define memchrl dee_memchrl
-DeeSystem_DEFINE_memchrl(dee_memchrl)
+#define memchrl Dee_libc_memchrl
+DeeSystem_DEFINE_memchrl(Dee_libc_memchrl)
 #endif /* !CONFIG_HAVE_memchrl */
 
 #ifndef CONFIG_HAVE_memrchrw
 #define CONFIG_HAVE_memrchrw
 #undef memrchrw
-#define memrchrw dee_memrchrw
-DeeSystem_DEFINE_memrchrw(dee_memrchrw)
+#define memrchrw Dee_libc_memrchrw
+DeeSystem_DEFINE_memrchrw(Dee_libc_memrchrw)
 #endif /* !CONFIG_HAVE_memrchrw */
 
 #ifndef CONFIG_HAVE_memrchrl
 #define CONFIG_HAVE_memrchrl
 #undef memrchrl
-#define memrchrl dee_memrchrl
-DeeSystem_DEFINE_memrchrl(dee_memrchrl)
+#define memrchrl Dee_libc_memrchrl
+DeeSystem_DEFINE_memrchrl(Dee_libc_memrchrl)
 #endif /* !CONFIG_HAVE_memrchrl */
 
 #ifndef CONFIG_HAVE_memxend
 #define CONFIG_HAVE_memxend
 #undef memxend
-#define memxend dee_memxend
-DeeSystem_DEFINE_memxend(dee_memxend)
+#define memxend Dee_libc_memxend
+DeeSystem_DEFINE_memxend(Dee_libc_memxend)
 #endif /* !CONFIG_HAVE_memxend */
 
 #ifndef CONFIG_HAVE_strcmp
 #define CONFIG_HAVE_strcmp
 #undef strcmp
-#define strcmp dee_strcmp
-DeeSystem_DEFINE_strcmp(dee_strcmp)
+#define strcmp Dee_libc_strcmp
+DeeSystem_DEFINE_strcmp(Dee_libc_strcmp)
 #endif /* !CONFIG_HAVE_strcmp */
 
 #ifndef CONFIG_HAVE_strcmpz
 #define CONFIG_HAVE_strcmpz
 #undef strcmpz
-#define strcmpz dee_strcmpz
-DeeSystem_DEFINE_strcmpz(dee_strcmpz)
+#define strcmpz Dee_libc_strcmpz
+DeeSystem_DEFINE_strcmpz(Dee_libc_strcmpz)
 #endif /* !CONFIG_HAVE_strcmpz */
 
 #ifndef CONFIG_HAVE_strcasecmp
 #define CONFIG_HAVE_strcasecmp
 #undef strcasecmp
-#define strcasecmp dee_strcasecmp
-DeeSystem_DEFINE_strcasecmp(dee_strcasecmp)
+#define strcasecmp Dee_libc_strcasecmp
+DeeSystem_DEFINE_strcasecmp(Dee_libc_strcasecmp)
 #endif /* !CONFIG_HAVE_strcasecmp */
 
 #ifndef CONFIG_HAVE_memcasecmp
 #define CONFIG_HAVE_memcasecmp
 #undef memcasecmp
-#define memcasecmp dee_memcasecmp
-DeeSystem_DEFINE_memcasecmp(dee_memcasecmp)
+#define memcasecmp Dee_libc_memcasecmp
+DeeSystem_DEFINE_memcasecmp(Dee_libc_memcasecmp)
 #endif /* !CONFIG_HAVE_memcasecmp */
 
 #ifndef CONFIG_HAVE_rawmemchr
 #define CONFIG_HAVE_rawmemchr
 #undef rawmemchr
-#define rawmemchr dee_rawmemchr
-DeeSystem_DEFINE_rawmemchr(dee_rawmemchr)
+#define rawmemchr Dee_libc_rawmemchr
+DeeSystem_DEFINE_rawmemchr(Dee_libc_rawmemchr)
 #endif /* !CONFIG_HAVE_rawmemchr */
 
 #ifndef CONFIG_HAVE_rawmemrchr
 #define CONFIG_HAVE_rawmemrchr
 #undef rawmemrchr
-#define rawmemrchr dee_rawmemrchr
-DeeSystem_DEFINE_rawmemrchr(dee_rawmemrchr)
+#define rawmemrchr Dee_libc_rawmemrchr
+DeeSystem_DEFINE_rawmemrchr(Dee_libc_rawmemrchr)
 #endif /* !CONFIG_HAVE_rawmemrchr */
 
 #ifndef CONFIG_HAVE_strstr
 #define CONFIG_HAVE_strstr
 #undef strstr
-#define strstr dee_strstr
-DeeSystem_DEFINE_strstr(dee_strstr)
+#define strstr Dee_libc_strstr
+DeeSystem_DEFINE_strstr(Dee_libc_strstr)
 #endif /* !CONFIG_HAVE_strstr */
 
 #undef memrchrb
