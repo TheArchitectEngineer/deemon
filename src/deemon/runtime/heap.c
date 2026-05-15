@@ -3920,9 +3920,7 @@ PUBLIC ATTR_PURE WUNUSED size_t
 
 PUBLIC ATTR_PURE WUNUSED NONNULL((1)) size_t
 (DCALL Dee_MallocUsableSizeNonNull)(void *mem) {
-	mchunkptr p;
-	ASSERT(mem);
-	p = mem2chunk(mem);
+	mchunkptr p = mem2chunk(mem);
 #if 1
 	ext_assert(is_inuse(p));
 	return chunksize(p) - overhead_for(p);
