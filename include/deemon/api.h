@@ -215,11 +215,7 @@ __pragma_GCC_diagnostic_ignored(Walloc_size_larger_than)
 
 /* Experimental feature switch: Use a new (mmap-able) file format for dec files */
 #if 0
-/* TODO: Once this becomes mandatory, re-work `CONFIG_NO_DEC' such that it means that:
- * - .dec files aren't searched-for during module import
- * - DeeDecWriter always operates under "DeeDecWriter_F_NRELOC" and "Dee_DEC_TYPE_RELOC" doesn't exist
- */
-#define CONFIG_NO_DEC /* TODO: Properly configure after "CONFIG_EXPERIMENTAL_MMAP_DEC" */
+#define CONFIG_NO_DEC
 #endif
 
 /* Disable support for loading- native system libraries as deemon modules */

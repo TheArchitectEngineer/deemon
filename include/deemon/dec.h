@@ -199,6 +199,7 @@ typedef struct Dee_dec_xrel Dec_XRel;
 #define DeeDec_Ehdr_OFFSETOF__e_type                                    5
 #define DeeDec_Ehdr_OFFSETOF__e_version                                 6
 #define DeeDec_Ehdr_OFFSETOF__e_typedata                                8
+#ifndef CONFIG_NO_DEC
 #define DeeDec_Ehdr_OFFSETOF__e_typedata__td_reloc__er_offsetof_heap    8
 #define DeeDec_Ehdr_OFFSETOF__e_typedata__td_reloc__er_sizeof_pointer   10
 #define DeeDec_Ehdr_OFFSETOF__e_typedata__td_reloc__er_endian           11
@@ -216,6 +217,9 @@ typedef struct Dee_dec_xrel Dec_XRel;
 #define DeeDec_Ehdr_OFFSETOF__e_typedata__td_reloc__er_offsetof_xrel    72
 #define DeeDec_Ehdr_OFFSETOF__e_typedata__td_reloc__er_alignment        76
 #define DeeDec_Ehdr_OFFSETOF__e_mapping                                 80
+#else /* !CONFIG_NO_DEC */
+#define DeeDec_Ehdr_OFFSETOF__e_mapping (8 + (5 * __SIZEOF_POINTER__) + (3 * __SIZEOF_SIZE_T__))
+#endif /* CONFIG_NO_DEC */
 #define DeeDec_Ehdr_OFFSETOF__e_heap                             \
 	(DeeDec_Ehdr_OFFSETOF__e_mapping + Dee_SIZEOF_DeeMapFile +   \
 	 ((Dee_HEAPCHUNK_ALIGN - ((DeeDec_Ehdr_OFFSETOF__e_mapping + \
@@ -249,6 +253,7 @@ typedef struct {
 	uint16_t              e_version;          /* [AT(6-7)] DEC version number (One of `DVERSION_*') -- NOTE: __MUST__ remain at this specific offset=6 for backwards compatibility! */
 	union {
 
+#ifndef CONFIG_NO_DEC
 		struct {
 			uint16_t          er_offsetof_heap;      /* Offset from start of this struct to `e_heap' (== `DeeDec_Ehdr_OFFSETOF__e_heap') */
 			uint8_t           er_sizeof_pointer;     /* Size of pointer (and thus of: relocation targets, and `Dee_refcnt_t') */
@@ -267,6 +272,7 @@ typedef struct {
 			Dee_dec_addr32_t  er_offsetof_xrel;      /* [0..1] Offset to array of `Dec_XRel[]' (terminated by a xr_addr==0-entry) of extended relocations */
 			Dee_dec_addr32_t  er_alignment;          /* Minimum alignment with which the dec file must be loaded in memory. */
 		}                 td_reloc;                  /* [valid_if(e_type == Dee_DEC_TYPE_RELOC)] */
+#endif /* !CONFIG_NO_DEC */
 
 		struct {
 			Dec_RRel              *ei_drrel_v;  /* [0..ei_drrel_c][owned] List of incref-relocations against deemon-core objects */
@@ -275,9 +281,11 @@ typedef struct {
 			size_t                 ei_drrela_c; /* # of entries in `ei_drrela_v' */
 			struct Dee_dec_depmod *ei_deps_v;   /* [0..ei_deps_c][owned] Vector of dependent modules */
 			size_t                 ei_deps_c;   /* # of entries in `ei_deps_v' */
+#ifndef CONFIG_NO_DEC
 #if __SIZEOF_SIZE_T__ == 4 && __SIZEOF_POINTER__ == 4
 			size_t                _ei_pad[2];   /* So "ei_offsetof_gchead" has the same offset as "er_offsetof_gchead" */
 #endif /* __SIZEOF_SIZE_T__ == 4 && __SIZEOF_POINTER__ == 4 */
+#endif /* !CONFIG_NO_DEC */
 			Dee_seraddr_t          ei_offsetof_gchead; /* [1..1] Offset to first `struct Dee_gc_head::gc_self' */
 			Dee_seraddr_t          ei_offsetof_gctail; /* [1..1] Offset to last `struct Dee_gc_head::gc_self' */
 		}                 td_image;             /* [valid_if(e_type == Dee_DEC_TYPE_IMAGE)] */
@@ -293,8 +301,10 @@ typedef struct {
 
 #define DeeDec_Ehdr_IMAGE_GetGCHead(self) (Dee_ASSERT((self)->e_typedata.td_image.ei_offsetof_gchead), (DeeObject *)((__BYTE_TYPE__ *)(self) + (self)->e_typedata.td_image.ei_offsetof_gchead))
 #define DeeDec_Ehdr_IMAGE_GetGCTail(self) (Dee_ASSERT((self)->e_typedata.td_image.ei_offsetof_gctail), (DeeObject *)((__BYTE_TYPE__ *)(self) + (self)->e_typedata.td_image.ei_offsetof_gctail))
+#ifndef CONFIG_NO_DEC
 #define DeeDec_Ehdr_RELOC_GetGCHead(self) (Dee_ASSERT((self)->e_typedata.td_reloc.er_offsetof_gchead), (DeeObject *)((__BYTE_TYPE__ *)(self) + (self)->e_typedata.td_reloc.er_offsetof_gchead))
 #define DeeDec_Ehdr_RELOC_GetGCTail(self) (Dee_ASSERT((self)->e_typedata.td_reloc.er_offsetof_gctail), (DeeObject *)((__BYTE_TYPE__ *)(self) + (self)->e_typedata.td_reloc.er_offsetof_gctail))
+#endif /* !CONFIG_NO_DEC */
 
 #define Dee_ALIGNOF_DEC_REL 4
 struct Dee_dec_rel {
@@ -527,10 +537,13 @@ typedef struct Dee_dec_writer {
 	Dee_seraddr_t           dw_gchead; /* [0..1] Offset to first `struct Dee_gc_head::gc_self' (tracking for these objects must begin after relocations were done) */
 	Dee_seraddr_t           dw_gctail; /* [0..1] Offset to last `struct Dee_gc_head::gc_self' (links between these objects were already established via `dw_srel') */
 	struct Dee_dec_ptrtab   dw_known;  /* Table of known, already-encoded pointers */
+#ifndef CONFIG_NO_DEC
 	unsigned int            dw_flags;  /* Dec writer flags (set of `DeeDecWriter_F_*') */
+#endif /* !CONFIG_NO_DEC */
 } DeeDecWriter;
 
 #define DeeDecWriter_F_NORMAL 0x0000 /* Normal flags */
+#ifndef CONFIG_NO_DEC
 #define DeeDecWriter_F_FRELOC 0x0002 /* Force the produced dec file to be relocatable: `DeeDecWriter_F_NRELOC' will not be set and `DeeRT_ErrCannotSerialize' will be thrown */
 #define DeeDecWriter_F_NRELOC 0x0080 /* Encountered a object/pointer that cannot be serialized.
                                       * Dec generation continues, but resulting image cannot be
@@ -538,6 +551,10 @@ typedef struct Dee_dec_writer {
                                       * flag may also speed up object serialization, since it
                                       * means that relocations against other modules don't have
                                       * to be kept track of. */
+#else /* !CONFIG_NO_DEC */
+/* `DeeDecWriter_F_FRELOC' isn't possible since relocation is never possible */
+/* `DeeDecWriter_F_NRELOC' is always set for the same reason... */
+#endif /* CONFIG_NO_DEC */
 
 /* Same as `DeeSerial_Addr2Mem()' */
 #define DeeDecWriter_Addr2Mem(self, addr, T) ((T *)((self)->dw_base + (addr)))
@@ -552,8 +569,12 @@ typedef struct Dee_dec_writer {
 DFUNDEF WUNUSED NONNULL((1)) int DCALL
 DeeDecWriter_Init(DeeDecWriter *__restrict self, unsigned int flags);
 #else /* __INTELLISENSE__ */
+#ifdef CONFIG_NO_DEC
+#define DeeDecWriter_Init(self, flags) _DeeDecWriter_Init(self)
+#else /* CONFIG_NO_DEC */
 #define DeeDecWriter_Init(self, flags) \
 	((self)->dw_flags = (flags), _DeeDecWriter_Init(self))
+#endif /* !CONFIG_NO_DEC */
 #endif /* !__INTELLISENSE__ */
 DFUNDEF WUNUSED NONNULL((1)) int DCALL
 _DeeDecWriter_Init(DeeDecWriter *__restrict self);
@@ -614,6 +635,7 @@ DeeDecWriter_AddFileDep(DeeDecWriter *__restrict self,
                         char const *filename,
                         size_t filename_len);
 
+#ifndef CONFIG_NO_DEC
 /* Execute relocations on `*p_self' and return a pointer to the
  * first object of the dec file's heap (which is always the
  * `DeeModuleObject' describing the dec file itself).
@@ -634,6 +656,7 @@ DeeDec_Relocate(/*inherit(on_success)*/ DeeDec_Ehdr **__restrict p_self,
                 /*utf-8*/ char const *context_absname, size_t context_absname_size,
                 unsigned int flags, struct Dee_compiler_options *options,
                 uint64_t dee_file_last_modified);
+#endif /* !CONFIG_NO_DEC */
 
 /* Start GC-tracking (and allowing reverse address lookup of) "self", as returned by:
  * - DeeDec_OpenFile()
@@ -646,6 +669,8 @@ DeeDec_Track(DREF /*untracked*/ struct Dee_module_object *__restrict self);
 DFUNDEF NONNULL((1)) void DCALL
 DeeDec_DestroyUntracked(DREF /*untracked*/ struct Dee_module_object *__restrict self);
 
+
+#ifndef CONFIG_NO_DEC
 struct DeeMapFile;
 
 /* Validate the contents of `fmap' and relocate them. Once all locks have been
@@ -663,6 +688,7 @@ DeeDec_OpenFile(/*inherit(on_success)*/ struct DeeMapFile *__restrict fmap,
                 /*utf-8*/ char const *context_absname, size_t context_absname_size,
                 unsigned int flags, struct Dee_compiler_options *options,
                 uint64_t dee_file_last_modified);
+#endif /* !CONFIG_NO_DEC */
 
 DECL_END
 

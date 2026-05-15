@@ -2073,11 +2073,9 @@ module_dee_serialize(DeeModuleObject *__restrict self,
 	out->mo_globalc = globalc;
 	out->mo_bucketm = self->mo_bucketm;
 	Dee_atomic_rwlock_init(&out->mo_lock);
-#if !defined(CONFIG_NO_DEC) || !defined(CONFIG_NO_DEX)
 	out->mo_minaddr = NULL;
 	out->mo_maxaddr = NULL;
 	memset(&out->mo_adrnode, 0xcc, sizeof(out->mo_adrnode));
-#endif /* !CONFIG_NO_DEC || !CONFIG_NO_DEX */
 
 	DeeModule_LockRead(self);
 	out->mo_moddata.mo_rootcode = self->mo_moddata.mo_rootcode;

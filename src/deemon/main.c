@@ -1304,10 +1304,12 @@ int main(int argc, char *argv[]) {
 
 		/* Run the module passed through argv[0] */
 		user_module = DeeModule_OpenEx(argv[0], strlen(argv[0]), NULL, 0,
-		                               DeeModule_IMPORT_F_FILNAM |
-		                               DeeModule_IMPORT_F_NOLDEC |
-		                               DeeModule_IMPORT_F_NOGDEC,
-		                               &script_options);
+		                               DeeModule_IMPORT_F_FILNAM
+#ifndef CONFIG_NO_DEC
+		                               | DeeModule_IMPORT_F_NOLDEC
+		                               | DeeModule_IMPORT_F_NOGDEC
+#endif /* !CONFIG_NO_DEC */
+		                               , &script_options);
 		if unlikely(!user_module)
 			goto err_discard_compiler_errors;
 		if (operation_mode == OPERATION_MODE_PRINTASM) {

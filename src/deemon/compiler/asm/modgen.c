@@ -35,11 +35,6 @@
 #include <deemon/system-features.h>    /* memcpyc */
 #include <deemon/type.h>               /* DeeObject_InitStatic, DeeType_Type, Dee_TYPE_CONSTRUCTOR_INIT_VAR, TF_NONE, TP_F* */
 
-
-#ifndef CONFIG_NO_DEC
-#endif /* !CONFIG_NO_DEC */
-/**/
-
 #include <stddef.h> /* NULL, offsetof, size_t */
 #include <stdint.h> /* uint16_t */
 

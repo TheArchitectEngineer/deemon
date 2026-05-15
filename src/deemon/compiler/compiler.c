@@ -661,7 +661,11 @@ DeeExec_CompileModuleStream(DeeObject *source_stream,
 		goto err_writer;
 
 	/* Package module into a (simplified, because 'DeeModule_IMPORT_F_NOGDEC' is set) EHDR */
+#ifdef CONFIG_NO_DEC
+	ehdr = DeeDecWriter_PackEhdr(&writer, NULL, 0, DeeModule_IMPORT_F_NORMAL);
+#else /* CONFIG_NO_DEC */
 	ehdr = DeeDecWriter_PackEhdr(&writer, NULL, 0, DeeModule_IMPORT_F_NOGDEC);
+#endif /* !CONFIG_NO_DEC */
 	if unlikely(!ehdr)
 		goto err_writer;
 

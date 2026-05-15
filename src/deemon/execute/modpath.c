@@ -2267,13 +2267,16 @@ DeeDec_Track(DREF /*untracked*/ struct Dee_module_object *__restrict self) {
 #else /* __SIZEOF_SIZE_T__ == 4 */
 #define IMAGE_GC_HEADTAIL_MATCH_RELOC 0
 #endif /* __SIZEOF_SIZE_T__ == 4 */
-	if (ehdr->e_type == Dee_DEC_TYPE_IMAGE && !IMAGE_GC_HEADTAIL_MATCH_RELOC) {
-		DeeObject *gc_head = DeeDec_Ehdr_IMAGE_GetGCHead(ehdr);
-		DeeObject *gc_tail = DeeDec_Ehdr_IMAGE_GetGCTail(ehdr);
-		DeeGC_TrackAll(gc_head, gc_tail, DeeGC_TRACK_F_NOCOLLECT);
-	} else {
+#ifndef CONFIG_NO_DEC
+	if (ehdr->e_type != Dee_DEC_TYPE_IMAGE || IMAGE_GC_HEADTAIL_MATCH_RELOC) {
 		DeeObject *gc_head = DeeDec_Ehdr_RELOC_GetGCHead(ehdr);
 		DeeObject *gc_tail = DeeDec_Ehdr_RELOC_GetGCTail(ehdr);
+		DeeGC_TrackAll(gc_head, gc_tail, DeeGC_TRACK_F_NOCOLLECT);
+	} else
+#endif /* !CONFIG_NO_DEC */
+	{
+		DeeObject *gc_head = DeeDec_Ehdr_IMAGE_GetGCHead(ehdr);
+		DeeObject *gc_tail = DeeDec_Ehdr_IMAGE_GetGCTail(ehdr);
 		DeeGC_TrackAll(gc_head, gc_tail, DeeGC_TRACK_F_NOCOLLECT);
 	}
 #undef IMAGE_GC_HEADTAIL_MATCH_RELOC
@@ -2483,13 +2486,18 @@ no_dec_file:
 	 *      starting with the 2nd nested import; iow: when "frame.if_prev != NULL") */
 
 	/* Can only generate .dec files for .dee files */
+#ifndef CONFIG_NO_DEC
 	if (!(flags & _DeeModule_IMPORT_F_IS_DEE_FILE))
 		flags |= DeeModule_IMPORT_F_NOGDEC;
+#endif /* !CONFIG_NO_DEC */
 
 	{
 		DeeDecWriter writer;
 		DeeDec_Ehdr *ehdr;
-#if DeeModule_IMPORT_F_NOGDEC == DeeDecWriter_F_NRELOC
+#ifdef CONFIG_NO_DEC
+		if unlikely(DeeDecWriter_Init(&writer, DeeDecWriter_F_NORMAL))
+			goto err_compile;
+#elif DeeModule_IMPORT_F_NOGDEC == DeeDecWriter_F_NRELOC
 		if unlikely(DeeDecWriter_Init(&writer, flags & DeeModule_IMPORT_F_NOGDEC))
 			goto err_compile;
 #else /* DeeModule_IMPORT_F_NOGDEC == DeeDecWriter_F_NRELOC */

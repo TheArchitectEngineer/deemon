@@ -72,6 +72,7 @@ ASSERT_FIELD(Dec_Ehdr, e_mach, DeeDec_Ehdr_OFFSETOF__e_mach, 1);
 ASSERT_FIELD(Dec_Ehdr, e_type, DeeDec_Ehdr_OFFSETOF__e_type, 1);
 ASSERT_FIELD(Dec_Ehdr, e_version, DeeDec_Ehdr_OFFSETOF__e_version, 2);
 STATIC_ASSERT(offsetof(Dec_Ehdr, e_typedata) == DeeDec_Ehdr_OFFSETOF__e_typedata);
+#ifndef CONFIG_NO_DEC
 ASSERT_FIELD(Dec_Ehdr, e_typedata.td_reloc.er_offsetof_heap, DeeDec_Ehdr_OFFSETOF__e_typedata__td_reloc__er_offsetof_heap, 2);
 ASSERT_FIELD(Dec_Ehdr, e_typedata.td_reloc.er_sizeof_pointer, DeeDec_Ehdr_OFFSETOF__e_typedata__td_reloc__er_sizeof_pointer, 1);
 ASSERT_FIELD(Dec_Ehdr, e_typedata.td_reloc.er_endian, DeeDec_Ehdr_OFFSETOF__e_typedata__td_reloc__er_endian, 1);
@@ -88,6 +89,7 @@ ASSERT_FIELD(Dec_Ehdr, e_typedata.td_reloc.er_offsetof_deps, DeeDec_Ehdr_OFFSETO
 ASSERT_FIELD(Dec_Ehdr, e_typedata.td_reloc.er_offsetof_files, DeeDec_Ehdr_OFFSETOF__e_typedata__td_reloc__er_offsetof_files, 4);
 ASSERT_FIELD(Dec_Ehdr, e_typedata.td_reloc.er_offsetof_xrel, DeeDec_Ehdr_OFFSETOF__e_typedata__td_reloc__er_offsetof_xrel, 4);
 ASSERT_FIELD(Dec_Ehdr, e_typedata.td_reloc.er_alignment, DeeDec_Ehdr_OFFSETOF__e_typedata__td_reloc__er_alignment, 4);
+#endif /* !CONFIG_NO_DEC */
 ASSERT_FIELD(Dec_Ehdr, e_mapping, DeeDec_Ehdr_OFFSETOF__e_mapping, Dee_SIZEOF_DeeMapFile);
 ASSERT_FIELD(Dec_Ehdr, e_heap, DeeDec_Ehdr_OFFSETOF__e_heap, sizeof(struct Dee_heapregion));
 STATIC_ASSERT(IS_ALIGNED(DeeDec_Ehdr_OFFSETOF__e_heap, Dee_HEAPCHUNK_ALIGN));
@@ -144,6 +146,7 @@ DeeDec_heapregion_destroy(struct Dee_heapregion *__restrict self) {
 
 
 
+#ifndef CONFIG_NO_DEC
 PRIVATE NONNULL((1)) void DCALL
 apply_rel(DeeDec_Ehdr *__restrict self,
           Dee_dec_addr32_t offsetof_reltab,
@@ -315,6 +318,28 @@ applied_rrela_decref_nokill(DeeDec_Ehdr *__restrict self,
 		Dee_DecrefNokill(obj);
 	}
 }
+#endif /* !CONFIG_NO_DEC */
+
+
+
+#ifdef CONFIG_NO_DEC
+#ifndef __INTELLISENSE__
+PUBLIC WUNUSED NONNULL((1, 2)) DREF /*untracked*/ struct Dee_module_object *DCALL
+DeeDec_Relocate(/*inherit(on_success)*/ DeeDec_Ehdr **__restrict p_self,
+                /*utf-8*/ char const *context_absname, size_t context_absname_size,
+                unsigned int flags, struct Dee_compiler_options *options,
+                uint64_t dee_file_last_modified) {
+	(void)p_self;
+	(void)context_absname;
+	(void)context_absname_size;
+	(void)flags;
+	(void)options;
+	(void)dee_file_last_modified;
+	DeeError_Throwf(&DeeError_UnsupportedAPI, "Deemon was built with -DCONFIG_NO_DEC");
+	return NULL;
+}
+#endif /* !__INTELLISENSE__ */
+#else /* CONFIG_NO_DEC */
 
 PRIVATE NONNULL((1)) void DCALL
 DeeDec_RELOC_undo_rrel_and_decref_deps(DeeDec_Ehdr *__restrict self,
@@ -540,6 +565,7 @@ corrupt_dep_index:
 corrupt:
 	return (DREF DeeModuleObject *)ITER_DONE;
 }
+#endif /* !CONFIG_NO_DEC */
 
 
 
@@ -733,12 +759,14 @@ DeeDecWriter_PackModule(DeeDecWriter *__restrict self,
 	DREF /*untracked*/ struct Dee_module_object *result;
 	result = DeeDec_Ehdr_GetModule(ehdr);
 
+#ifndef CONFIG_NO_DEC
 	/* If the module didn't end up having relocation info,
 	 * remember that fact within the module itself, so that
 	 * other modules that depend on this one will know that
 	 * trying to generate .dec files is impossible. */
 	if (ehdr->e_type != Dee_DEC_TYPE_RELOC)
 		result->mo_flags |= Dee_MODULE_FNOSERIAL;
+#endif /* !CONFIG_NO_DEC */
 
 	/* Self-relocations... */
 	w_apply_rel(ehdr, self->dw_srel.drlt_relv, self->dw_srel.drlt_relc, (uintptr_t)ehdr);
@@ -822,6 +850,7 @@ DeeDec_Ehdr_FreeRelocationData(DeeDec_Ehdr *__restrict self) {
 	size_t heap_end_offset;
 	switch (self->e_type) {
 
+#ifndef CONFIG_NO_DEC
 	case Dee_DEC_TYPE_RELOC: {
 		/* Drop references to dependencies that were stored in `Dec_Dhdr::d_modspec.d_mod'. */
 		size_t i;
@@ -832,6 +861,7 @@ DeeDec_Ehdr_FreeRelocationData(DeeDec_Ehdr *__restrict self) {
 			Dee_Decref_unlikely(mod);
 		}
 	}	break;
+#endif /* !CONFIG_NO_DEC */
 
 	case Dee_DEC_TYPE_IMAGE: {
 		struct Dee_dec_depmod *deps_v;
@@ -896,12 +926,14 @@ DeeDec_DestroyUntracked(DREF /*untracked*/ struct Dee_module_object *__restrict 
 
 	switch (ehdr->e_type) {
 
+#ifndef CONFIG_NO_DEC
 	case Dee_DEC_TYPE_RELOC:
 		/* Drop references to dependencies that were stored
 		 * in `Dec_Dhdr::d_modspec.d_mod', as well as undo
 		 * all incref() relocations against that module. */
 		DeeDec_RELOC_undo_rrel_and_decref_deps(ehdr, (size_t)-1);
 		break;
+#endif /* !CONFIG_NO_DEC */
 
 	case Dee_DEC_TYPE_IMAGE: {
 		struct Dee_dec_depmod *deps_v;
@@ -940,6 +972,24 @@ DeeDec_DestroyUntracked(DREF /*untracked*/ struct Dee_module_object *__restrict 
 }
 
 
+#ifdef CONFIG_NO_DEC
+#ifndef __INTELLISENSE__
+PUBLIC WUNUSED NONNULL((1, 2)) DREF /*untracked*/ struct Dee_module_object *DCALL
+DeeDec_OpenFile(/*inherit(on_success)*/ struct DeeMapFile *__restrict fmap,
+                /*utf-8*/ char const *context_absname, size_t context_absname_size,
+                unsigned int flags, struct Dee_compiler_options *options,
+                uint64_t dee_file_last_modified) {
+	(void)fmap;
+	(void)context_absname;
+	(void)context_absname_size;
+	(void)flags;
+	(void)options;
+	(void)dee_file_last_modified;
+	DeeError_Throwf(&DeeError_UnsupportedAPI, "Deemon was built with -DCONFIG_NO_DEC");
+	return NULL;
+}
+#endif /* !__INTELLISENSE__ */
+#else /* CONFIG_NO_DEC */
 /* Validate the contents of `fmap' and relocate them. Once all locks have been
  * acquired to register the module globally, the caller must call `DeeDec_Track()'
  * to hook the start tracking GC objects related to the returned module (including
@@ -1116,6 +1166,7 @@ fail_nomsg:
 err:
 	return NULL;
 }
+#endif /* !CONFIG_NO_DEC */
 
 
 
@@ -1129,6 +1180,7 @@ err:
 /************************************************************************/
 /************************************************************************/
 
+#ifndef CONFIG_NO_DEC
 /* Generate import strings for module dependencies (s.a. `struct Dee_dec_depmod::ddm_impstr') */
 PRIVATE WUNUSED NONNULL((1)) int DCALL
 decwriter_genimpstr(DeeDecWriter *__restrict self,
@@ -1166,6 +1218,7 @@ decwriter_genimpstr(DeeDecWriter *__restrict self,
 err:
 	return -1;
 }
+#endif /* !CONFIG_NO_DEC */
 
 PRIVATE WUNUSED NONNULL((1, 3)) int DCALL
 decwriter_putpointer(DeeDecWriter *__restrict self,
@@ -1371,6 +1424,9 @@ DeeDecWriter_PackEhdr(DeeDecWriter *__restrict self,
                       unsigned int flags) {
 	Dec_Ehdr *ehdr = self->dw_ehdr;
 	size_t total_need;
+	(void)context_absname;
+	(void)context_absname_size;
+	(void)flags;
 
 	ehdr->e_ident[DI_MAG0] = DECMAG0;
 	ehdr->e_ident[DI_MAG1] = DECMAG1;
@@ -2006,6 +2062,7 @@ decwriter_getdep(DeeDecWriter *__restrict self,
 	++self->dw_deps.ddpt_depc;
 	Dee_Incref(mod);
 	Dee_dec_depmod_init(dst, mod);
+#ifndef CONFIG_NO_DEC
 	if unlikely(atomic_read(&mod->mo_flags) & Dee_MODULE_FNOSERIAL) {
 		Dee_DPRINTF("[LD][dec] Warning: dependent module %q could not be "
 		            /**/ "serialized, meaning this one can't be either\n",
@@ -2016,6 +2073,7 @@ decwriter_getdep(DeeDecWriter *__restrict self,
 		}
 		self->dw_flags |= DeeDecWriter_F_NRELOC;
 	}
+#endif /* !CONFIG_NO_DEC */
 	return dst;
 err:
 	return NULL;
@@ -2180,6 +2238,7 @@ do_allocate:
 	if (flags & decwriter_malloc_impl_F_BZERO) {
 		bzero(payload, num_bytes);
 	} else {
+#ifndef CONFIG_NO_DEC
 		/* Pre-initialize heap user-data to FD bytes (to prevent
 		 * uninitialized bytes from appearing in ".dec" files)
 		 *
@@ -2187,6 +2246,7 @@ do_allocate:
 		 * then this step is simply skipped. */
 		if (!(self->dw_flags & DeeDecWriter_F_NRELOC))
 			memset(payload, 0xfd, num_bytes);
+#endif /* !CONFIG_NO_DEC */
 	}
 
 	/* Fill in padding tail area with FE bytes */
@@ -2927,14 +2987,18 @@ decwriter_appendobject(DeeDecWriter *__restrict self,
 cannot_serialize:
 	Dee_DPRINTF("[LD][dec@%#" PRFxSIZ "] Warning: Unable to serialize instance of %q at %p%+" PRFdSIZ ": %r\n",
 	            addrof_object, DeeType_GetName(Dee_TYPE(obj)), obj, offset_into_ob, obj);
+#ifndef CONFIG_NO_DEC
 	if (self->dw_flags & DeeDecWriter_F_FRELOC)
 		return DeeRT_ErrCannotSerialize(obj);
+#endif /* !CONFIG_NO_DEC */
 
 	/* Create a fake RRELA relocation against the deemon core */
 	/* XXX: Support for large (>4GiB) relocation targets on 64-bit hosts */
 	if (rrelatab_append(&self->dw_drrela, seraddr32(addrof_object), -(Dee_dec_off32_t)offset_into_ob))
 		goto err;
+#ifndef CONFIG_NO_DEC
 	self->dw_flags |= DeeDecWriter_F_NRELOC; /* Remember that serialization will be impossible */
+#endif /* !CONFIG_NO_DEC */
 	Dee_Incref(obj);
 	{
 		byte_t **p_pointer = DeeDecWriter_Addr2Mem(self, addrof_object, byte_t *);
@@ -3105,15 +3169,19 @@ decwriter_putpointer(DeeDecWriter *__restrict self,
 
 	/* If neither was the case, throw an error indicating that serialization isn't possible */
 	Dee_DPRINTF("[LD][dec@%#" PRFxSIZ "] Warning: Unable to serialize pointer %p\n", addrof_pointer, pointer);
+#ifndef CONFIG_NO_DEC
 	if (self->dw_flags & DeeDecWriter_F_FRELOC) {
 		return DeeError_Throwf(&DeeError_NotImplemented,
 		                       "Unable to serialize pointer '%p': not statically allocated, "
 		                       /**/ "and not part of the 'ref' of an already-serialized object",
 		                       pointer);
 	}
+#endif /* !CONFIG_NO_DEC */
 
 	/* Encode the pointer as-is (which will make serialization impossible, but we can deal with that) */
+#ifndef CONFIG_NO_DEC
 	self->dw_flags |= DeeDecWriter_F_NRELOC; /* Remember that serialization will be impossible */
+#endif /* !CONFIG_NO_DEC */
 	*DeeDecWriter_Addr2Mem(self, addrof_pointer, void const *) = pointer;
 	return 0;
 err:
