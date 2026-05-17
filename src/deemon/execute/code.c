@@ -2713,11 +2713,9 @@ DECL_END
 #define EXEC_SAFE 1
 #include "code-exec.c.inl"
 #undef EXEC_SAFE
-#ifndef CONFIG_HAVE_EXEC_ASM
 #define EXEC_FAST 1
 #include "code-exec.c.inl"
 #undef EXEC_FAST
-#endif /* !CONFIG_HAVE_EXEC_ASM */
 #endif /* !__INTELLISENSE__ */
 
 #ifndef __INTELLISENSE__

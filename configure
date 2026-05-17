@@ -45,7 +45,6 @@ TARGET=""
 TARGET_IS_AUTO=""
 TARGET_CPU=""
 FEATURES=""
-WITH_ASSEMBLY_INTERPRETER=""
 WITH_DEX=""
 WITHOUT_DEX_SPECIFIC=""
 WITH_DEBUG=""
@@ -127,7 +126,6 @@ set_dex_specific() {
 
 set_with_feature() {
 	case "$1" in
-	assembly-interpreter)    WITH_ASSEMBLY_INTERPRETER="$2" ;;
 	dex)                     WITH_DEX="$2" ;;
 	dex-ctypes)              set_dex_specific "CTYPES" "$2" ;;
 	dex-net)                 set_dex_specific "NET" "$2" ;;
@@ -190,7 +188,6 @@ set_with_feature() {
 
 print_help_features() {
 	echo "Features:"
-	echo "    assembly-interpreter     Make use of hand-optimized assembly for running deemon bytecode (default:yes, if available for the target)"
 	echo "    dex                      Support native libraries as deemon extensions (default: yes)"
 	echo "    dex-ctypes               Provide the native deemon extension module: 'ctypes' (default: yes)"
 	echo "    dex-net                  Provide the native deemon extension module: 'net' (default: yes)"
@@ -469,57 +466,6 @@ if [ -z "$WITH_DEX" ]; then
 		WITH_DEX="1"
 		;;
 	esac
-fi
-
-########################################################################################
-## Automatically test if we can provide an assembly interpreter
-########################################################################################
-if [ -z "$WITH_ASSEMBLY_INTERPRETER" ]; then
-	WITH_ASSEMBLY_INTERPRETER="0"
-	case "$TARGET_CPU" in
-	i?86)
-		printf "checking if one can compile an AT&T assembly source file..."
-		unlink "$OUT_ROOT/test.o" > /dev/null 2>&1
-		unlink "$OUT_ROOT/test.S" > /dev/null 2>&1
-		cat > "$OUT_ROOT/test.S" <<EOF
-foo:
-	movl  $42, %eax
-	lodsl
-	stosl
-	ret $8
-EOF
-		if "$CONFIG_CC" -c -o "$OUT_ROOT/test.o" "$OUT_ROOT/test.S" > /dev/null 2>&1; then
-			printf " yes\n"
-			WITH_ASSEMBLY_INTERPRETER="1"
-		else
-			printf " no\n"
-		fi
-		unlink "$OUT_ROOT/test.o" > /dev/null 2>&1
-		unlink "$OUT_ROOT/test.S" > /dev/null 2>&1
-		;;
-	*)
-		;;
-	esac
-fi
-
-########################################################################################
-## Select the used assembly interpreter source file (if any)
-########################################################################################
-if [[ "$WITH_ASSEMBLY_INTERPRETER" == "1" ]]; then
-	case "$TARGET_CPU" in
-	i?86)
-		WITH_ASSEMBLY_INTERPRETER="$BLD_ROOT/core/src/deemon/execute/asm/exec.gas-386.o"
-		;;
-	*)
-		echo "Error: No assembly interpreter exists for this platform" | tee -a "$CONFIG_LOG"
-		exit 1
-		;;
-	esac
-else
-	WITH_ASSEMBLY_INTERPRETER=""
-fi
-if ! [ -z "$WITH_ASSEMBLY_INTERPRETER" ]; then
-	add_feature "CONFIG_HAVE_EXEC_ASM"
 fi
 
 ########################################################################################
@@ -1418,7 +1364,6 @@ fi
 #echo "Features:"
 #echo "    FEATURES:                  '$FEATURES'"
 #echo "    WITH_DEX:                  '$WITH_DEX'"
-#echo "    WITH_ASSEMBLY_INTERPRETER: '$WITH_ASSEMBLY_INTERPRETER'"
 #echo "    WITH_KOS_SYSTEM_HEADERS:   '$WITH_KOS_SYSTEM_HEADERS'"
 
 
@@ -1453,9 +1398,6 @@ CORE_LDFLAGS = $CONFIG_CORE_LDFLAGS
 CORE_LIBS = $CONFIG_CORE_LIBS
 EOF
 
-if ! [ -z "$WITH_ASSEMBLY_INTERPRETER" ]; then
-	echo "DEEMON_CORE_OBJECTS += $WITH_ASSEMBLY_INTERPRETER" >> "$OUT_ROOT/config.mk"
-fi
 if [[ "$WITH_DEX" == "0" ]]; then
 	echo "CONFIG_WITHOUT_DEX :=" >> "$OUT_ROOT/config.mk"
 fi

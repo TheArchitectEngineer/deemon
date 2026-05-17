@@ -183,9 +183,6 @@ __DATE__ "|"
 #else /* ... */
 "unknown-os|"
 #endif /* !... */
-#ifdef CONFIG_HAVE_EXEC_ASM
-"asm|"
-#endif /* CONFIG_HAVE_EXEC_ASM */
 #ifdef __x86_64__
 "x86_64|"
 #elif defined(__i686__)

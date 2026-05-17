@@ -2307,9 +2307,6 @@
 		<None Include="..\src\deemon\compiler\asm\userdb.def">
 			<Filter>src\compiler\asm</Filter>
 		</None>
-		<None Include="..\src\deemon\execute\asm\exec.gas-386.S">
-			<Filter>src\execute\asm</Filter>
-		</None>
 		<None Include="..\src\deemon\linker-scripts\dex-build-id.ld">
 			<Filter>src\linker-scripts</Filter>
 		</None>

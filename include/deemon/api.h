@@ -257,15 +257,6 @@ __pragma_GCC_diagnostic_ignored(Walloc_size_larger_than)
 #endif /* NDEBUG */
 #endif /* !CONFIG_[NO_]TRACE_REFCHANGES */
 
-#ifdef CONFIG_TRACE_REFCHANGES
-/* Assembly interpreters do not implement the additional
- * overhead required to properly track reference counts.
- * -> So just disable them! */
-#undef CONFIG_HAVE_EXEC_ASM
-#else /* CONFIG_TRACE_REFCHANGES */
-#define CONFIG_NO_TRACE_REFCHANGES
-#endif /* !CONFIG_TRACE_REFCHANGES */
-
 
 /* Config option: disable all semantically unnecessary overloads/fast-paths to reduce binary size
  * Carefully crafted code might be able to detect if this config option is enabled or disabled,
