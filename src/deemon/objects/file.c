@@ -2416,9 +2416,9 @@ file_readline(DeeObject *self, size_t argc, DeeObject *const *argv) {
 	if (argc == 1 && DeeBool_Check(argv[0])) {
 		args.keeplf = DeeBool_IsTrue(argv[0]);
 	} else {
-		DeeArg_UnpackStruct1XOr2X(err, argc, argv, "readline", &args,
-		                          &args.maxbytes, UNPxSIZ, DeeObject_AsSizeM1,
-		                          &args.keeplf, "b", DeeObject_AsBool);
+		DeeArg_UnpackStruct0Or1XOr2X(err, argc, argv, "readline", &args,
+		                             &args.maxbytes, UNPxSIZ, DeeObject_AsSizeM1,
+		                             &args.keeplf, "b", DeeObject_AsBool);
 	}
 	result = DeeFile_ReadLine(self, args.maxbytes, args.keeplf);
 	if (result == ITER_DONE)

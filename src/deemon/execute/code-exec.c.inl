@@ -1240,7 +1240,7 @@ inc_execsz_start:
 #ifdef EXEC_SAFE
 #define JMP_RELATIVE(off) do { ADJUST_PC(off); goto assert_ip_bounds; } __WHILE0
 #else /* EXEC_SAFE */
-#define JMP_RELATIVE(off)                                             \
+#define JMP_RELATIVE(off)                                    \
 	do {                                                     \
 		ADJUST_PC(off);                                      \
 		ASSERT(ip.ptr >= code->co_code);                     \
