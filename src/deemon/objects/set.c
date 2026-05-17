@@ -151,6 +151,10 @@ PRIVATE struct type_method tpconst set_methods[] = {
 	TYPE_METHOD("__inplace_xor__", &DeeMA___set_inplace_xor__, DeeMA___set_inplace_xor___doc "\nAlias for ${(this as Set) ^= rhs} (s.a. ?#{op:ixor})"),
 	TYPE_METHOD("__or__", &DeeMA___set_add__, DeeMA___set_add___doc "\nAlias for ?#__add__ (s.a. ?#union, ?#{op:add}, ?#{op:or}, ?#__add__)"),
 	TYPE_METHOD("__inplace_or__", &DeeMA___set_inplace_add__, DeeMA___set_inplace_add___doc "\nAlias for ?#__inplace_add__ (s.a. ?#{op:iadd}, ?#{op:ior})"),
+
+	TYPE_METHOD(STR_update, &DeeMA_Set_insertall,
+	            "" DeeMA_Set_insertall_doc "\n"
+	            "Deprecated alias for ?#insertall"),
 	TYPE_METHOD_END
 };
 
