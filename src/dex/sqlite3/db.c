@@ -746,7 +746,7 @@ again_open:
 	if unlikely(DeeString_AddFiniHook(&self->db_sf_hook->dsfh_hook))
 		goto err_sf_hook_ti_hook_lib_self;
 
-	/* Register string finalization hooks. */
+	/* Register thread interrupt hooks. */
 	if unlikely(DeeThread_AddInterruptHook(&self->db_ti_hook->dtih_hook))
 		goto err_sf_hook_ti_hook_lib_self_sf_hook;
 

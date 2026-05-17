@@ -65,8 +65,11 @@ PRIVATE void DCALL libsqlite3_fini_impl(void) {
 INTERN WUNUSED int DCALL libsqlite3_init(void) {
 	int result = Dee_shared_lock_acquire(&libsqlite3_initialized_lock);
 	if likely(result == 0) {
-		if (libsqlite3_initialized++ == 0)
+		if (libsqlite3_initialized++ == 0) {
 			result = libsqlite3_init_impl();
+			if (result != 0)
+				libsqlite3_initialized = 0;
+		}
 		Dee_shared_lock_release(&libsqlite3_initialized_lock);
 	}
 	return result;
